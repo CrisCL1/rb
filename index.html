@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ErreBe</title>
+<style>
+  :root{
+    --negro:#0A0A0B;--carbon:#141416;--panel:#1A1A1D;--panel-2:#222226;--linea:#2E2E33;
+    --rojo:#E1121C;--rojo-osc:#A50D14;--rojo-glow:rgba(225,18,28,.35);
+    --texto:#F2F0EE;--gris:#8C8A90;--gris-2:#5C5A60;--ok:#36C26B;--warn:#E6A726;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{font-family:"Inter","Helvetica Neue",Arial,sans-serif;background:var(--negro);color:var(--texto);-webkit-font-smoothing:antialiased;min-height:100vh;min-height:-webkit-fill-available;-webkit-overflow-scrolling:touch}
+  body::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:0;opacity:.04;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .app{position:relative;z-index:1;display:flex;min-height:100vh;min-height:-webkit-fill-available}
+
+  aside{width:230px;background:var(--carbon);border-right:1px solid var(--linea);padding:22px 16px;display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100vh;flex-shrink:0}
+  .brand{font-family:"Arial Black",Impact,sans-serif;font-size:30px;font-weight:900;letter-spacing:-1px;text-transform:uppercase;margin:4px 6px 18px;line-height:1}
+  .brand b{color:var(--rojo)}
+  .brand .eq{display:block;font-family:Inter,sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--gris-2);margin-top:6px}
+
+  /* selector de rol */
+
+  nav.side{display:flex;flex-direction:column;gap:3px}
+  .nav-item{display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:9px;color:var(--gris);font-size:14px;font-weight:600;cursor:pointer;border:1px solid transparent;transition:.14s;text-align:left;background:none;width:100%;font-family:inherit;touch-action:manipulation;-webkit-appearance:none;appearance:none}
+  .nav-item:hover{color:var(--texto);background:var(--panel)}
+  .nav-item.active{background:var(--panel);color:var(--texto);border-color:var(--linea)}
+  .nav-item.active .ic{color:var(--rojo)}
+  .nav-item .ic{width:18px;text-align:center;font-size:16px}
+  .nav-item[hidden]{display:none}
+  .side-foot{margin-top:auto;padding:12px 8px;border-top:1px solid var(--linea)}
+  .side-foot .who{display:flex;align-items:center;gap:10px}
+  .avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--rojo),var(--rojo-osc));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0}
+  .who small{display:block;font-size:11px;color:var(--gris-2)}
+  .who b{font-size:13px}
+
+  main{flex:1;min-width:0;padding:30px 38px 60px}
+  .topline{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:26px;flex-wrap:wrap;gap:14px}
+  .topline h1{font-size:26px;font-weight:800;letter-spacing:-.5px}
+  .topline .sub{color:var(--gris);font-size:13px;margin-top:3px}
+  .view{display:none;animation:fade .3s ease}
+  .view.show{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  .btn{border:none;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;padding:11px 18px;border-radius:9px;display:inline-flex;align-items:center;gap:8px;transition:.14s;touch-action:manipulation;-webkit-appearance:none;appearance:none}
+  .btn-prim{background:var(--rojo);color:#fff;box-shadow:0 0 0 0 var(--rojo-glow)}
+  .btn-prim:hover{background:var(--rojo-osc);box-shadow:0 6px 22px var(--rojo-glow)}
+  .btn-ghost{background:var(--panel);color:var(--texto);border:1px solid var(--linea)}
+  .btn-ghost:hover{border-color:var(--gris-2)}
+  .btn-sm{padding:7px 12px;font-size:12.5px;border-radius:7px}
+  .btn[disabled]{opacity:.45;cursor:not-allowed;box-shadow:none}
+
+  .grid{display:grid;gap:16px}
+  .g-3{grid-template-columns:repeat(3,1fr)}
+  .g-2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:900px){.g-3{grid-template-columns:1fr}.g-2{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--linea);border-radius:14px;padding:20px}
+  .card.accent{position:relative;overflow:hidden}
+  .card.accent::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--rojo)}
+
+  .stat b{font-family:"Arial Black",Impact,sans-serif;font-size:34px;letter-spacing:-1px;display:block;line-height:1}
+  .stat span{font-size:12px;color:var(--gris);text-transform:uppercase;letter-spacing:1px}
+
+  .listcard{background:var(--panel);border:1px solid var(--linea);border-radius:14px;overflow:hidden}
+  .lc-head{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--linea)}
+  .lc-head h3{font-size:15px;font-weight:800;letter-spacing:.3px}
+  .item{display:flex;align-items:center;gap:16px;padding:15px 20px;border-bottom:1px solid var(--linea);transition:.12s}
+  .item:last-child{border-bottom:none}
+  .item.clk{cursor:pointer}
+  .item.clk:hover{background:var(--panel-2)}
+  .item .lead{flex:1;min-width:0}
+  .item .lead b{font-size:15px;display:block;margin-bottom:2px}
+  .item .lead span{font-size:12.5px;color:var(--gris)}
+  .item .date-badge{text-align:center;min-width:48px;background:var(--carbon);border:1px solid var(--linea);border-radius:9px;padding:6px 0}
+  .item .date-badge b{font-family:"Arial Black",sans-serif;font-size:18px;display:block;line-height:1}
+  .item .date-badge span{font-size:10px;color:var(--gris-2);text-transform:uppercase}
+
+  .chip{font-size:11px;font-weight:700;padding:4px 10px;border-radius:30px;white-space:nowrap}
+  .chip-ok{background:rgba(54,194,107,.14);color:var(--ok)}
+  .chip-warn{background:rgba(230,167,38,.16);color:var(--warn)}
+  .chip-red{background:rgba(225,18,28,.16);color:#ff5862}
+  .chip-mut{background:var(--panel-2);color:var(--gris)}
+
+  .kv{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--linea);font-size:14px}
+  .kv:last-child{border-bottom:none}
+  .kv .k{color:var(--gris)}
+  .kv .v{font-weight:700}
+
+  .gear-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--linea)}
+  .gear-row:last-child{border-bottom:none}
+  .pulse{width:9px;height:9px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(54,194,107,.5);animation:pl 2s infinite;display:inline-block;margin-right:8px}
+  @keyframes pl{0%{box-shadow:0 0 0 0 rgba(54,194,107,.5)}70%{box-shadow:0 0 0 7px rgba(54,194,107,0)}100%{box-shadow:0 0 0 0 rgba(54,194,107,0)}}
+  .fresh{font-size:12.5px;color:var(--ok);font-weight:700;display:flex;align-items:center}
+  .stale{color:var(--warn)}
+  .stale .pulse{background:var(--warn);animation:none}
+
+  .empty{padding:50px 20px;text-align:center;color:var(--gris)}
+  .empty b{display:block;color:var(--texto);font-size:16px;margin-bottom:6px}
+
+  .overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .overlay.show{display:flex}
+  .modal{background:var(--carbon);border:1px solid var(--linea);border-radius:16px;width:100%;max-width:520px;max-height:90vh;overflow:auto;-webkit-overflow-scrolling:touch;animation:pop .22s ease}
+  @keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+  .modal-head{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid var(--linea)}
+  .modal-head h3{font-size:17px;font-weight:800}
+  .modal-head .x{background:none;border:none;color:var(--gris);font-size:24px;cursor:pointer;line-height:1}
+  .modal-head .x:hover{color:var(--texto)}
+  .modal-body{padding:22px 24px}
+  .modal-foot{padding:16px 24px;border-top:1px solid var(--linea);display:flex;gap:10px;justify-content:flex-end}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:12px;font-weight:700;color:var(--gris);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px}
+  .field input,.field select,.field textarea{width:100%;background:var(--panel);border:1px solid var(--linea);border-radius:9px;padding:11px 13px;color:var(--texto);font-family:inherit;font-size:14px;transition:.14s}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--rojo);box-shadow:0 0 0 3px var(--rojo-glow)}
+  .field textarea{resize:vertical;min-height:64px}
+  .field .hint{font-size:11.5px;color:var(--gris-2);margin-top:6px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--panel);border:1px solid var(--linea);border-left:3px solid var(--rojo);padding:13px 20px;border-radius:10px;font-size:14px;font-weight:600;z-index:200;opacity:0;transition:.3s;box-shadow:0 12px 40px rgba(0,0,0,.5)}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  .back{background:none;border:none;color:var(--gris);font-size:13px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:7px;margin-bottom:18px;font-family:inherit}
+  .back:hover{color:var(--rojo)}
+  .sectitle{font-size:12px;font-weight:700;color:var(--gris-2);text-transform:uppercase;letter-spacing:1.4px;margin:26px 0 12px}
+
+  .pill-role{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:20px;background:var(--panel-2);color:var(--gris)}
+  .banner{background:rgba(225,18,28,.08);border:1px solid rgba(225,18,28,.25);border-radius:12px;padding:14px 16px;font-size:13px;color:var(--texto);margin-bottom:18px;display:flex;gap:10px;align-items:flex-start}
+  .banner b{color:#ff5862}
+
+  /* ----- estadísticas ----- */
+  .seg{display:inline-flex;background:var(--panel);border:1px solid var(--linea);border-radius:9px;padding:3px;gap:2px}
+  .seg-btn{background:none;border:none;color:var(--gris);font-family:inherit;font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:7px;cursor:pointer;transition:.14s}
+  .seg-btn:hover{color:var(--texto)}
+  .seg-btn.active{background:var(--rojo);color:#fff}
+  .stat-mini{display:flex;flex-direction:column;gap:2px}
+  .stat-mini .big{font-family:"Arial Black",Impact,sans-serif;font-size:30px;letter-spacing:-1px;line-height:1.05}
+  .stat-mini .lbl{font-size:11.5px;color:var(--gris);text-transform:uppercase;letter-spacing:.8px}
+  .stat-mini .delta{font-size:12px;font-weight:700;margin-top:4px}
+  .delta.up{color:var(--ok)} .delta.down{color:#ff5862}
+  .chart-card{background:var(--panel);border:1px solid var(--linea);border-radius:14px;padding:18px 20px}
+  .chart-card h3{font-size:14px;font-weight:800;margin-bottom:2px}
+  .chart-card .csub{font-size:12px;color:var(--gris);margin-bottom:14px}
+  .chart-card svg{display:block;width:100%;height:auto;overflow:visible}
+  .legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px}
+  .legend .lg{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--gris)}
+  .legend .dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+  .legend b{color:var(--texto);font-weight:700}
+  table.stbl{width:100%;border-collapse:collapse;font-size:13px}
+  table.stbl th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--gris-2);font-weight:700;padding:10px 12px;border-bottom:1px solid var(--linea)}
+  table.stbl td{padding:12px;border-bottom:1px solid var(--linea);vertical-align:middle}
+  table.stbl tr:last-child td{border-bottom:none}
+  table.stbl tr.clk{cursor:pointer}
+  table.stbl tr.clk:hover td{background:var(--panel-2)}
+  .num{font-variant-numeric:tabular-nums;font-weight:700}
+  .chkrow{display:flex !important;align-items:center;gap:9px;text-transform:none !important;letter-spacing:0 !important;font-size:14px !important;color:var(--texto) !important;cursor:pointer}
+  .chkrow input{width:auto !important}
+  .alert{border-radius:12px;padding:13px 16px;font-size:13px;margin-bottom:18px;display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+  .alert.red{background:rgba(225,18,28,.09);border:1px solid rgba(225,18,28,.3)}
+  .alert.red b{color:#ff5862}
+  .alert.amber{background:rgba(230,167,38,.09);border:1px solid rgba(230,167,38,.3)}
+  .alert.amber b{color:var(--warn)}
+  .alert.green{background:rgba(54,194,107,.08);border:1px solid rgba(54,194,107,.28)}
+  .alert.green b{color:var(--ok)}
+  .occ-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--linea)}
+  .occ-row:last-child{border-bottom:none}
+  .occ-row .oname{flex:1;min-width:0;font-size:13px}
+  .occ-row .oname small{display:block;color:var(--gris-2);font-size:11px}
+  .occ-bar{flex:1.4;height:9px;background:var(--panel-2);border-radius:6px;overflow:hidden}
+  .occ-bar i{display:block;height:100%;border-radius:6px}
+  .occ-pct{width:42px;text-align:right;font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums}
+  @media(max-width:780px){
+    table.stbl .hide-sm{display:none}
+  }
+
+  /* ----- pantalla de bienvenida / elegir cuenta ----- */
+  .gate{position:fixed;top:0;left:0;right:0;bottom:0;z-index:300;background:radial-gradient(120% 90% at 50% -10%,#1c0608 0%,var(--negro) 55%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .gate.hide{display:none}
+  .gate::after{content:"";position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .gate-inner{position:relative;z-index:1;width:100%;max-width:760px;animation:fade .5s ease;-webkit-transform:translateZ(0);transform:translateZ(0)}
+  .gate .logo{font-family:"Arial Black",Impact,sans-serif;font-size:64px;font-weight:900;letter-spacing:-2px;text-transform:uppercase;line-height:1}
+  .gate .logo b{color:var(--rojo)}
+  .gate .tag{color:var(--gris);font-size:14px;letter-spacing:1px;margin-top:6px}
+  .gate .ask{font-size:15px;font-weight:700;color:var(--texto);margin:36px 0 18px;letter-spacing:.3px}
+  .accounts{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:620px){.accounts{grid-template-columns:1fr}.gate .logo{font-size:44px}.gate-inner{padding:0 4px}}
+  .acct{background:var(--panel);border:1px solid var(--linea);border-radius:18px;padding:30px 26px;cursor:pointer;text-align:left;-webkit-transition:.18s;transition:.18s;position:relative;overflow:hidden;touch-action:manipulation;-webkit-appearance:none;appearance:none;font-family:inherit;color:var(--texto);width:100%}
+  .acct:hover{border-color:var(--rojo);-webkit-transform:translateY(-3px);transform:translateY(-3px);box-shadow:0 18px 50px rgba(225,18,28,.18)}
+  .acct .emoji{font-size:34px;display:block;margin-bottom:14px}
+  .acct h3{font-size:20px;font-weight:800;margin-bottom:8px}
+  .acct p{font-size:13px;color:var(--gris);line-height:1.55}
+  .acct .enter{margin-top:18px;font-size:13px;font-weight:800;color:var(--rojo);display:inline-flex;align-items:center;gap:7px;transition:gap .18s}
+  .acct:hover .enter{gap:12px}
+  .gate .note{margin-top:30px;font-size:12px;color:var(--gris-2)}
+
+  /* ----- tutorial guiado (coachmarks) ----- */
+  .tut-dim{position:fixed;top:0;left:0;right:0;bottom:0;z-index:400;background:rgba(0,0,0,.55);-webkit-backdrop-filter:blur(1px);backdrop-filter:blur(1px);display:none}
+  .tut-dim.show{display:block}
+  .tut-ring{position:fixed;z-index:401;border:2px solid var(--rojo);border-radius:14px;pointer-events:none;
+    box-shadow:0 0 0 9999px rgba(0,0,0,.62),0 0 26px var(--rojo-glow);-webkit-transition:all .28s cubic-bezier(.4,0,.2,1);transition:all .28s cubic-bezier(.4,0,.2,1);-webkit-transform:translateZ(0);transform:translateZ(0)}
+  .tut-pop{position:fixed;z-index:402;background:var(--carbon);border:1px solid var(--linea);border-radius:14px;
+    width:300px;max-width:calc(100vw - 32px);padding:18px;box-shadow:0 20px 60px rgba(0,0,0,.6);-webkit-transition:all .28s cubic-bezier(.4,0,.2,1);transition:all .28s cubic-bezier(.4,0,.2,1);-webkit-transform:translateZ(0);transform:translateZ(0)}
+  .tut-pop .step{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--rojo);margin-bottom:8px}
+  .tut-pop h4{font-size:16px;font-weight:800;margin-bottom:7px}
+  .tut-pop p{font-size:13.5px;color:var(--gris);line-height:1.55}
+  .tut-pop .ctrls{display:flex;align-items:center;justify-content:space-between;margin-top:16px;gap:8px}
+  .tut-pop .dots{display:flex;gap:5px}
+  .tut-pop .dots i{width:6px;height:6px;border-radius:50%;background:var(--gris-2);transition:.2s}
+  .tut-pop .dots i.on{background:var(--rojo);width:16px;border-radius:3px}
+  .tut-pop .nav{display:flex;gap:8px}
+  .tut-skip{position:fixed;z-index:402;top:18px;right:18px;background:var(--panel);border:1px solid var(--linea);
+    color:var(--gris);font-family:inherit;font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:8px;cursor:pointer}
+  .tut-skip:hover{color:var(--texto)}
+  .tut-skip[hidden]{display:none}
+
+  /* diálogo de bienvenida al tutorial */
+  .tut-ask{position:fixed;top:0;left:0;right:0;bottom:0;z-index:410;background:rgba(0,0,0,.7);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:20px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .tut-ask.show{display:flex}
+  .tut-ask .box{background:var(--carbon);border:1px solid var(--linea);border-radius:18px;max-width:420px;width:100%;padding:30px 28px;text-align:center;animation:pop .25s ease}
+  .tut-ask .box .ico{font-size:38px;display:block;margin-bottom:12px}
+  .tut-ask .box h3{font-size:20px;font-weight:800;margin-bottom:8px}
+  .tut-ask .box p{font-size:14px;color:var(--gris);line-height:1.55;margin-bottom:22px}
+  .tut-ask .box .row2{display:flex;gap:10px}
+  .tut-ask .box .row2 .btn{flex:1;justify-content:center}
+
+  .burger{display:none}
+  @media(max-width:780px){
+    aside{position:fixed;left:0;top:0;z-index:90;-webkit-transform:translateX(-100%);transform:translateX(-100%);-webkit-transition:.25s;transition:.25s;box-shadow:0 0 50px rgba(0,0,0,.6);overflow-y:auto;-webkit-overflow-scrolling:touch}
+    aside.open{-webkit-transform:translateX(0);transform:translateX(0)}
+    main{padding:20px 18px 60px}
+    .burger{display:inline-flex;touch-action:manipulation}
+    .two{grid-template-columns:1fr}
+    .field input,.field select,.field textarea{font-size:16px}
+    .acct{padding:22px 18px}
+    .gate .logo{font-size:44px}
+    .gate .ask{margin:24px 0 14px;font-size:14px}
+    .accounts{gap:12px}
+    .topline{gap:10px}
+    .topline h1{font-size:22px}
+    .modal-body{padding:16px 18px}
+    .modal-head{padding:16px 18px}
+    .modal-foot{padding:12px 18px}
+    .stat b{font-size:28px}
+    table.stbl{font-size:12px}
+    table.stbl td,.table.stbl th{padding:10px 8px}
+    .card{padding:16px}
+    .overlay{padding:12px;align-items:flex-end}
+    .modal{border-radius:16px 16px 0 0;max-height:95vh;margin-bottom:0}
+  }
+</style>
+</head>
+<body>
+
+<!-- PANTALLA: ELEGIR CUENTA -->
+<div class="gate" id="gate">
+  <div class="gate-inner">
+    <div class="logo">Erre<b>Be</b></div>
+    <div class="tag">Circuito en vivo · Santiago</div>
+    <div class="ask">¿Con qué cuenta quieres entrar?</div>
+    <div class="accounts">
+      <button class="acct" onclick="enter('musico')">
+        <span class="emoji">🎸</span>
+        <h3>Soy músico</h3>
+        <p>Lleva tus acuerdos, tu agenda de fechas y consulta el backline de cada local antes de tocar.</p>
+        <span class="enter">Entrar como músico →</span>
+      </button>
+      <button class="acct" onclick="enter('local')">
+        <span class="emoji">🏠</span>
+        <h3>Soy un local</h3>
+        <p>Publica y mantén la ficha técnica de tus equipos para que los músicos sepan qué hay y qué llevar.</p>
+        <span class="enter">Entrar como local →</span>
+      </button>
+    </div>
+    <div class="note">Demo del Equipo 10 · Puedes cambiar de cuenta en cualquier momento desde el menú.</div>
+  </div>
+</div>
+
+<div class="app">
+
+  <aside id="aside">
+    <div class="brand">Erre<b>Be</b><span class="eq">Equipo 10 · FCFM</span></div>
+
+    <nav class="side">
+      <button class="nav-item active" data-v="inicio"><span class="ic">◎</span> Inicio</button>
+      <button class="nav-item" data-v="acuerdos" data-role="musico"><span class="ic">▤</span> Acuerdos</button>
+      <button class="nav-item" data-v="fichas"><span class="ic">♪</span> Fichas técnicas</button>
+      <button class="nav-item" data-v="agenda" data-role="musico"><span class="ic">▦</span> Agenda</button>
+      <button class="nav-item" data-v="stats"><span class="ic">📊</span> Estadísticas</button>
+    </nav>
+
+    <div class="side-foot">
+      <div class="who">
+        <div class="avatar" id="av">RB</div>
+        <div><b id="who-name">Mi banda</b><small id="who-role">Solista · Segmento B</small></div>
+      </div>
+      <button class="btn btn-ghost btn-sm" style="width:100%;justify-content:center;margin-top:12px" onclick="backToGate()">↩ Cambiar cuenta</button>
+    </div>
+  </aside>
+
+  <main>
+    <!-- INICIO -->
+    <section class="view show" data-view="inicio">
+      <div class="topline">
+        <div>
+          <button class="btn btn-ghost btn-sm burger" id="burger">☰</button>
+          <h1 style="display:inline-block;margin-left:6px" id="home-title">Hola de nuevo 🎸</h1>
+          <div class="sub" id="home-sub">Todo lo de tus shows, en un solo lugar.</div>
+        </div>
+        <div id="home-cta"></div>
+      </div>
+      <div id="home-content"></div>
+    </section>
+
+    <!-- ACUERDOS (músico) -->
+    <section class="view" data-view="acuerdos">
+      <div class="topline">
+        <div><h1>Acuerdos</h1><div class="sub">Lo conversado con cada local, por escrito y sin letra chica.</div></div>
+        <button class="btn btn-prim" onclick="openAcuerdo()">+ Nuevo acuerdo</button>
+      </div>
+      <div class="listcard" id="list-acuerdos"></div>
+    </section>
+
+    <!-- DETALLE ACUERDO -->
+    <section class="view" data-view="acuerdo-det">
+      <button class="back" onclick="go('acuerdos')">← Volver a acuerdos</button>
+      <div id="acuerdo-det-body"></div>
+    </section>
+
+    <!-- FICHAS -->
+    <section class="view" data-view="fichas">
+      <div class="topline">
+        <div><h1>Fichas técnicas</h1><div class="sub" id="fichas-sub"></div></div>
+        <div id="fichas-cta"></div>
+      </div>
+      <div id="fichas-banner"></div>
+      <div class="grid g-2" id="list-fichas"></div>
+    </section>
+
+    <!-- AGENDA (músico) -->
+    <section class="view" data-view="agenda">
+      <div class="topline">
+        <div><h1>Agenda</h1><div class="sub">Fechas, horarios y pendientes operativos, juntos.</div></div>
+        <button class="btn btn-prim" onclick="openEvento()">+ Nueva fecha</button>
+      </div>
+      <div class="listcard" id="list-agenda"></div>
+    </section>
+
+    <!-- ESTADÍSTICAS (ambos roles) -->
+    <section class="view" data-view="stats">
+      <div class="topline">
+        <div><h1 id="stats-title">Mis estadísticas</h1><div class="sub" id="stats-sub"></div></div>
+        <div class="seg" id="stats-filter">
+          <button class="seg-btn active" data-d="30">30 días</button>
+          <button class="seg-btn" data-d="90">90 días</button>
+        </div>
+      </div>
+      <div id="stats-content"></div>
+    </section>
+  </main>
+</div>
+
+<!-- MODAL ACUERDO -->
+<div class="overlay" id="ov-acuerdo">
+  <div class="modal">
+    <div class="modal-head"><h3>Nuevo acuerdo</h3><button class="x" onclick="close_('ov-acuerdo')">×</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Local / Espacio</label><input id="ac-local" placeholder="Peña El Trauco"></div>
+      <div class="two">
+        <div class="field"><label>Reparto (% para ti)</label><input id="ac-reparto" type="number" min="0" max="100" placeholder="60"><div class="hint">El resto va al local</div></div>
+        <div class="field"><label>Asistencia mínima</label><input id="ac-cuota" type="number" min="0" placeholder="35"><div class="hint">Personas para cumplir cuota</div></div>
+      </div>
+      <div class="field"><label>Método de pago</label>
+        <select id="ac-pago"><option>Transferencia, mismo día</option><option>Transferencia, 48 hrs</option><option>Efectivo al cierre</option><option>Por puerta (entradas)</option></select>
+      </div>
+      <div class="field"><label>Condiciones acordadas</label><textarea id="ac-cond" placeholder="Ej: si se suspende por el local, no hay costo para la banda. La cuota se mide con lista de entrada."></textarea><div class="hint">Escríbelo claro: esto es lo que firman ambos.</div></div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="close_('ov-acuerdo')">Cancelar</button><button class="btn btn-prim" onclick="saveAcuerdo()">Guardar acuerdo</button></div>
+  </div>
+</div>
+
+<!-- MODAL FICHA (solo local) -->
+<div class="overlay" id="ov-ficha">
+  <div class="modal">
+    <div class="modal-head"><h3 id="fi-title">Mi ficha técnica</h3><button class="x" onclick="close_('ov-ficha')">×</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Nombre del local</label><input id="fi-local" placeholder="Bar Estación"></div>
+      <div class="field"><label>Equipos disponibles (uno por línea)</label><textarea id="fi-gear" placeholder="Batería&#10;Amplificador de bajo&#10;2 monitores&#10;3 micrófonos vocales"></textarea><div class="hint">Anota solo lo que de verdad hay en el local. Esto es lo que verán los músicos.</div></div>
+      <div class="field"><label>Recomienda llevar</label><input id="fi-traer" placeholder="Cables, pedalera"></div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="close_('ov-ficha')">Cancelar</button><button class="btn btn-prim" onclick="saveFicha()">Publicar ficha</button></div>
+  </div>
+</div>
+
+<!-- MODAL EVENTO -->
+<div class="overlay" id="ov-evento">
+  <div class="modal">
+    <div class="modal-head"><h3>Nueva fecha</h3><button class="x" onclick="close_('ov-evento')">×</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Nombre del show</label><input id="ev-nombre" placeholder="Feria de Barrio Yungay"></div>
+      <div class="field"><label>Local</label><select id="ev-localsel"></select><div class="hint">Si el local tiene ficha publicada, verás su backline en la fecha.</div></div>
+      <div class="two">
+        <div class="field"><label>Fecha</label><input id="ev-fecha" type="date"></div>
+        <div class="field"><label>Prueba de sonido</label><input id="ev-prueba" type="time"></div>
+      </div>
+      <div class="field"><label>Hora del show</label><input id="ev-show" type="time"></div>
+      <div class="field"><label>Pendientes</label><input id="ev-todo" placeholder="Llevar cables propios"></div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="close_('ov-evento')">Cancelar</button><button class="btn btn-prim" onclick="saveEvento()">Guardar fecha</button></div>
+  </div>
+</div>
+
+<!-- MODAL DETALLE EVENTO -->
+<div class="overlay" id="ov-evdet">
+  <div class="modal">
+    <div class="modal-head"><h3 id="evd-title">Fecha</h3><button class="x" onclick="close_('ov-evdet')">×</button></div>
+    <div class="modal-body" id="evd-body"></div>
+    <div class="modal-foot" id="evd-foot"></div>
+  </div>
+</div>
+
+<!-- MODAL CERRAR SHOW (registrar resultado) -->
+<div class="overlay" id="ov-cerrar">
+  <div class="modal">
+    <div class="modal-head"><h3 id="cs-title">Registrar resultado del show</h3><button class="x" onclick="close_('ov-cerrar')">×</button></div>
+    <div class="modal-body">
+      <div class="banner" style="margin-bottom:16px">📊 <div id="cs-info">Anota cómo te fue: con esto se arman tus estadísticas de ingresos.</div></div>
+      <div class="two">
+        <div class="field"><label>Asistentes reales</label><input id="cs-asist" type="number" min="0" placeholder="42" oninput="csRecalc()"><div class="hint" id="cs-cuota"></div></div>
+        <div class="field"><label>Precio entrada (CLP)</label><input id="cs-precio" type="number" min="0" value="5000" oninput="csRecalc()"><div class="hint">Aprox. por persona</div></div>
+      </div>
+      <div class="field"><label>Total recaudado (CLP)</label><input id="cs-bruto" type="number" min="0" placeholder="210000" oninput="csManual()"><div class="hint" id="cs-calc">Se calcula solo con asistentes × precio, o escríbelo a mano.</div></div>
+      <div class="field"><label>Método de pago</label>
+        <select id="cs-metodo"><option>Transferencia, mismo día</option><option>Transferencia, 48 hrs</option><option>Efectivo al cierre</option><option>Por puerta (entradas)</option></select>
+      </div>
+      <div class="field"><label class="chkrow"><input type="checkbox" id="cs-pagado"> Ya recibí el pago</label></div>
+      <div id="cs-reparto-box"></div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="close_('ov-cerrar')">Cancelar</button><button class="btn btn-prim" onclick="saveCerrar()">Guardar resultado</button></div>
+  </div>
+</div>
+
+<!-- TUTORIAL: diálogo de bienvenida -->
+<div class="tut-ask" id="tut-ask">
+  <div class="box">
+    <span class="ico">🧭</span>
+    <h3 id="tut-ask-title">¿Te muestro cómo funciona?</h3>
+    <p id="tut-ask-text">Es un recorrido de 30 segundos por las partes principales. Puedes saltarlo cuando quieras.</p>
+    <div class="row2">
+      <button class="btn btn-ghost" onclick="declineTour()">Ahora no</button>
+      <button class="btn btn-prim" onclick="startTour()">Hacer el recorrido</button>
+    </div>
+  </div>
+</div>
+
+<!-- TUTORIAL: coachmarks -->
+<div class="tut-dim" id="tut-dim"></div>
+<button class="tut-skip" id="tut-skip" onclick="endTour()" hidden>Saltar recorrido ✕</button>
+<div class="tut-ring" id="tut-ring" style="display:none"></div>
+<div class="tut-pop" id="tut-pop" style="display:none">
+  <div class="step" id="tut-step"></div>
+  <h4 id="tut-h"></h4>
+  <p id="tut-p"></p>
+  <div class="ctrls">
+    <div class="dots" id="tut-dots"></div>
+    <div class="nav">
+      <button class="btn btn-ghost btn-sm" id="tut-prev" onclick="tourPrev()">Anterior</button>
+      <button class="btn btn-prim btn-sm" id="tut-next" onclick="tourNext()">Siguiente</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let ROLE='musico';
+let DB={
+  acuerdos:[
+    {id:1,local:"Peña El Trauco",reparto:60,cuota:35,pago:"Transferencia, mismo día",cond:"Si se suspende por el local, la banda no asume costos. La cuota mínima se mide con lista de entrada, no a ojo.",estado:"aceptado"},
+    {id:2,local:"Bar Estación",reparto:50,cuota:40,pago:"Por puerta (entradas)",cond:"Reparto 50/50 sobre puerta. El pago se entrega el mismo día sin descuentos no avisados.",estado:"pendiente"},
+  ],
+  fichas:[
+    {id:1,local:"Bar Estación",gear:["Batería","Amplificador de bajo","2 monitores","3 micrófonos vocales"],traer:"Cables, pedalera",updated:daysAgo(9)},
+    {id:2,local:"Peña El Trauco",gear:["PA básico","1 micrófono"],traer:"Todo el backline",updated:daysAgo(48)},
+  ],
+  eventos:[
+    // --- próximas fechas (sin resultado cerrado todavía) ---
+    {id:1,nombre:"Show en Peña El Trauco",banda:"Mi banda",local:"Peña El Trauco",fecha:nextDate(6),prueba:"20:00",show:"22:00",estado:"confirmado",todo:""},
+    {id:2,nombre:"Feria de Barrio Yungay",banda:"Mi banda",local:"",fecha:nextDate(12),prueba:"16:00",show:"18:00",estado:"propuesta",todo:"Llevar cables propios"},
+    {id:3,nombre:"Concierto benéfico",banda:"Mi banda",local:"Bar Estación",fecha:nextDate(19),prueba:"",show:"21:00",estado:"propuesta",todo:""},
+    // --- shows pasados ya cerrados (con resultado para estadísticas) ---
+    {id:11,nombre:"Noche de cuecas bravas",banda:"Mi banda",local:"Bar Estación",fecha:daysAgo(4),prueba:"20:00",show:"22:00",estado:"confirmado",todo:"",asistentes:64,bruto:320000,ganancia:160000,gananciaLocal:160000,metodo_pago:"Por puerta (entradas)",pagado:true,fecha_pago:daysAgo(4)},
+    {id:12,nombre:"Tocata en El Trauco",banda:"Mi banda",local:"Peña El Trauco",fecha:daysAgo(11),prueba:"19:30",show:"21:30",estado:"confirmado",todo:"",asistentes:48,bruto:240000,ganancia:144000,gananciaLocal:96000,metodo_pago:"Transferencia, mismo día",pagado:true,fecha_pago:daysAgo(11)},
+    {id:13,nombre:"Set acústico",banda:"Mi banda",local:"Bar Estación",fecha:daysAgo(22),prueba:"20:00",show:"22:00",estado:"confirmado",todo:"",asistentes:36,bruto:180000,ganancia:90000,gananciaLocal:90000,metodo_pago:"Transferencia, 48 hrs",pagado:false,fecha_pago:null},
+    {id:14,nombre:"Aniversario del barrio",banda:"Mi banda",local:"Peña El Trauco",fecha:daysAgo(50),prueba:"18:00",show:"20:00",estado:"confirmado",todo:"",asistentes:55,bruto:275000,ganancia:165000,gananciaLocal:110000,metodo_pago:"Transferencia, mismo día",pagado:true,fecha_pago:daysAgo(50)},
+    {id:15,nombre:"Los Vientos del Sur",banda:"Los Vientos del Sur",local:"Bar Estación",fecha:daysAgo(7),prueba:"20:00",show:"22:00",estado:"confirmado",todo:"",asistentes:72,bruto:360000,ganancia:180000,gananciaLocal:180000,metodo_pago:"Efectivo al cierre",pagado:true,fecha_pago:daysAgo(7)},
+    {id:16,nombre:"Trío Aurora",banda:"Trío Aurora",local:"Bar Estación",fecha:daysAgo(16),prueba:"19:00",show:"21:00",estado:"confirmado",todo:"",asistentes:26,bruto:130000,ganancia:65000,gananciaLocal:65000,metodo_pago:"Por puerta (entradas)",pagado:true,fecha_pago:daysAgo(16)},
+    {id:17,nombre:"Cumbia del Norte",banda:"Cumbia del Norte",local:"Bar Estación",fecha:daysAgo(33),prueba:"21:00",show:"23:00",estado:"confirmado",todo:"",asistentes:78,bruto:390000,ganancia:195000,gananciaLocal:195000,metodo_pago:"Efectivo al cierre",pagado:true,fecha_pago:daysAgo(33)},
+    {id:18,nombre:"La Rumba Eléctrica",banda:"La Rumba Eléctrica",local:"Peña El Trauco",fecha:daysAgo(13),prueba:"20:30",show:"22:30",estado:"confirmado",todo:"",asistentes:44,bruto:220000,ganancia:132000,gananciaLocal:88000,metodo_pago:"Transferencia, mismo día",pagado:true,fecha_pago:daysAgo(13)},
+  ],
+  capacidades:{"Bar Estación":80,"Peña El Trauco":60},
+  miLocal:"Bar Estación"
+};
+const PRECIO_ENTRADA=5000; // CLP por persona (referencia para calcular bruto)
+let statsDays=30;          // filtro activo de la sección estadísticas
+let seq=100;
+function daysAgo(d){const x=new Date();x.setDate(x.getDate()-d);return x.toISOString().slice(0,10)}
+function nextDate(d){const x=new Date();x.setDate(x.getDate()+d);return x.toISOString().slice(0,10)}
+
+async function persist(){try{if(window.storage){await window.storage.set('errebe:db',JSON.stringify(DB))}}catch(e){}}
+async function load(){try{if(window.storage){const r=await window.storage.get('errebe:db');if(r&&r.value){DB=JSON.parse(r.value)}}}catch(e){}
+  // defaults por compatibilidad con datos guardados de versiones previas
+  if(!DB.capacidades)DB.capacidades={"Bar Estación":80,"Peña El Trauco":60};
+  DB.eventos.forEach(e=>{if(!e.banda)e.banda='Mi banda'});
+}
+
+/* ----- gate: elegir cuenta al entrar ----- */
+function enter(r){
+  document.getElementById('gate').classList.add('hide');
+  setRole(r);
+  askTour(r);
+}
+function backToGate(){
+  document.getElementById('aside').classList.remove('open');
+  document.getElementById('gate').classList.remove('hide');
+  window.scrollTo(0,0);
+}
+
+/* ----- rol ----- */
+function setRole(r){
+  ROLE=r;
+  document.getElementById('av').textContent = r==='musico'?'RB':'BE';
+  document.getElementById('who-name').textContent = r==='musico'?'Mi banda':DB.miLocal;
+  document.getElementById('who-role').textContent = r==='musico'?'Solista · Segmento B':'Local · Administrador';
+  applyRole();
+  go('inicio');
+}
+function applyRole(){
+  document.querySelectorAll('.nav-item[data-role]').forEach(n=>{
+    n.hidden = (n.dataset.role!==ROLE);
+  });
+}
+
+function go(v){
+  document.querySelectorAll('.view').forEach(s=>s.classList.remove('show'));
+  document.querySelector('.view[data-view="'+v+'"]').classList.add('show');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.v===v));
+  document.getElementById('aside').classList.remove('open');
+  window.scrollTo(0,0);
+  renderAll();
+}
+document.querySelectorAll('.nav-item').forEach(n=>n.addEventListener('click',()=>go(n.dataset.v)));
+document.getElementById('burger').addEventListener('click',()=>document.getElementById('aside').classList.toggle('open'));
+
+const MESES=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+function fmtDay(iso){const d=new Date(iso+'T00:00');return{n:d.getDate(),m:MESES[d.getMonth()]}}
+function diffDays(iso){const d=new Date(iso+'T00:00');const t=new Date();t.setHours(0,0,0,0);return Math.round((d-t)/864e5)}
+function esc(s){return(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function emptyRow(t){return `<div class="empty"><b>${t}</b></div>`}
+function fichaDe(local){return DB.fichas.find(f=>f.local===local)}
+function fmtMoney(n){n=Math.round(n||0);return '$'+n.toLocaleString('es-CL')}
+function fmtK(n){n=Math.round(n||0);return n>=1000?'$'+(n/1000).toFixed(n%1000?1:0).replace('.',',')+'k':'$'+n}
+function acuerdoDe(local){return DB.acuerdos.find(a=>a.local===local)}
+function repartoDe(local){const a=acuerdoDe(local);return a?a.reparto:60}
+
+function renderAll(){renderInicio();renderAcuerdos();renderFichas();renderAgenda();renderStats()}
+
+/* ----- INICIO ----- */
+function renderInicio(){
+  const t=document.getElementById('home-title'), s=document.getElementById('home-sub'),
+        cta=document.getElementById('home-cta'), c=document.getElementById('home-content');
+  if(ROLE==='musico'){
+    t.innerHTML='Hola de nuevo 🎸'; s.textContent='Todo lo de tus shows, en un solo lugar.';
+    cta.innerHTML='<button class="btn btn-prim" onclick="openAcuerdo()">+ Nuevo acuerdo</button>';
+    const prox=DB.eventos.filter(e=>diffDays(e.fecha)>=0).sort((a,b)=>a.fecha.localeCompare(b.fecha));
+    c.innerHTML=`
+      <div class="grid g-3" style="margin-bottom:8px">
+        <div class="card accent stat"><b>${DB.acuerdos.length}</b><span>Acuerdos guardados</span></div>
+        <div class="card stat"><b>${prox.filter(e=>e.estado==='confirmado').length}</b><span>Fechas confirmadas</span></div>
+        <div class="card stat"><b>${prox.filter(e=>e.estado==='propuesta').length}</b><span>Por confirmar</span></div>
+      </div>
+      <div class="sectitle">Tu próxima fecha</div>${nextEventCard()}
+      <div class="sectitle">Acuerdos recientes</div>
+      <div class="listcard">${DB.acuerdos.slice(0,3).map(rowAcuerdo).join('')||emptyRow('Aún no hay acuerdos')}</div>`;
+  } else {
+    t.innerHTML='Panel del local 🏠'; s.textContent='Mantén tu ficha técnica al día para que los músicos sepan qué llevar.';
+    cta.innerHTML='<button class="btn btn-prim" onclick="openFicha()">Editar mi ficha</button>';
+    const f=fichaDe(DB.miLocal);
+    const dias=f?diffDays(f.updated)*-1:null;
+    const stale=f&&dias>30;
+    c.innerHTML=`
+      <div class="grid g-3" style="margin-bottom:8px">
+        <div class="card accent stat"><b>${f?f.gear.length:0}</b><span>Equipos publicados</span></div>
+        <div class="card stat"><b>${f?dias:'—'}</b><span>Días desde actualización</span></div>
+        <div class="card stat"><b>${DB.eventos.filter(e=>e.local===DB.miLocal).length}</b><span>Shows agendados aquí</span></div>
+      </div>
+      ${stale?'<div class="banner">⚠ <div><b>Tu ficha está desactualizada.</b> Los músicos confían en que el backline sea real. Actualízala para que sepan con qué cuentan.</div></div>':''}
+      <div class="sectitle">Mi ficha técnica</div>
+      ${f?fichaCard(f,true):'<div class="card empty"><b>Aún no publicas tu ficha</b>Sube el backline real de tu local.</div>'}`;
+  }
+}
+function nextEventCard(){
+  const prox=DB.eventos.filter(e=>diffDays(e.fecha)>=0).sort((a,b)=>a.fecha.localeCompare(b.fecha));
+  if(!prox.length)return `<div class="card empty"><b>No tienes fechas próximas</b>Agrega tu siguiente show.</div>`;
+  const e=prox[0],f=fmtDay(e.fecha),dd=diffDays(e.fecha);
+  const est=e.estado==='confirmado'?'<span class="chip chip-ok">Confirmada</span>':'<span class="chip chip-warn">Por confirmar</span>';
+  return `<div class="card accent clk" style="display:flex;align-items:center;gap:18px;cursor:pointer" onclick="verEvento(${e.id})">
+    <div class="date-badge" style="min-width:60px"><b>${f.n}</b><span>${f.m}</span></div>
+    <div style="flex:1"><b style="font-size:17px">${esc(e.nombre)}</b>
+      <div style="color:var(--gris);font-size:13px;margin-top:3px">${e.prueba?'Prueba '+e.prueba+' · ':''}Show ${e.show||'—'}${e.local?' · '+esc(e.local):''}</div></div>
+    <div style="text-align:right">${est}<div style="color:var(--gris-2);font-size:12px;margin-top:6px">${dd===0?'Hoy':'En '+dd+' días'}</div></div></div>`;
+}
+
+/* ----- ACUERDOS ----- */
+function rowAcuerdo(a){
+  const est=a.estado==='aceptado'?'<span class="chip chip-ok">Aceptado por ambos</span>':'<span class="chip chip-warn">Pendiente</span>';
+  return `<div class="item clk" onclick="verAcuerdo(${a.id})"><div class="lead"><b>${esc(a.local)}</b><span>${a.reparto}% para ti · mín. ${a.cuota} pers. · ${esc(a.pago)}</span></div>${est}</div>`;
+}
+function renderAcuerdos(){
+  document.getElementById('list-acuerdos').innerHTML=`<div class="lc-head"><h3>${DB.acuerdos.length} acuerdos</h3></div>`+(DB.acuerdos.map(rowAcuerdo).join('')||emptyRow('Crea tu primer acuerdo'));
+}
+function verAcuerdo(id){
+  const a=DB.acuerdos.find(x=>x.id===id);if(!a)return;go('acuerdo-det');
+  const est=a.estado==='aceptado'?'<span class="chip chip-ok">Aceptado por ambos</span>':'<span class="chip chip-warn">Pendiente de aceptación</span>';
+  document.getElementById('acuerdo-det-body').innerHTML=`
+    <div class="topline"><div><h1>${esc(a.local)}</h1><div class="sub">Registro del acuerdo</div></div>${est}</div>
+    <div class="card" style="max-width:620px">
+      <div class="kv"><span class="k">Reparto de ganancia</span><span class="v">${a.reparto}% banda / ${100-a.reparto}% local</span></div>
+      <div class="kv"><span class="k">Asistencia mínima</span><span class="v">${a.cuota} personas</span></div>
+      <div class="kv"><span class="k">Método de pago</span><span class="v">${esc(a.pago)}</span></div></div>
+    <div class="sectitle">Condiciones acordadas</div>
+    <div class="card" style="max-width:620px;line-height:1.6">${esc(a.cond)||'<span style="color:var(--gris)">Sin condiciones extra.</span>'}</div>
+    <div style="margin-top:20px;display:flex;gap:10px">
+      ${a.estado!=='aceptado'?`<button class="btn btn-prim" onclick="aceptar(${a.id})">Marcar como aceptado</button>`:''}
+      <button class="btn btn-ghost" onclick="delAcuerdo(${a.id})">Eliminar</button></div>`;
+}
+function aceptar(id){DB.acuerdos.find(x=>x.id===id).estado='aceptado';persist();verAcuerdo(id);toast('Acuerdo aceptado ✓')}
+function delAcuerdo(id){DB.acuerdos=DB.acuerdos.filter(x=>x.id!==id);persist();go('acuerdos');toast('Acuerdo eliminado')}
+
+/* ----- FICHAS ----- */
+function fichaCard(f,owner){
+  const d=diffDays(f.updated)*-1, stale=d>30;
+  return `<div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <b style="font-size:16px">${esc(f.local)}</b>
+      ${owner?`<button class="btn btn-ghost btn-sm" onclick="openFicha()">Editar</button>`:`<span class="pill-role">Solo lectura</span>`}
+    </div>
+    <div class="fresh ${stale?'stale':''}"><span class="pulse"></span>${stale?'Desactualizada · hace '+d+' días':'Actualizada hace '+d+' días'}</div>
+    <div style="margin-top:12px">${f.gear.map(g=>`<div class="gear-row"><span>${esc(g)}</span><span class="chip chip-ok">Disponible</span></div>`).join('')}</div>
+    ${f.traer?`<div style="margin-top:12px;font-size:13px;color:var(--warn)">⚠ Recomiendan llevar: ${esc(f.traer)}</div>`:''}
+    ${owner?`<div style="margin-top:14px;display:flex;gap:10px"><button class="btn btn-ghost btn-sm" onclick="refreshFicha(${f.id})">Marcar como vigente hoy</button></div>`:''}
+  </div>`;
+}
+function renderFichas(){
+  const sub=document.getElementById('fichas-sub'),cta=document.getElementById('fichas-cta'),
+        ban=document.getElementById('fichas-banner'),list=document.getElementById('list-fichas');
+  if(ROLE==='local'){
+    sub.textContent='Tu ficha es la fuente oficial del backline. Solo tú la editas.';
+    cta.innerHTML='<button class="btn btn-prim" onclick="openFicha()">Editar mi ficha</button>';
+    ban.innerHTML='<div class="banner">♪ <div>Como local, esta es <b>tu</b> ficha. Lo que publiques aquí es lo que verán los músicos al agendar contigo.</div></div>';
+    const f=fichaDe(DB.miLocal);
+    list.innerHTML=f?fichaCard(f,true):'<div class="card empty"><b>Aún no publicas tu ficha</b>Sube el backline real de tu local.</div>';
+  } else {
+    sub.textContent='El backline real que publican los locales. No editable: lo mantiene cada local.';
+    cta.innerHTML='';
+    ban.innerHTML='<div class="banner">♪ <div>Estas fichas las publican <b>los locales</b>. Tú solo las consultas para saber qué hay y qué llevar.</div></div>';
+    list.innerHTML=DB.fichas.map(f=>fichaCard(f,false)).join('')||'<div class="card empty"><b>Sin fichas disponibles</b>Ningún local ha publicado todavía.</div>';
+  }
+}
+function refreshFicha(id){DB.fichas.find(x=>x.id===id).updated=new Date().toISOString().slice(0,10);persist();renderAll();toast('Ficha marcada como vigente hoy ✓')}
+
+/* ----- AGENDA ----- */
+function renderAgenda(){
+  const ev=[...DB.eventos].sort((a,b)=>a.fecha.localeCompare(b.fecha));
+  document.getElementById('list-agenda').innerHTML=`<div class="lc-head"><h3>${ev.length} fechas</h3></div>`+
+   (ev.map(e=>{const f=fmtDay(e.fecha);
+    const est=e.estado==='confirmado'?'<span class="chip chip-ok">Confirmada</span>':'<span class="chip chip-warn">Por confirmar</span>';
+    return `<div class="item clk" onclick="verEvento(${e.id})">
+      <div class="date-badge"><b>${f.n}</b><span>${f.m}</span></div>
+      <div class="lead"><b>${esc(e.nombre)}</b><span>${e.prueba?'Prueba '+e.prueba+' · ':''}${e.show?'Show '+e.show:''}${e.local?' · '+esc(e.local):''}${e.todo?' · '+esc(e.todo):''}</span></div>
+      ${est}</div>`;
+   }).join('')||emptyRow('Agrega tu primera fecha'));
+}
+function verEvento(id){
+  const e=DB.eventos.find(x=>x.id===id);if(!e)return;
+  const f=fichaDe(e.local);
+  document.getElementById('evd-title').textContent=e.nombre;
+  const est=e.estado==='confirmado'?'<span class="chip chip-ok">Confirmada</span>':'<span class="chip chip-warn">Por confirmar</span>';
+  const fd=fmtDay(e.fecha);
+  let body=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <div style="font-size:15px;font-weight:700">${fd.n} ${fd.m} · ${e.show||'—'}</div>${est}</div>
+    <div class="kv"><span class="k">Local</span><span class="v">${esc(e.local)||'Sin asignar'}</span></div>
+    <div class="kv"><span class="k">Prueba de sonido</span><span class="v">${e.prueba||'—'}</span></div>
+    <div class="kv"><span class="k">Pendientes</span><span class="v">${esc(e.todo)||'—'}</span></div>`;
+  if(f){
+    body+=`<div class="sectitle" style="margin:18px 0 10px">Qué hay en el local (ficha oficial)</div>
+      <div style="font-size:13px;color:var(--gris);margin-bottom:8px">${f.gear.map(esc).join(' · ')}</div>
+      ${f.traer?`<div style="font-size:13px;color:var(--warn);font-weight:700">⚠ Debes llevar: ${esc(f.traer)}</div>`:'<div style="font-size:13px;color:var(--ok)">El local cubre el backline.</div>'}`;
+  } else if(e.local){
+    body+=`<div class="sectitle" style="margin:18px 0 10px">Ficha técnica</div><div style="font-size:13px;color:var(--gris-2)">Este local aún no publica su ficha. Pídesela antes del show.</div>`;
+  }
+  if(e.ganancia){
+    body+=`<div class="sectitle" style="margin:18px 0 10px">Resultado del show</div>
+      <div class="kv"><span class="k">Asistentes</span><span class="v">${e.asistentes}</span></div>
+      <div class="kv"><span class="k">Tu ganancia</span><span class="v" style="color:var(--ok)">${fmtMoney(e.ganancia)}</span></div>
+      <div class="kv"><span class="k">Estado del pago</span><span class="v">${e.pagado?'Pagado ✓':'Por cobrar'}</span></div>`;
+  }
+  document.getElementById('evd-body').innerHTML=body;
+  const resultBtn=ROLE==='musico'?`<button class="btn btn-prim" onclick="openCerrar(${e.id})">${e.ganancia?'Editar resultado':'Registrar resultado'}</button>`:'';
+  document.getElementById('evd-foot').innerHTML=
+    `${resultBtn}
+     ${e.estado!=='confirmado'?`<button class="btn btn-ghost" onclick="confirmarEvento(${e.id})">Confirmar fecha</button>`:`<button class="btn btn-ghost" onclick="reabrirEvento(${e.id})">Por confirmar</button>`}
+     <button class="btn btn-ghost" onclick="delEvento(${e.id})">Eliminar</button>`;
+  document.getElementById('ov-evdet').classList.add('show');
+}
+function confirmarEvento(id){DB.eventos.find(x=>x.id===id).estado='confirmado';persist();renderAll();verEvento(id);toast('Fecha confirmada ✓')}
+function reabrirEvento(id){DB.eventos.find(x=>x.id===id).estado='propuesta';persist();renderAll();verEvento(id);toast('Fecha marcada como por confirmar')}
+function delEvento(id){DB.eventos=DB.eventos.filter(x=>x.id!==id);persist();close_('ov-evdet');renderAll();toast('Fecha eliminada')}
+
+/* ----- modales ----- */
+function openAcuerdo(){document.getElementById('ov-acuerdo').classList.add('show')}
+function openFicha(){
+  const f=fichaDe(DB.miLocal);
+  document.getElementById('fi-local').value=f?f.local:DB.miLocal;
+  document.getElementById('fi-gear').value=f?f.gear.join('\n'):'';
+  document.getElementById('fi-traer').value=f?f.traer:'';
+  document.getElementById('fi-title').textContent=f?'Editar mi ficha técnica':'Publicar mi ficha técnica';
+  document.getElementById('ov-ficha').classList.add('show');
+}
+function openEvento(){
+  const sel=document.getElementById('ev-localsel');
+  const locales=[...new Set([...DB.fichas.map(f=>f.local),...DB.acuerdos.map(a=>a.local)])];
+  sel.innerHTML='<option value="">Sin asignar</option>'+locales.map(l=>`<option>${esc(l)}</option>`).join('');
+  document.getElementById('ov-evento').classList.add('show');
+}
+function close_(id){document.getElementById(id).classList.remove('show')}
+
+function saveAcuerdo(){
+  const local=val('ac-local');if(!local){toast('Falta el nombre del local');return}
+  DB.acuerdos.unshift({id:++seq,local,reparto:+val('ac-reparto')||0,cuota:+val('ac-cuota')||0,pago:val('ac-pago'),cond:val('ac-cond'),estado:'pendiente'});
+  clearForm(['ac-local','ac-reparto','ac-cuota','ac-cond']);close_('ov-acuerdo');persist();go('acuerdos');toast('Acuerdo guardado ✓');
+}
+function saveFicha(){
+  const local=val('fi-local');if(!local){toast('Falta el nombre del local');return}
+  const gear=val('fi-gear').split('\n').map(x=>x.trim()).filter(Boolean);
+  const ex=fichaDe(DB.miLocal);
+  DB.miLocal=local;
+  if(ex){ex.local=local;ex.gear=gear;ex.traer=val('fi-traer');ex.updated=new Date().toISOString().slice(0,10);}
+  else{DB.fichas.unshift({id:++seq,local,gear,traer:val('fi-traer'),updated:new Date().toISOString().slice(0,10)});}
+  close_('ov-ficha');persist();
+  document.getElementById('who-name').textContent=DB.miLocal;
+  renderAll();toast('Ficha publicada ✓');
+}
+function saveEvento(){
+  const nombre=val('ev-nombre'),fecha=val('ev-fecha');
+  if(!nombre||!fecha){toast('Falta nombre o fecha');return}
+  DB.eventos.push({id:++seq,nombre,local:val('ev-localsel'),fecha,prueba:val('ev-prueba'),show:val('ev-show'),estado:'propuesta',todo:val('ev-todo')});
+  clearForm(['ev-nombre','ev-fecha','ev-prueba','ev-show','ev-todo']);close_('ov-evento');persist();go('agenda');toast('Fecha guardada · por confirmar');
+}
+function val(id){return document.getElementById(id).value.trim()}
+function clearForm(ids){ids.forEach(i=>document.getElementById(i).value='')}
+
+let tt;function toast(m){const el=document.getElementById('toast');el.textContent=m;el.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),2200)}
+document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('show')}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.overlay').forEach(o=>o.classList.remove('show'))});
+
+/* ===== ESTADÍSTICAS ===== */
+const PIE_COLORS=['#E1121C','#36C26B','#E6A726','#8C8A90','#A50D14'];
+
+// segmented filter 30/90 días
+document.querySelectorAll('#stats-filter .seg-btn').forEach(b=>b.addEventListener('click',()=>{
+  statsDays=+b.dataset.d;
+  document.querySelectorAll('#stats-filter .seg-btn').forEach(x=>x.classList.toggle('active',x===b));
+  renderStats();
+}));
+
+function cutoffDate(days){const c=new Date();c.setHours(0,0,0,0);c.setDate(c.getDate()-days);return c}
+function isClosed(e){return e.estado==='confirmado'&&e.ganancia}
+function closedMusico(days){
+  const c=cutoffDate(days);
+  return DB.eventos.filter(e=>e.banda==='Mi banda'&&isClosed(e)&&new Date(e.fecha+'T00:00')>=c).sort((a,b)=>a.fecha.localeCompare(b.fecha));
+}
+function closedLocal(days){
+  const c=cutoffDate(days);
+  return DB.eventos.filter(e=>e.local===DB.miLocal&&isClosed(e)&&new Date(e.fecha+'T00:00')>=c).sort((a,b)=>a.fecha.localeCompare(b.fecha));
+}
+function diasDesde(iso){return -diffDays(iso)}
+
+function cumSeries(events,days,key){
+  const today=new Date();today.setHours(0,0,0,0);
+  const start=new Date(today);start.setDate(start.getDate()-(days-1));
+  const arr=[];let cum=0;
+  for(let i=0;i<days;i++){
+    const d=new Date(start);d.setDate(start.getDate()+i);
+    const iso=d.toISOString().slice(0,10);
+    cum+=events.filter(e=>e.fecha===iso).reduce((s,e)=>s+(e[key]||0),0);
+    arr.push({cum,label:d.getDate()+' '+MESES[d.getMonth()]});
+  }
+  return arr;
+}
+
+/* ---- generadores SVG ---- */
+function svgLine(series){
+  const W=600,H=210,pl=10,pr=10,pt=14,pb=22,iw=W-pl-pr,ih=H-pt-pb,n=series.length;
+  const max=Math.max(1,...series.map(p=>p.cum));
+  const x=i=>pl+(n<=1?iw/2:iw*i/(n-1)), y=v=>pt+ih-(v/max)*ih;
+  const line=series.map((p,i)=>(i?'L':'M')+x(i).toFixed(1)+' '+y(p.cum).toFixed(1)).join(' ');
+  const area='M'+x(0).toFixed(1)+' '+(pt+ih)+' '+series.map((p,i)=>'L'+x(i).toFixed(1)+' '+y(p.cum).toFixed(1)).join(' ')+' L'+x(n-1).toFixed(1)+' '+(pt+ih)+' Z';
+  let grid='';for(let g=0;g<=2;g++){const gv=max*g/2,gy=y(gv);grid+=`<line x1="${pl}" y1="${gy.toFixed(1)}" x2="${W-pr}" y2="${gy.toFixed(1)}" stroke="rgba(46,46,51,.6)"/><text x="${pl}" y="${(gy-4).toFixed(1)}" fill="#5C5A60" font-size="10">${fmtK(gv)}</text>`}
+  const idxs=n>1?[0,Math.floor((n-1)/2),n-1]:[0];
+  const xl=idxs.map(i=>`<text x="${x(i).toFixed(1)}" y="${H-5}" fill="#5C5A60" font-size="10" text-anchor="middle">${series[i].label}</text>`).join('');
+  return `<svg viewBox="0 0 ${W} ${H}"><defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(225,18,28,.35)"/><stop offset="1" stop-color="rgba(225,18,28,0)"/></linearGradient></defs>${grid}<path d="${area}" fill="url(#lg)"/><path d="${line}" fill="none" stroke="#E1121C" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="${x(n-1).toFixed(1)}" cy="${y(series[n-1].cum).toFixed(1)}" r="4" fill="#E1121C"/>${xl}</svg>`;
+}
+function svgBars(items,money){
+  const W=600,H=240,pt=26,pb=48,pl=10,pr=10,iw=W-pl-pr,ih=H-pt-pb;
+  const max=Math.max(1,...items.map(d=>d.value)),n=items.length||1,slot=iw/n,bw=Math.min(70,slot*0.6);
+  const bars=items.map((d,i)=>{
+    const h=(d.value/max)*ih,X=pl+slot*i+(slot-bw)/2,Y=pt+ih-h,col=d.color||'#36C26B';
+    const val=money?fmtK(d.value):d.value;
+    const lbl=(d.label||'').length>13?(d.label.slice(0,12)+'…'):d.label;
+    return `<rect x="${X.toFixed(1)}" y="${Y.toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(0,h).toFixed(1)}" rx="5" fill="${col}"/>
+      <text x="${(X+bw/2).toFixed(1)}" y="${(Y-7).toFixed(1)}" fill="#F2F0EE" font-size="12" font-weight="700" text-anchor="middle">${val}</text>
+      <text x="${(X+bw/2).toFixed(1)}" y="${H-28}" fill="#8C8A90" font-size="11" text-anchor="middle">${esc(lbl)}</text>
+      ${d.sub?`<text x="${(X+bw/2).toFixed(1)}" y="${H-12}" fill="#5C5A60" font-size="10" text-anchor="middle">${esc(d.sub)}</text>`:''}`;
+  }).join('');
+  return `<svg viewBox="0 0 ${W} ${H}"><line x1="${pl}" y1="${pt+ih}" x2="${W-pr}" y2="${pt+ih}" stroke="rgba(46,46,51,.8)"/>${bars}</svg>`;
+}
+function svgPie(items){
+  const total=items.reduce((s,d)=>s+d.value,0)||1,cx=110,cy=110,r=92,ir=54;
+  let ang=-Math.PI/2,segs='';
+  items.forEach(d=>{
+    const frac=d.value/total,a2=ang+frac*Math.PI*2;
+    if(frac>=0.999){segs+=`<circle cx="${cx}" cy="${cy}" r="${(r+ir)/2}" fill="none" stroke="${d.color}" stroke-width="${r-ir}"/>`;}
+    else if(frac>0){
+      const x1=cx+r*Math.cos(ang),y1=cy+r*Math.sin(ang),x2=cx+r*Math.cos(a2),y2=cy+r*Math.sin(a2);
+      const xi2=cx+ir*Math.cos(a2),yi2=cy+ir*Math.sin(a2),xi1=cx+ir*Math.cos(ang),yi1=cy+ir*Math.sin(ang),large=frac>0.5?1:0;
+      segs+=`<path d="M${x1.toFixed(1)} ${y1.toFixed(1)} A${r} ${r} 0 ${large} 1 ${x2.toFixed(1)} ${y2.toFixed(1)} L${xi2.toFixed(1)} ${yi2.toFixed(1)} A${ir} ${ir} 0 ${large} 0 ${xi1.toFixed(1)} ${yi1.toFixed(1)} Z" fill="${d.color}"/>`;
+    }
+    ang=a2;
+  });
+  return `<svg viewBox="0 0 220 220" style="max-width:230px;margin:6px auto">${segs}<text x="110" y="104" fill="#8C8A90" font-size="11" text-anchor="middle">TOTAL</text><text x="110" y="125" fill="#F2F0EE" font-size="16" font-weight="800" text-anchor="middle">${fmtK(total)}</text></svg>`;
+}
+function occBar(pct,color,name,sub,right){
+  return `<div class="occ-row"><div class="oname">${esc(name)}${sub?`<small>${esc(sub)}</small>`:''}</div>
+    <div class="occ-bar"><i style="width:${Math.min(100,pct)}%;background:${color}"></i></div>
+    <div class="occ-pct" style="color:${color}">${right}</div></div>`;
+}
+
+/* ---- render principal ---- */
+function renderStats(){
+  const el=document.getElementById('stats-content');
+  if(ROLE==='musico') renderStatsMusico(el); else renderStatsLocal(el);
+}
+
+function renderStatsMusico(el){
+  document.getElementById('stats-title').textContent='Mis estadísticas';
+  const ev=closedMusico(statsDays);
+  const total=ev.reduce((s,e)=>s+e.ganancia,0);
+  const prom=ev.length?Math.round(total/ev.length):0;
+  const conCuota=ev.filter(e=>{const c=acuerdoDe(e.local);return c&&e.asistentes>=c.cuota}).length;
+  const proy=Math.round(total/statsDays*30);
+  document.getElementById('stats-sub').textContent=`Últimos ${statsDays} días · proyección a 30 días: ${fmtMoney(proy)}`;
+  if(!ev.length){el.innerHTML=statsEmpty('musico');return}
+
+  // alerta pagos pendientes >7 días
+  const pend=ev.filter(e=>!e.pagado&&diasDesde(e.fecha)>7);
+  const pendMonto=pend.reduce((s,e)=>s+e.ganancia,0);
+  const alerta=pend.length
+    ?`<div class="alert red">🔴 <div><b>${pend.length} pago(s) atrasado(s)</b> — ${fmtMoney(pendMonto)} sin recibir tras más de 7 días. Revísalos en la tabla y haz seguimiento al local.</div></div>`
+    :`<div class="alert green">🟢 <div><b>Sin pagos atrasados.</b> Todos tus shows cerrados están al día.</div></div>`;
+
+  // gráfico por show (últimos 6)
+  const last=ev.slice(-6).map(e=>({label:e.local||e.nombre,value:e.ganancia,sub:fmtDay(e.fecha).n+' '+fmtDay(e.fecha).m,color:e.pagado?'#36C26B':'#E6A726'}));
+  // torta métodos de pago
+  const metMap={};ev.forEach(e=>{metMap[e.metodo_pago]=(metMap[e.metodo_pago]||0)+e.ganancia});
+  const met=Object.entries(metMap).map(([k,v],i)=>({label:k,value:v,color:PIE_COLORS[i%PIE_COLORS.length]}));
+  // comparativa cuota
+  const occRows=ev.slice(-6).reverse().map(e=>{const c=acuerdoDe(e.local),cuota=c?c.cuota:0;
+    const ok=cuota&&e.asistentes>=cuota,col=!cuota?'#8C8A90':(ok?'#36C26B':'#E6A726');
+    const pct=cuota?e.asistentes/cuota*100:100;
+    return occBar(pct,col,e.local||e.nombre,fmtDay(e.fecha).n+' '+fmtDay(e.fecha).m,cuota?e.asistentes+'/'+cuota:e.asistentes)}).join('');
+
+  el.innerHTML=`
+    ${alerta}
+    <div class="grid g-3" style="margin-bottom:16px">
+      <div class="card accent stat-mini"><div class="big">${fmtMoney(total)}</div><div class="lbl">Ingreso total</div></div>
+      <div class="card stat-mini"><div class="big">${fmtMoney(prom)}</div><div class="lbl">Promedio por show</div></div>
+      <div class="card stat-mini"><div class="big">${conCuota}/${ev.length}</div><div class="lbl">Cumplieron la cuota</div></div>
+    </div>
+    <div class="chart-card" style="margin-bottom:16px"><h3>Ingresos acumulados</h3><div class="csub">Cómo creció tu ganancia en los últimos ${statsDays} días</div>${svgLine(cumSeries(ev,statsDays,'ganancia'))}</div>
+    <div class="chart-card" style="margin-bottom:16px"><h3>Ganancia por show</h3><div class="csub">Tus shows más recientes · verde = pagado, ámbar = pendiente</div>${svgBars(last,true)}</div>
+    <div class="grid g-2" style="margin-bottom:16px">
+      <div class="chart-card"><h3>Métodos de pago</h3><div class="csub">De dónde viene tu ingreso</div>${svgPie(met)}
+        <div class="legend">${met.map(m=>`<span class="lg"><span class="dot" style="background:${m.color}"></span>${esc(m.label)} · <b>${fmtMoney(m.value)}</b></span>`).join('')}</div></div>
+      <div class="chart-card"><h3>Cumplimiento de cuota</h3><div class="csub">Asistentes vs. mínimo acordado por show</div>${occRows||'<div class="empty">Sin datos de cuota</div>'}</div>
+    </div>
+    <div class="listcard">
+      <div class="lc-head"><h3>Historial de shows</h3></div>
+      <div style="overflow-x:auto"><table class="stbl"><thead><tr><th>Fecha</th><th>Local</th><th>Asistentes</th><th>Ganancia</th><th class="hide-sm">Método</th><th>Estado</th></tr></thead><tbody>
+      ${[...ev].reverse().map(e=>{const c=acuerdoDe(e.local),cuota=c?c.cuota:null;
+        const cuotaTxt=cuota?`${e.asistentes} / ${cuota}`:e.asistentes;
+        const cuotaCol=cuota&&e.asistentes<cuota?'color:var(--warn)':'';
+        const estado=e.pagado?'<span class="chip chip-ok">Pagado</span>':(diasDesde(e.fecha)>7?'<span class="chip chip-red">Atrasado</span>':'<span class="chip chip-warn">Por cobrar</span>');
+        const accion=e.pagado?`<button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openCerrar(${e.id})">Editar</button>`:`<button class="btn btn-prim btn-sm" onclick="event.stopPropagation();markPaid(${e.id})">Marcar pagado</button>`;
+        return `<tr class="clk" onclick="verEvento(${e.id})"><td>${fmtDay(e.fecha).n} ${fmtDay(e.fecha).m}</td><td>${esc(e.local||'—')}</td><td class="num" style="${cuotaCol}">${cuotaTxt}</td><td class="num">${fmtMoney(e.ganancia)}</td><td class="hide-sm">${esc(e.metodo_pago||'—')}</td><td style="display:flex;gap:8px;align-items:center;justify-content:space-between">${estado}${accion}</td></tr>`;
+      }).join('')}
+      </tbody></table></div>
+    </div>`;
+}
+
+function renderStatsLocal(el){
+  document.getElementById('stats-title').textContent='Rentabilidad de tu local';
+  const ev=closedLocal(statsDays);
+  const total=ev.reduce((s,e)=>s+(e.gananciaLocal||0),0);
+  const prom=ev.length?Math.round(total/ev.length):0;
+  const cap=DB.capacidades[DB.miLocal]||Math.max(1,...ev.map(e=>e.asistentes||0));
+  const ocupProm=ev.length?Math.round(ev.reduce((s,e)=>s+e.asistentes/cap*100,0)/ev.length):0;
+  const proy=Math.round(total/statsDays*30);
+  document.getElementById('stats-sub').textContent=`Últimos ${statsDays} días · proyección a 30 días: ${fmtMoney(proy)}`;
+  if(!ev.length){el.innerHTML=statsEmpty('local');return}
+
+  const alerta=ocupProm<50
+    ?`<div class="alert red">🔴 <div><b>Ocupación baja (${ocupProm}%)</b> — en promedio tu local va a menos de la mitad. Considera revisar agenda, difusión o el tipo de bandas.</div></div>`
+    :ocupProm<75
+    ?`<div class="alert amber">🟡 <div><b>Ocupación media (${ocupProm}%)</b> — hay espacio para llenar más. Las bandas que más convocan están abajo.</div></div>`
+    :`<div class="alert green">🟢 <div><b>Buena ocupación (${ocupProm}%)</b> — tu local está convocando bien. 🔥</div></div>`;
+
+  // ingreso por banda (top 5)
+  const bandMap={};ev.forEach(e=>{bandMap[e.banda]=(bandMap[e.banda]||0)+e.gananciaLocal});
+  const bands=Object.entries(bandMap).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const maxBand=bands.length?bands[0][1]:0;
+  const bandBars=bands.map(([k,v])=>({label:k,value:v,color:v===maxBand?'#E1121C':'#36C26B'}));
+  const topBanda=bands.length?bands[0][0]:'—';
+
+  // ocupación vs capacidad (últimos 5)
+  const occRows=ev.slice(-5).reverse().map(e=>{const pct=Math.round(e.asistentes/cap*100);
+    const col=pct>=75?'#36C26B':(pct>=50?'#E6A726':'#ff5862');
+    return occBar(pct,col,e.banda,fmtDay(e.fecha).n+' '+fmtDay(e.fecha).m+' · '+e.asistentes+' pers.',pct+'%')}).join('');
+
+  // top shows por asistentes
+  const top=[...ev].sort((a,b)=>b.asistentes-a.asistentes).slice(0,5);
+
+  el.innerHTML=`
+    ${alerta}
+    <div class="grid g-3" style="margin-bottom:16px">
+      <div class="card accent stat-mini"><div class="big">${fmtMoney(total)}</div><div class="lbl">Ingresos totales</div></div>
+      <div class="card stat-mini"><div class="big">${fmtMoney(prom)}</div><div class="lbl">Promedio por evento</div></div>
+      <div class="card stat-mini"><div class="big">${ocupProm}%</div><div class="lbl">Ocupación promedio</div></div>
+    </div>
+    <div class="chart-card" style="margin-bottom:16px"><h3>Ingresos acumulados</h3><div class="csub">Lo que generó tu local en los últimos ${statsDays} días</div>${svgLine(cumSeries(ev,statsDays,'gananciaLocal'))}</div>
+    <div class="chart-card" style="margin-bottom:16px"><h3>Ingreso por banda</h3><div class="csub">Top 5 · en rojo, la más rentable (${esc(topBanda)})</div>${svgBars(bandBars,true)}</div>
+    <div class="grid g-2" style="margin-bottom:16px">
+      <div class="chart-card"><h3>Ocupación vs. capacidad</h3><div class="csub">Capacidad estimada: ${cap} personas</div>${occRows}</div>
+      <div class="chart-card"><h3>Shows más concurridos</h3><div class="csub">Top 5 por asistencia</div>
+        <div style="overflow-x:auto"><table class="stbl"><thead><tr><th>Banda</th><th>Fecha</th><th>Pers.</th><th>Ingreso</th></tr></thead><tbody>
+        ${top.map(e=>`<tr><td>${esc(e.banda)}</td><td>${fmtDay(e.fecha).n} ${fmtDay(e.fecha).m}</td><td class="num">${e.asistentes}</td><td class="num">${fmtMoney(e.gananciaLocal)}</td></tr>`).join('')}
+        </tbody></table></div></div>
+    </div>`;
+}
+function statsEmpty(role){
+  return `<div class="card empty"><b>Aún no hay shows cerrados</b>${role==='musico'
+    ?'Cuando termine un show, ábrelo en tu agenda y toca “Registrar resultado” para ver acá tus ingresos.'
+    :'Cuando se hagan shows en tu local con resultado registrado, verás aquí tu rentabilidad y ocupación.'}</div>`;
+}
+
+/* ---- cerrar show / registrar resultado ---- */
+let csEditId=null, csManualFlag=false;
+function openCerrar(id){
+  const e=DB.eventos.find(x=>x.id===id);if(!e)return;
+  csEditId=id;
+  csManualFlag=!!(e.bruto&&(!e.asistentes||e.bruto!==e.asistentes*PRECIO_ENTRADA));
+  close_('ov-evdet');
+  document.getElementById('cs-title').textContent=(e.ganancia?'Editar resultado · ':'Registrar resultado · ')+e.nombre;
+  document.getElementById('cs-info').textContent=e.ganancia?'Actualiza cómo te fue en este show.':'Anota cómo te fue: con esto se arman tus estadísticas de ingresos.';
+  document.getElementById('cs-asist').value=e.asistentes||'';
+  document.getElementById('cs-precio').value=PRECIO_ENTRADA;
+  document.getElementById('cs-bruto').value=e.bruto||'';
+  document.getElementById('cs-metodo').value=e.metodo_pago||(acuerdoDe(e.local)?acuerdoDe(e.local).pago:'Transferencia, mismo día');
+  document.getElementById('cs-pagado').checked=!!e.pagado;
+  csRecalc();
+  document.getElementById('ov-cerrar').classList.add('show');
+}
+function csRecalc(){
+  const asist=+val('cs-asist')||0, precio=+val('cs-precio')||0;
+  if(!csManualFlag){const b=asist*precio;document.getElementById('cs-bruto').value=b||'';}
+  const e=DB.eventos.find(x=>x.id===csEditId);
+  const c=e?acuerdoDe(e.local):null, cuota=c?c.cuota:null;
+  document.getElementById('cs-cuota').textContent=cuota?(asist>=cuota?'✓ Cumple la cuota ('+cuota+')':'Bajo la cuota mínima ('+cuota+')'):'';
+  csReparto();
+}
+function csManual(){csManualFlag=true;csReparto()}
+function csReparto(){
+  const e=DB.eventos.find(x=>x.id===csEditId);if(!e)return;
+  const bruto=+val('cs-bruto')||0, rep=repartoDe(e.local), gM=Math.round(bruto*rep/100), gL=bruto-gM;
+  document.getElementById('cs-reparto-box').innerHTML=
+    `<div class="kv"><span class="k">Reparto acordado ${e.local?'· '+esc(e.local):'(sin acuerdo)'}</span><span class="v">${rep}% / ${100-rep}%</span></div>
+     <div class="kv"><span class="k">Para la banda</span><span class="v" style="color:var(--ok)">${fmtMoney(gM)}</span></div>
+     <div class="kv"><span class="k">Para el local</span><span class="v">${fmtMoney(gL)}</span></div>`;
+}
+function saveCerrar(){
+  const e=DB.eventos.find(x=>x.id===csEditId);if(!e)return;
+  const asist=+val('cs-asist')||0, bruto=+val('cs-bruto')||0;
+  if(!asist){toast('Ingresa los asistentes');return}
+  const rep=repartoDe(e.local);
+  e.asistentes=asist; e.bruto=bruto;
+  e.ganancia=Math.round(bruto*rep/100); e.gananciaLocal=bruto-e.ganancia;
+  e.metodo_pago=val('cs-metodo');
+  e.pagado=document.getElementById('cs-pagado').checked;
+  e.fecha_pago=e.pagado?(e.fecha_pago||new Date().toISOString().slice(0,10)):null;
+  if(e.estado!=='confirmado')e.estado='confirmado';
+  close_('ov-cerrar');persist();renderAll();toast('Resultado guardado ✓');
+}
+function markPaid(id){
+  const e=DB.eventos.find(x=>x.id===id);if(!e)return;
+  e.pagado=true;e.fecha_pago=new Date().toISOString().slice(0,10);
+  persist();renderStats();toast('Pago registrado ✓');
+}
+
+/* ===== TUTORIAL GUIADO ===== */
+const TOURS={
+  musico:[
+    {sel:'.brand',v:'inicio',t:'Tu espacio',d:'Esta es la cuenta de músico. Todo lo de tus shows vive acá: acuerdos, fichas de los locales y tu agenda.'},
+    {sel:'.nav-item[data-v="acuerdos"]',v:'inicio',t:'Acuerdos',d:'Guarda lo conversado con cada local: reparto, asistencia mínima y forma de pago. Por escrito y sin letra chica.'},
+    {sel:'.nav-item[data-v="fichas"]',v:'fichas',t:'Fichas técnicas',d:'Acá ves el backline real que publica cada local. Tú solo las consultas para saber qué hay y qué llevar.'},
+    {sel:'.nav-item[data-v="agenda"]',v:'agenda',t:'Agenda',d:'Tus fechas con prueba de sonido, hora y pendientes. Cada una se confirma cuando el show está cerrado.'},
+    {sel:'.nav-item[data-v="stats"]',v:'stats',t:'Estadísticas',d:'Cuánto ganaste, qué shows rindieron más y qué pagos siguen pendientes. Cierra cada show para alimentar estos números.'},
+    {sel:'#home-cta',v:'inicio',t:'Empieza acá',d:'Crea tu primer acuerdo desde este botón. ¡Eso es todo, explora a tu ritmo!'},
+  ],
+  local:[
+    {sel:'.brand',v:'inicio',t:'Panel del local',d:'Esta es la cuenta de local. Desde acá mantienes la información que los músicos verán al tocar contigo.'},
+    {sel:'.nav-item[data-v="fichas"]',v:'fichas',t:'Tu ficha técnica',d:'Acá publicas el backline real de tu local. Es tuya: solo tú la editas, y es lo que verán los músicos.'},
+    {sel:'.nav-item[data-v="stats"]',v:'stats',t:'Estadísticas',d:'La rentabilidad de tu local: ingresos, ocupación promedio y qué bandas convocan más público.'},
+    {sel:'#home-cta',v:'inicio',t:'Mantenla al día',d:'Edita tu ficha desde este botón. Si pasa más de un mes sin actualizar, te avisamos para que siga siendo confiable.'},
+  ]
+};
+let tour=[], ti=0;
+
+function askTour(r){
+  document.getElementById('tut-ask-title').textContent = r==='musico'?'¿Te muestro cómo funciona?':'¿Te muestro el panel?';
+  document.getElementById('tut-ask').classList.add('show');
+}
+function declineTour(){document.getElementById('tut-ask').classList.remove('show')}
+function startTour(){
+  document.getElementById('tut-ask').classList.remove('show');
+  tour=TOURS[ROLE]; ti=0;
+  document.getElementById('tut-dim').classList.add('show');
+  document.getElementById('tut-skip').hidden=false;
+  document.getElementById('tut-ring').style.display='block';
+  document.getElementById('tut-pop').style.display='block';
+  renderDots();
+  showStep();
+}
+function renderDots(){
+  document.getElementById('tut-dots').innerHTML=tour.map((_,i)=>`<i class="${i===ti?'on':''}"></i>`).join('');
+}
+function showStep(){
+  const s=tour[ti];
+  if(s.v){ const cur=document.querySelector('.view.show'); if(!cur||cur.dataset.view!==s.v) go(s.v); }
+  // dar tiempo a que cambie de vista / renderice
+  requestAnimationFrame(()=>requestAnimationFrame(()=>placeStep(s)));
+}
+function placeStep(s){
+  const el=document.querySelector(s.sel);
+  // en móvil, si el objetivo vive en el sidebar, ábrelo para que sea visible
+  if(el && el.closest('aside') && innerWidth<=780){ document.getElementById('aside').classList.add('open'); }
+  const ring=document.getElementById('tut-ring'), pop=document.getElementById('tut-pop');
+  document.getElementById('tut-step').textContent='Paso '+(ti+1)+' de '+tour.length;
+  document.getElementById('tut-h').textContent=s.t;
+  document.getElementById('tut-p').textContent=s.d;
+  document.getElementById('tut-prev').style.visibility = ti===0?'hidden':'visible';
+  document.getElementById('tut-next').textContent = ti===tour.length-1?'Terminar':'Siguiente';
+  renderDots();
+
+  if(!el){ // fallback: centrar
+    ring.style.display='none';
+    pop.style.left='50%'; pop.style.top='50%'; pop.style.transform='translate(-50%,-50%)';
+    return;
+  }
+  ring.style.display='block';
+  const r=el.getBoundingClientRect(), pad=8;
+  ring.style.left=(r.left-pad)+'px'; ring.style.top=(r.top-pad)+'px';
+  ring.style.width=(r.width+pad*2)+'px'; ring.style.height=(r.height+pad*2)+'px';
+
+  // posicionar pop: a la derecha si cabe, si no abajo o sobre
+  pop.style.transform='none';
+  const pw=300, ph=pop.offsetHeight||180, gap=16, vw=innerWidth, vh=innerHeight;
+  let left, top;
+  if(r.right+gap+pw < vw){ left=r.right+gap; top=Math.min(Math.max(12,r.top), vh-ph-12); }
+  else if(r.bottom+gap+ph < vh){ left=Math.min(Math.max(12,r.left), vw-pw-12); top=r.bottom+gap; }
+  else { left=Math.min(Math.max(12,r.left), vw-pw-12); top=Math.max(12,r.top-ph-gap); }
+  pop.style.left=left+'px'; pop.style.top=top+'px';
+}
+function tourNext(){ if(ti<tour.length-1){ti++;showStep();} else endTour(true); }
+function tourPrev(){ if(ti>0){ti--;showStep();} }
+function endTour(done){
+  document.getElementById('tut-dim').classList.remove('show');
+  document.getElementById('tut-skip').hidden=true;
+  document.getElementById('tut-ring').style.display='none';
+  document.getElementById('tut-pop').style.display='none';
+  go('inicio');
+  if(done) toast('¡Listo! Explora a tu ritmo 🎸');
+}
+addEventListener('resize',()=>{ if(document.getElementById('tut-dim').classList.contains('show')) placeStep(tour[ti]); });
+
+load();
+</script>
+</body>
+</html>
