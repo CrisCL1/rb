@@ -224,8 +224,52 @@
   .tut-ask .box .row2{display:flex;gap:10px}
   .tut-ask .box .row2 .btn{flex:1;justify-content:center}
 
+  /* ---- mobile sticky bar ---- */
+  .mobile-bar{display:none;position:sticky;top:0;z-index:80;background:var(--carbon);border-bottom:1px solid var(--linea);padding:10px 16px;align-items:center;gap:10px}
+  .mobile-bar .mb-title{font-size:16px;font-weight:800;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+  /* ---- simulador ---- */
+  .sim-result{background:var(--panel-2);border-radius:12px;padding:18px;margin-top:16px;border:1px solid var(--linea)}
+  .sim-big{font-family:"Arial Black",Impact,sans-serif;font-size:36px;letter-spacing:-1px;line-height:1;margin:6px 0}
+  .sim-ok{color:var(--ok)}.sim-warn{color:var(--warn)}.sim-red{color:#ff5862}
+  .sim-row{display:flex;justify-content:space-between;font-size:13px;padding:7px 0;border-bottom:1px solid rgba(46,46,51,.5)}
+  .sim-row:last-child{border-bottom:none}
+
+  /* ---- tareas ---- */
+  .task-row{display:flex;align-items:center;gap:12px;padding:13px 20px;border-bottom:1px solid var(--linea)}
+  .task-row:last-child{border-bottom:none}
+  .task-check{width:22px;height:22px;border-radius:7px;border:2px solid var(--linea);cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;transition:.14s;touch-action:manipulation;background:none;color:transparent}
+  .task-check.done{background:var(--ok);border-color:var(--ok);color:#fff}
+  .task-lead{flex:1;min-width:0}
+  .task-lead b{font-size:14px;display:block;margin-bottom:2px}
+  .task-lead span{font-size:12px;color:var(--gris)}
+  .done-text b{text-decoration:line-through;opacity:.5}
+
+  /* ---- alertas legales ---- */
+  .legal-card{background:var(--panel);border:1px solid var(--linea);border-radius:14px;padding:18px;margin-bottom:12px}
+  .legal-card h4{font-size:15px;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .legal-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--linea);font-size:13px;gap:12px}
+  .legal-row:last-child{border-bottom:none}
+  .legal-row .lk{color:var(--gris);flex:1}
+
+  /* ---- QR conectividad ---- */
+  .qr-card{background:var(--panel);border:1px solid var(--linea);border-radius:14px;padding:20px;text-align:center;margin-bottom:12px}
+  .qr-visual{width:130px;height:130px;margin:14px auto;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:10px}
+  .qr-visual svg{width:100%;height:100%}
+  .copy-link{width:100%;justify-content:center;margin-top:10px}
+
+  /* ---- buscador ---- */
+  .filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .fchip{background:var(--panel);border:1px solid var(--linea);border-radius:20px;padding:7px 14px;font-size:12.5px;font-weight:700;cursor:pointer;color:var(--gris);transition:.14s;touch-action:manipulation;-webkit-appearance:none;appearance:none}
+  .fchip.on{background:var(--rojo);border-color:var(--rojo);color:#fff}
+  .venue-card{background:var(--panel);border:1px solid var(--linea);border-radius:14px;padding:18px;margin-bottom:10px}
+  .venue-card h4{font-size:16px;font-weight:800;margin-bottom:2px}
+  .venue-meta{font-size:12.5px;color:var(--gris);margin-bottom:10px}
+  .stars{color:var(--warn);letter-spacing:1px;font-size:15px}
+
   .burger{display:none}
   @media(max-width:780px){
+    .mobile-bar{display:flex}
     aside{position:fixed;left:0;top:0;z-index:90;-webkit-transform:translateX(-100%);transform:translateX(-100%);-webkit-transition:.25s;transition:.25s;box-shadow:0 0 50px rgba(0,0,0,.6);overflow-y:auto;-webkit-overflow-scrolling:touch}
     aside.open{-webkit-transform:translateX(0);transform:translateX(0)}
     main{padding:20px 18px 60px}
@@ -286,6 +330,11 @@
       <button class="nav-item" data-v="acuerdos" data-role="musico"><span class="ic">▤</span> Acuerdos</button>
       <button class="nav-item" data-v="fichas"><span class="ic">♪</span> Fichas técnicas</button>
       <button class="nav-item" data-v="agenda" data-role="musico"><span class="ic">▦</span> Agenda</button>
+      <button class="nav-item" data-v="simulador" data-role="musico"><span class="ic">💰</span> Simulador</button>
+      <button class="nav-item" data-v="tareas" data-role="musico"><span class="ic">✓</span> Tareas</button>
+      <button class="nav-item" data-v="alertas"><span class="ic">⚠</span> Alertas legales</button>
+      <button class="nav-item" data-v="qr" data-role="musico"><span class="ic">◈</span> QR & Público</button>
+      <button class="nav-item" data-v="buscador"><span class="ic">🔍</span> Buscador</button>
       <button class="nav-item" data-v="stats"><span class="ic">📊</span> Estadísticas</button>
     </nav>
 
@@ -298,13 +347,18 @@
     </div>
   </aside>
 
-  <main>
+  <main id="main">
+    <!-- BARRA MÓVIL PERSISTENTE -->
+    <div class="mobile-bar" id="mobile-bar">
+      <button class="btn btn-ghost btn-sm" id="burger" style="padding:8px 12px">☰</button>
+      <span class="mb-title" id="mb-title">Inicio</span>
+    </div>
+
     <!-- INICIO -->
     <section class="view show" data-view="inicio">
       <div class="topline">
         <div>
-          <button class="btn btn-ghost btn-sm burger" id="burger">☰</button>
-          <h1 style="display:inline-block;margin-left:6px" id="home-title">Hola de nuevo 🎸</h1>
+          <h1 id="home-title">Hola de nuevo 🎸</h1>
           <div class="sub" id="home-sub">Todo lo de tus shows, en un solo lugar.</div>
         </div>
         <div id="home-cta"></div>
@@ -346,6 +400,68 @@
       <div class="listcard" id="list-agenda"></div>
     </section>
 
+    <!-- SIMULADOR DE RENTABILIDAD -->
+    <section class="view" data-view="simulador">
+      <div class="topline">
+        <div><h1>Simulador de rentabilidad</h1><div class="sub">Proyecta si un show vale la pena antes de aceptarlo.</div></div>
+      </div>
+      <div class="grid g-2" style="margin-bottom:16px">
+        <div class="card">
+          <div class="sectitle" style="margin-top:0">Ingresos esperados</div>
+          <div class="field"><label>Asistentes estimados</label><input type="number" id="sim-asist" value="40" oninput="calcSim()"></div>
+          <div class="field"><label>Precio entrada (CLP)</label><input type="number" id="sim-precio" value="5000" oninput="calcSim()"></div>
+          <div class="field"><label>Reparto para la banda (%)</label><input type="number" id="sim-rep" value="60" min="0" max="100" oninput="calcSim()"></div>
+          <div class="sectitle">Costos del show</div>
+          <div class="field"><label>Flete / transporte (CLP)</label><input type="number" id="sim-flete" value="15000" oninput="calcSim()"></div>
+          <div class="field"><label>Arriendo equipos adicionales</label><input type="number" id="sim-equip" value="0" oninput="calcSim()"></div>
+          <div class="field"><label>Seguro de sala / cuota mínima</label><input type="number" id="sim-seguro" value="0" oninput="calcSim()"></div>
+          <div class="field"><label>Otros costos</label><input type="number" id="sim-otros" value="0" oninput="calcSim()"></div>
+        </div>
+        <div>
+          <div class="sim-result" id="sim-result">
+            <div style="font-size:12px;color:var(--gris);text-transform:uppercase;letter-spacing:1px">Ganancia neta estimada</div>
+            <div class="sim-big sim-ok" id="sim-total">$0</div>
+            <div id="sim-desglose"></div>
+          </div>
+          <div class="card" style="margin-top:12px" id="sim-consejo"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAREAS DEL EQUIPO -->
+    <section class="view" data-view="tareas">
+      <div class="topline">
+        <div><h1>Tareas del equipo</h1><div class="sub">Reparte la carga: que nadie lo coordine todo solo.</div></div>
+        <button class="btn btn-prim" onclick="openTarea()">+ Nueva tarea</button>
+      </div>
+      <div class="listcard" id="list-tareas"></div>
+    </section>
+
+    <!-- ALERTAS LEGALES -->
+    <section class="view" data-view="alertas">
+      <div class="topline">
+        <div><h1>Alertas legales</h1><div class="sub">Ruidos molestos, patentes y restricciones por local.</div></div>
+      </div>
+      <div id="alertas-content"></div>
+    </section>
+
+    <!-- QR & CONECTIVIDAD -->
+    <section class="view" data-view="qr">
+      <div class="topline">
+        <div><h1>QR & Público nuevo</h1><div class="sub">Rompe el círculo de amigos y familia. Que el público nuevo te siga desde el escenario.</div></div>
+      </div>
+      <div id="qr-content"></div>
+    </section>
+
+    <!-- BUSCADOR DE LOCALES -->
+    <section class="view" data-view="buscador">
+      <div class="topline">
+        <div><h1>Buscador de locales</h1><div class="sub" id="buscador-sub">Filtra por género, tamaño y calidad del trato.</div></div>
+      </div>
+      <div class="filter-bar" id="buscador-filtros"></div>
+      <div id="buscador-list"></div>
+    </section>
+
     <!-- ESTADÍSTICAS (ambos roles) -->
     <section class="view" data-view="stats">
       <div class="topline">
@@ -370,8 +486,16 @@
         <div class="field"><label>Reparto (% para ti)</label><input id="ac-reparto" type="number" min="0" max="100" placeholder="60"><div class="hint">El resto va al local</div></div>
         <div class="field"><label>Asistencia mínima</label><input id="ac-cuota" type="number" min="0" placeholder="35"><div class="hint">Personas para cumplir cuota</div></div>
       </div>
+      <div class="two">
+        <div class="field"><label>Seguro de sala (CLP)</label><input id="ac-seguro" type="number" min="0" placeholder="0"><div class="hint">Monto fijo si no se cumple cuota</div></div>
+        <div class="field"><label>Precio entrada (CLP)</label><input id="ac-precio-ent" type="number" min="0" placeholder="5000"></div>
+      </div>
       <div class="field"><label>Método de pago</label>
         <select id="ac-pago"><option>Transferencia, mismo día</option><option>Transferencia, 48 hrs</option><option>Efectivo al cierre</option><option>Por puerta (entradas)</option></select>
+      </div>
+      <div class="two">
+        <div class="field"><label>Hora carga / llegada</label><input id="ac-carga" type="time"><div class="hint">Hora de acceso al recinto</div></div>
+        <div class="field"><label>Contacto sonidista</label><input id="ac-sonidista" placeholder="Juan · +56 9 1234 5678"></div>
       </div>
       <div class="field"><label>Condiciones acordadas</label><textarea id="ac-cond" placeholder="Ej: si se suspende por el local, no hay costo para la banda. La cuota se mide con lista de entrada."></textarea><div class="hint">Escríbelo claro: esto es lo que firman ambos.</div></div>
     </div>
@@ -385,10 +509,44 @@
     <div class="modal-head"><h3 id="fi-title">Mi ficha técnica</h3><button class="x" onclick="close_('ov-ficha')">×</button></div>
     <div class="modal-body">
       <div class="field"><label>Nombre del local</label><input id="fi-local" placeholder="Bar Estación"></div>
+      <div class="two">
+        <div class="field"><label>Capacidad (personas)</label><input id="fi-cap" type="number" min="0" placeholder="80"></div>
+        <div class="field"><label>Edad mínima ingreso</label><input id="fi-edad" type="number" min="0" placeholder="18"></div>
+      </div>
+      <div class="field"><label>Especificaciones consola de sonido</label><input id="fi-consola" placeholder="Ej: Yamaha MG16, 16 canales"></div>
+      <div class="field"><label>Estado de mantenimiento</label>
+        <select id="fi-mant"><option value="bueno">Bueno — equipos en buen estado</option><option value="regular">Regular — algunos equipos con desgaste</option><option value="precario">Precario — equipos con fallas conocidas</option></select>
+      </div>
       <div class="field"><label>Equipos disponibles (uno por línea)</label><textarea id="fi-gear" placeholder="Batería&#10;Amplificador de bajo&#10;2 monitores&#10;3 micrófonos vocales"></textarea><div class="hint">Anota solo lo que de verdad hay en el local. Esto es lo que verán los músicos.</div></div>
       <div class="field"><label>Recomienda llevar</label><input id="fi-traer" placeholder="Cables, pedalera"></div>
+      <div class="two">
+        <div class="field"><label>Patente al día</label>
+          <select id="fi-patente"><option value="si">Sí</option><option value="no">No</option><option value="tramite">En trámite</option></select>
+        </div>
+        <div class="field"><label>Aislamiento acústico</label>
+          <select id="fi-acustico"><option value="si">Sí — sin ruidos molestos</option><option value="parcial">Parcial</option><option value="no">No — riesgo multa</option></select>
+        </div>
+      </div>
     </div>
     <div class="modal-foot"><button class="btn btn-ghost" onclick="close_('ov-ficha')">Cancelar</button><button class="btn btn-prim" onclick="saveFicha()">Publicar ficha</button></div>
+  </div>
+</div>
+
+<!-- MODAL TAREA -->
+<div class="overlay" id="ov-tarea">
+  <div class="modal">
+    <div class="modal-head"><h3>Nueva tarea</h3><button class="x" onclick="close_('ov-tarea')">×</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Descripción de la tarea</label><input id="ta-desc" placeholder="Ej: Reservar flete para el sábado"></div>
+      <div class="two">
+        <div class="field"><label>Responsable</label><input id="ta-quien" placeholder="Ej: Rodrigo"></div>
+        <div class="field"><label>Categoría</label>
+          <select id="ta-cat"><option>Logística</option><option>Cobros</option><option>Difusión</option><option>Equipo técnico</option><option>Coordinación</option><option>Otro</option></select>
+        </div>
+      </div>
+      <div class="field"><label>Fecha límite (opcional)</label><input id="ta-fecha" type="date"></div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="close_('ov-tarea')">Cancelar</button><button class="btn btn-prim" onclick="saveTarea()">Guardar tarea</button></div>
   </div>
 </div>
 
@@ -476,12 +634,26 @@
 let ROLE='musico';
 let DB={
   acuerdos:[
-    {id:1,local:"Peña El Trauco",reparto:60,cuota:35,pago:"Transferencia, mismo día",cond:"Si se suspende por el local, la banda no asume costos. La cuota mínima se mide con lista de entrada, no a ojo.",estado:"aceptado"},
-    {id:2,local:"Bar Estación",reparto:50,cuota:40,pago:"Por puerta (entradas)",cond:"Reparto 50/50 sobre puerta. El pago se entrega el mismo día sin descuentos no avisados.",estado:"pendiente"},
+    {id:1,local:"Peña El Trauco",reparto:60,cuota:35,seguro:0,precio_ent:5000,carga:"19:30",sonidista:"Carlos · +56 9 8812 3344",pago:"Transferencia, mismo día",cond:"Si se suspende por el local, la banda no asume costos. La cuota mínima se mide con lista de entrada, no a ojo.",estado:"aceptado"},
+    {id:2,local:"Bar Estación",reparto:50,cuota:40,seguro:30000,precio_ent:5000,carga:"20:00",sonidista:"Felipe · +56 9 7766 5544",pago:"Por puerta (entradas)",cond:"Reparto 50/50 sobre puerta. El pago se entrega el mismo día sin descuentos no avisados.",estado:"pendiente"},
   ],
   fichas:[
-    {id:1,local:"Bar Estación",gear:["Batería","Amplificador de bajo","2 monitores","3 micrófonos vocales"],traer:"Cables, pedalera",updated:daysAgo(9)},
-    {id:2,local:"Peña El Trauco",gear:["PA básico","1 micrófono"],traer:"Todo el backline",updated:daysAgo(48)},
+    {id:1,local:"Bar Estación",gear:["Batería","Amplificador de bajo","2 monitores","3 micrófonos vocales"],consola:"Yamaha MG16 — 16 canales",mant:"bueno",cap:80,edad:18,patente:"si",acustico:"parcial",traer:"Cables, pedalera",updated:daysAgo(9)},
+    {id:2,local:"Peña El Trauco",gear:["PA básico","1 micrófono"],consola:"Behringer Xenyx 802",mant:"regular",cap:60,edad:18,patente:"si",acustico:"si",traer:"Todo el backline",updated:daysAgo(48)},
+  ],
+  tareas:[
+    {id:201,desc:"Reservar flete para el show del sábado",quien:"Rodrigo",cat:"Logística",fecha:nextDate(4),done:false},
+    {id:202,desc:"Publicar el evento en Instagram",quien:"Valentina",cat:"Difusión",fecha:nextDate(3),done:false},
+    {id:203,desc:"Confirmar hora de prueba de sonido con Felipe",quien:"Diego",cat:"Coordinación",fecha:nextDate(2),done:true},
+    {id:204,desc:"Cobrar lo de la tocata pasada en Bar Estación",quien:"Diego",cat:"Cobros",fecha:"",done:false},
+  ],
+  social:{instagram:"@mibanda",youtube:"Mi Banda Oficial",spotify:"Mi Banda",web:""},
+  localesCatalogo:[
+    {id:1,nombre:"Bar Estación",comuna:"Santiago Centro",cap:80,generos:["Rock","Cumbia","Jazz"],trato:4,tecnico:4,desc:"Local consolidado con equipo propio. Reparto 50/50. Exige cuota de 40 personas mínimo.",patente:"si",acustico:"parcial"},
+    {id:2,nombre:"Peña El Trauco",comuna:"Barrio Italia",cap:60,generos:["Folklore","Rock","Fusión"],trato:5,tecnico:3,desc:"Trato directo con el dueño. Sin cuota mínima. Backline limitado: llevar casi todo.",patente:"si",acustico:"si"},
+    {id:3,nombre:"Club Mística",comuna:"Ñuñoa",cap:120,generos:["Electronic","Hip-Hop","R&B"],trato:3,tecnico:5,desc:"Excelente sonido y luces. Trato comercial duro: 40% para la banda en semana, 50% fines de semana.",patente:"si",acustico:"si"},
+    {id:4,nombre:"La Sala del Fondo",comuna:"Providencia",cap:50,generos:["Rock","Indie","Folk"],trato:4,tecnico:3,desc:"Espacio cultural independiente. Flexibles en horarios. Pago en efectivo el mismo día.",patente:"tramite",acustico:"parcial"},
+    {id:5,nombre:"Galpón Sur",comuna:"San Miguel",cap:200,generos:["Cumbia","Rock","Metal"],trato:3,tecnico:4,desc:"Local grande para bandas con convocatoria. Cuota mínima exigente (80 personas). Buen equipo.",patente:"si",acustico:"si"},
   ],
   eventos:[
     // --- próximas fechas (sin resultado cerrado todavía) ---
@@ -511,6 +683,9 @@ async function persist(){try{if(window.storage){await window.storage.set('errebe
 async function load(){try{if(window.storage){const r=await window.storage.get('errebe:db');if(r&&r.value){DB=JSON.parse(r.value)}}}catch(e){}
   // defaults por compatibilidad con datos guardados de versiones previas
   if(!DB.capacidades)DB.capacidades={"Bar Estación":80,"Peña El Trauco":60};
+  if(!DB.tareas)DB.tareas=[];
+  if(!DB.social)DB.social={instagram:'',youtube:'',spotify:'',web:''};
+  if(!DB.localesCatalogo)DB.localesCatalogo=[];
   DB.eventos.forEach(e=>{if(!e.banda)e.banda='Mi banda'});
 }
 
@@ -541,11 +716,13 @@ function applyRole(){
   });
 }
 
+const VIEW_TITLES={inicio:'Inicio',acuerdos:'Acuerdos','acuerdo-det':'Acuerdo',fichas:'Fichas técnicas',agenda:'Agenda',simulador:'Simulador',tareas:'Tareas',alertas:'Alertas legales',qr:'QR & Público',buscador:'Buscador',stats:'Estadísticas'};
 function go(v){
   document.querySelectorAll('.view').forEach(s=>s.classList.remove('show'));
   document.querySelector('.view[data-view="'+v+'"]').classList.add('show');
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.v===v));
   document.getElementById('aside').classList.remove('open');
+  const mb=document.getElementById('mb-title');if(mb)mb.textContent=VIEW_TITLES[v]||v;
   window.scrollTo(0,0);
   renderAll();
 }
@@ -563,7 +740,7 @@ function fmtK(n){n=Math.round(n||0);return n>=1000?'$'+(n/1000).toFixed(n%1000?1
 function acuerdoDe(local){return DB.acuerdos.find(a=>a.local===local)}
 function repartoDe(local){const a=acuerdoDe(local);return a?a.reparto:60}
 
-function renderAll(){renderInicio();renderAcuerdos();renderFichas();renderAgenda();renderStats()}
+function renderAll(){renderInicio();renderAcuerdos();renderFichas();renderAgenda();renderStats();renderTareas();renderAlertas();renderQR();renderBuscador();calcSim();}
 
 /* ----- INICIO ----- */
 function renderInicio(){
@@ -627,10 +804,14 @@ function verAcuerdo(id){
     <div class="card" style="max-width:620px">
       <div class="kv"><span class="k">Reparto de ganancia</span><span class="v">${a.reparto}% banda / ${100-a.reparto}% local</span></div>
       <div class="kv"><span class="k">Asistencia mínima</span><span class="v">${a.cuota} personas</span></div>
+      ${a.seguro?`<div class="kv"><span class="k">Seguro de sala</span><span class="v" style="color:var(--warn)">${fmtMoney(a.seguro)} si no se cumple cuota</span></div>`:''}
+      ${a.precio_ent?`<div class="kv"><span class="k">Precio entrada referencia</span><span class="v">${fmtMoney(a.precio_ent)}</span></div>`:''}
+      ${a.carga?`<div class="kv"><span class="k">Hora de carga / llegada</span><span class="v">${esc(a.carga)}</span></div>`:''}
+      ${a.sonidista?`<div class="kv"><span class="k">Contacto sonidista</span><span class="v">${esc(a.sonidista)}</span></div>`:''}
       <div class="kv"><span class="k">Método de pago</span><span class="v">${esc(a.pago)}</span></div></div>
     <div class="sectitle">Condiciones acordadas</div>
     <div class="card" style="max-width:620px;line-height:1.6">${esc(a.cond)||'<span style="color:var(--gris)">Sin condiciones extra.</span>'}</div>
-    <div style="margin-top:20px;display:flex;gap:10px">
+    <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap">
       ${a.estado!=='aceptado'?`<button class="btn btn-prim" onclick="aceptar(${a.id})">Marcar como aceptado</button>`:''}
       <button class="btn btn-ghost" onclick="delAcuerdo(${a.id})">Eliminar</button></div>`;
 }
@@ -640,15 +821,26 @@ function delAcuerdo(id){DB.acuerdos=DB.acuerdos.filter(x=>x.id!==id);persist();g
 /* ----- FICHAS ----- */
 function fichaCard(f,owner){
   const d=diffDays(f.updated)*-1, stale=d>30;
+  const mantChip=f.mant==='bueno'?'chip-ok':f.mant==='regular'?'chip-warn':'chip-red';
+  const mantLbl=f.mant==='bueno'?'Equipos en buen estado':f.mant==='regular'?'Estado regular':'Equipos con fallas';
+  const patChip=f.patente==='si'?'chip-ok':f.patente==='tramite'?'chip-warn':'chip-red';
+  const acuChip=f.acustico==='si'?'chip-ok':f.acustico==='parcial'?'chip-warn':'chip-red';
   return `<div class="card">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
       <b style="font-size:16px">${esc(f.local)}</b>
       ${owner?`<button class="btn btn-ghost btn-sm" onclick="openFicha()">Editar</button>`:`<span class="pill-role">Solo lectura</span>`}
     </div>
     <div class="fresh ${stale?'stale':''}"><span class="pulse"></span>${stale?'Desactualizada · hace '+d+' días':'Actualizada hace '+d+' días'}</div>
+    ${f.cap||f.edad?`<div style="display:flex;gap:12px;margin-top:10px;font-size:12.5px;color:var(--gris)">${f.cap?'<span>👥 Cap. '+f.cap+' pers.</span>':''}${f.edad?'<span>🔞 +'+f.edad+' años</span>':''}</div>`:''}
+    ${f.consola?`<div style="margin-top:10px;font-size:12.5px"><span style="color:var(--gris)">Consola: </span>${esc(f.consola)}</div>`:''}
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+      <span class="chip ${mantChip}">${mantLbl}</span>
+      ${f.patente?`<span class="chip ${patChip}">Patente: ${f.patente==='si'?'al día':f.patente==='tramite'?'en trámite':'sin patente'}</span>`:''}
+      ${f.acustico?`<span class="chip ${acuChip}">Acústica: ${f.acustico==='si'?'óptima':f.acustico==='parcial'?'parcial':'sin aislamiento'}</span>`:''}
+    </div>
     <div style="margin-top:12px">${f.gear.map(g=>`<div class="gear-row"><span>${esc(g)}</span><span class="chip chip-ok">Disponible</span></div>`).join('')}</div>
     ${f.traer?`<div style="margin-top:12px;font-size:13px;color:var(--warn)">⚠ Recomiendan llevar: ${esc(f.traer)}</div>`:''}
-    ${owner?`<div style="margin-top:14px;display:flex;gap:10px"><button class="btn btn-ghost btn-sm" onclick="refreshFicha(${f.id})">Marcar como vigente hoy</button></div>`:''}
+    ${owner?`<div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-ghost btn-sm" onclick="refreshFicha(${f.id})">Marcar como vigente hoy</button></div>`:''}
   </div>`;
 }
 function renderFichas(){
@@ -724,6 +916,12 @@ function openFicha(){
   document.getElementById('fi-local').value=f?f.local:DB.miLocal;
   document.getElementById('fi-gear').value=f?f.gear.join('\n'):'';
   document.getElementById('fi-traer').value=f?f.traer:'';
+  document.getElementById('fi-consola').value=f?f.consola||'':'';
+  document.getElementById('fi-mant').value=f?f.mant||'bueno':'bueno';
+  document.getElementById('fi-cap').value=f?f.cap||'':'';
+  document.getElementById('fi-edad').value=f?f.edad||18:18;
+  document.getElementById('fi-patente').value=f?f.patente||'si':'si';
+  document.getElementById('fi-acustico').value=f?f.acustico||'si':'si';
   document.getElementById('fi-title').textContent=f?'Editar mi ficha técnica':'Publicar mi ficha técnica';
   document.getElementById('ov-ficha').classList.add('show');
 }
@@ -737,20 +935,31 @@ function close_(id){document.getElementById(id).classList.remove('show')}
 
 function saveAcuerdo(){
   const local=val('ac-local');if(!local){toast('Falta el nombre del local');return}
-  DB.acuerdos.unshift({id:++seq,local,reparto:+val('ac-reparto')||0,cuota:+val('ac-cuota')||0,pago:val('ac-pago'),cond:val('ac-cond'),estado:'pendiente'});
-  clearForm(['ac-local','ac-reparto','ac-cuota','ac-cond']);close_('ov-acuerdo');persist();go('acuerdos');toast('Acuerdo guardado ✓');
+  DB.acuerdos.unshift({id:++seq,local,reparto:+val('ac-reparto')||0,cuota:+val('ac-cuota')||0,seguro:+val('ac-seguro')||0,precio_ent:+val('ac-precio-ent')||5000,carga:val('ac-carga'),sonidista:val('ac-sonidista'),pago:val('ac-pago'),cond:val('ac-cond'),estado:'pendiente'});
+  clearForm(['ac-local','ac-reparto','ac-cuota','ac-seguro','ac-precio-ent','ac-carga','ac-sonidista','ac-cond']);close_('ov-acuerdo');persist();go('acuerdos');toast('Acuerdo guardado ✓');
 }
 function saveFicha(){
   const local=val('fi-local');if(!local){toast('Falta el nombre del local');return}
   const gear=val('fi-gear').split('\n').map(x=>x.trim()).filter(Boolean);
   const ex=fichaDe(DB.miLocal);
   DB.miLocal=local;
-  if(ex){ex.local=local;ex.gear=gear;ex.traer=val('fi-traer');ex.updated=new Date().toISOString().slice(0,10);}
-  else{DB.fichas.unshift({id:++seq,local,gear,traer:val('fi-traer'),updated:new Date().toISOString().slice(0,10)});}
+  const fiData={local,gear,consola:val('fi-consola'),mant:val('fi-mant'),cap:+val('fi-cap')||0,edad:+val('fi-edad')||18,patente:val('fi-patente'),acustico:val('fi-acustico'),traer:val('fi-traer'),updated:new Date().toISOString().slice(0,10)};
+  if(ex){Object.assign(ex,fiData);}
+  else{DB.fichas.unshift({id:++seq,...fiData});}
   close_('ov-ficha');persist();
   document.getElementById('who-name').textContent=DB.miLocal;
   renderAll();toast('Ficha publicada ✓');
 }
+function openTarea(){document.getElementById('ov-tarea').classList.add('show')}
+function saveTarea(){
+  const desc=val('ta-desc');if(!desc){toast('Falta la descripción');return}
+  DB.tareas.unshift({id:++seq,desc,quien:val('ta-quien'),cat:val('ta-cat'),fecha:val('ta-fecha'),done:false});
+  clearForm(['ta-desc','ta-quien','ta-fecha']);close_('ov-tarea');persist();renderTareas();toast('Tarea guardada ✓');
+}
+function toggleTarea(id){
+  const t=DB.tareas.find(x=>x.id===id);if(t){t.done=!t.done;persist();renderTareas();}
+}
+function delTarea(id){DB.tareas=DB.tareas.filter(x=>x.id!==id);persist();renderTareas();toast('Tarea eliminada')}
 function saveEvento(){
   const nombre=val('ev-nombre'),fecha=val('ev-fecha');
   if(!nombre||!fecha){toast('Falta nombre o fecha');return}
@@ -1101,6 +1310,196 @@ function endTour(done){
   if(done) toast('¡Listo! Explora a tu ritmo 🎸');
 }
 addEventListener('resize',()=>{ if(document.getElementById('tut-dim').classList.contains('show')) placeStep(tour[ti]); });
+
+/* ===== SIMULADOR DE RENTABILIDAD ===== */
+function calcSim(){
+  const asist=+document.getElementById('sim-asist')?.value||0;
+  const precio=+document.getElementById('sim-precio')?.value||0;
+  const rep=+document.getElementById('sim-rep')?.value||60;
+  const flete=+document.getElementById('sim-flete')?.value||0;
+  const equip=+document.getElementById('sim-equip')?.value||0;
+  const seguro=+document.getElementById('sim-seguro')?.value||0;
+  const otros=+document.getElementById('sim-otros')?.value||0;
+  const bruto=asist*precio;
+  const corte=Math.round(bruto*rep/100);
+  const costos=flete+equip+seguro+otros;
+  const neto=corte-costos;
+  const elTotal=document.getElementById('sim-total');
+  const elDes=document.getElementById('sim-desglose');
+  const elCons=document.getElementById('sim-consejo');
+  if(!elTotal)return;
+  elTotal.textContent=fmtMoney(neto);
+  elTotal.className='sim-big '+(neto>0?'sim-ok':neto===0?'sim-warn':'sim-red');
+  elDes.innerHTML=`
+    <div class="sim-row"><span>Recaudación bruta</span><span>${fmtMoney(bruto)}</span></div>
+    <div class="sim-row"><span>Tu corte (${rep}%)</span><span>${fmtMoney(corte)}</span></div>
+    <div class="sim-row"><span>Flete / transporte</span><span>-${fmtMoney(flete)}</span></div>
+    <div class="sim-row"><span>Arriendo equipos</span><span>-${fmtMoney(equip)}</span></div>
+    <div class="sim-row"><span>Seguro de sala</span><span>-${fmtMoney(seguro)}</span></div>
+    <div class="sim-row"><span>Otros</span><span>-${fmtMoney(otros)}</span></div>`;
+  const ppp=asist?Math.round(neto/asist):0;
+  let consejo='';
+  if(neto<0) consejo=`<div class="alert red">🔴 <div><b>Este show te costaría dinero.</b> Con ${asist} asistentes terminas poniendo ${fmtMoney(-neto)} de tu bolsillo. Negocia el reparto o baja los costos.</div></div>`;
+  else if(neto<20000) consejo=`<div class="alert amber">🟡 <div><b>Margen muy ajustado.</b> Solo ${fmtMoney(neto)} neto. Considera si el desgaste vale el show.</div></div>`;
+  else consejo=`<div class="alert green">🟢 <div><b>Show rentable.</b> ${fmtMoney(neto)} neto estimado (${fmtMoney(ppp)} por asistente). ¡Confirma y a tocar!</div></div>`;
+  if(elCons) elCons.innerHTML=consejo;
+}
+
+/* ===== TAREAS ===== */
+function renderTareas(){
+  const el=document.getElementById('list-tareas');if(!el)return;
+  if(!DB.tareas||!DB.tareas.length){el.innerHTML='<div class="lc-head"><h3>0 tareas</h3></div>'+emptyRow('Crea tareas y asígnalas a cada integrante');return;}
+  const pend=DB.tareas.filter(t=>!t.done).length;
+  el.innerHTML=`<div class="lc-head"><h3>${DB.tareas.length} tareas · ${pend} pendientes</h3></div>`+
+    DB.tareas.map(t=>`
+      <div class="task-row">
+        <button class="task-check ${t.done?'done':''}" onclick="toggleTarea(${t.id})" aria-label="Marcar">${t.done?'✓':''}</button>
+        <div class="task-lead ${t.done?'done-text':''}">
+          <b>${esc(t.desc)}</b>
+          <span>${esc(t.quien||'Sin asignar')} · ${esc(t.cat)}${t.fecha?' · Límite: '+t.fecha:''}</span>
+        </div>
+        <span class="chip ${t.done?'chip-ok':'chip-warn'}">${t.done?'Listo':'Pendiente'}</span>
+        <button class="btn btn-ghost btn-sm" onclick="delTarea(${t.id})" style="padding:6px 10px;font-size:18px;line-height:1;color:var(--gris)">×</button>
+      </div>`).join('');
+}
+
+/* ===== ALERTAS LEGALES ===== */
+const ALERTAS_DATA=[
+  {local:"Bar Estación",ruido:"Zona residencial · Ordenanza municipal hasta las 00:00 hrs",acustico:"parcial",patente:"si",edad:18,obs:"Han recibido quejas de vecinos en meses de calor. Confirmar con el dueño antes de shows después de 23:00."},
+  {local:"Peña El Trauco",ruido:"Barrio comercial · Sin restricción declarada",acustico:"si",patente:"si",edad:18,obs:"Local con buena reputación. Sin incidentes normativos en el último año."},
+];
+function renderAlertas(){
+  const el=document.getElementById('alertas-content');if(!el)return;
+  const fichasLocales=ROLE==='local'?DB.fichas.filter(f=>f.local===DB.miLocal):DB.fichas;
+  let html='<div class="alert amber" style="margin-bottom:18px">⚠ <div><b>Información referencial.</b> Verifica siempre con el local y la municipalidad antes del show.</div></div>';
+  const dataFuentes=ALERTAS_DATA;
+  const mostrar=ROLE==='local'?dataFuentes.filter(a=>a.local===DB.miLocal):dataFuentes;
+  if(!mostrar.length){html+='<div class="card empty"><b>Sin alertas registradas</b>Los locales con información aparecen aquí.</div>';el.innerHTML=html;return;}
+  mostrar.forEach(a=>{
+    const acuChip=a.acustico==='si'?'chip-ok':a.acustico==='parcial'?'chip-warn':'chip-red';
+    const patChip=a.patente==='si'?'chip-ok':a.patente==='tramite'?'chip-warn':'chip-red';
+    html+=`<div class="legal-card">
+      <h4>📍 ${esc(a.local)}</h4>
+      <div class="legal-row"><span class="lk">Restricción de ruidos</span><span style="font-size:12px;color:var(--texto)">${esc(a.ruido)}</span></div>
+      <div class="legal-row"><span class="lk">Aislamiento acústico</span><span class="chip ${acuChip}">${a.acustico==='si'?'Óptimo':a.acustico==='parcial'?'Parcial':'Sin aislamiento'}</span></div>
+      <div class="legal-row"><span class="lk">Patente al día</span><span class="chip ${patChip}">${a.patente==='si'?'Sí':a.patente==='tramite'?'En trámite':'No'}</span></div>
+      <div class="legal-row"><span class="lk">Edad mínima ingreso</span><span>+${a.edad} años</span></div>
+      ${a.obs?`<div style="margin-top:12px;font-size:13px;line-height:1.55;color:var(--gris)">💬 ${esc(a.obs)}</div>`:''}
+    </div>`;
+  });
+  el.innerHTML=html;
+}
+
+/* ===== QR & CONECTIVIDAD ===== */
+function miniQR(text){
+  // Genera un QR visual simple basado en un hash del texto (decorativo, para demo)
+  const size=11;const s=[];const seed=text.split('').reduce((a,c)=>a+c.charCodeAt(0),0);
+  const rand=(i)=>((seed*1103515245+i*12345)&0x7fffffff)%2;
+  for(let r=0;r<size;r++){const row=[];for(let c=0;c<size;c++){
+    // esquinas fijas (finder patterns)
+    const inFinder=(r<3&&c<3)||(r<3&&c>=size-3)||(r>=size-3&&c<3);
+    const onBorder=(r===0||r===size-1||c===0||c===size-1)||(r===2||r===size-3)&&(c<3||c>=size-3)||(c===2||c===size-3)&&(r<3||r>=size-3);
+    row.push(inFinder?(onBorder?1:r===1&&c===1?1:r>=size-2&&c>=size-2&&r<=size-2&&c<=size-2?1:0):rand(r*size+c));
+  }s.push(row);}
+  const cell=10;const W=size*cell;
+  let svgCells='';
+  s.forEach((row,r)=>row.forEach((v,c)=>{if(v)svgCells+=`<rect x="${c*cell}" y="${r*cell}" width="${cell}" height="${cell}" fill="#000"/>`;}););
+  return `<svg viewBox="0 0 ${W} ${W}" xmlns="http://www.w3.org/2000/svg"><rect width="${W}" height="${W}" fill="#fff"/>${svgCells}</svg>`;
+}
+function copyText(t){
+  try{navigator.clipboard.writeText(t).then(()=>toast('Link copiado ✓'))}
+  catch(e){toast(t.length>30?'Copia el link manualmente':t)}
+}
+function renderQR(){
+  const el=document.getElementById('qr-content');if(!el)return;
+  const s=DB.social||{};
+  const redes=[
+    {nombre:'Instagram',icon:'📸',key:'instagram',url:`https://instagram.com/${(s.instagram||'').replace('@','')}`,hint:'Comparte en el show para ganar seguidores en vivo'},
+    {nombre:'YouTube',icon:'▶️',key:'youtube',url:`https://youtube.com/@${(s.youtube||'').replace(/\s/g,'_')}`,hint:'Que el público nuevo encuentre tus videos'},
+    {nombre:'Spotify',icon:'🎵',key:'spotify',url:`https://open.spotify.com/search/${encodeURIComponent(s.spotify||'')}`,hint:'Para que te guarden en sus playlists'},
+    {nombre:'Link general',icon:'🔗',key:'web',url:s.web||'',hint:'Link directo a tu página o Linktree'},
+  ].filter(r=>r.url&&r.url.length>20&&!r.url.endsWith('/'));
+  if(!redes.length){
+    el.innerHTML=`<div class="alert amber">📱 <div><b>Configura tus redes primero.</b> Agrega tus links en la sección de ajustes o edita los datos del perfil.</div></div>
+      <div class="card"><div class="field"><label>Instagram (sin @)</label><input id="sq-ig" placeholder="mibanda" value="${esc(s.instagram||'')}"><br>
+      <label style="margin-top:12px">YouTube</label><input id="sq-yt" placeholder="Mi Banda Oficial" value="${esc(s.youtube||'')}"><br>
+      <label style="margin-top:12px">Spotify</label><input id="sq-sp" placeholder="Mi Banda" value="${esc(s.spotify||'')}"><br>
+      <label style="margin-top:12px">Web / Linktree</label><input id="sq-web" placeholder="https://linktr.ee/mibanda" value="${esc(s.web||'')}">
+      <button class="btn btn-prim" style="margin-top:16px;width:100%;justify-content:center" onclick="saveSocial()">Guardar redes</button></div></div>`;
+    return;
+  }
+  el.innerHTML=`<div class="alert green" style="margin-bottom:18px">🎸 <div><b>Muestra estos QR desde el escenario</b> para que el público nuevo te siga instantáneamente sin buscar nada.</div></div>
+    <div class="grid g-2">${redes.map(r=>`
+      <div class="qr-card">
+        <div style="font-size:22px">${r.icon}</div>
+        <div style="font-weight:800;font-size:15px;margin-top:6px">${r.nombre}</div>
+        <div style="font-size:12px;color:var(--gris);margin-bottom:4px">${r.hint}</div>
+        <div class="qr-visual">${miniQR(r.url)}</div>
+        <div style="font-size:11px;color:var(--gris-2);margin-bottom:8px;word-break:break-all">${esc(r.key==='instagram'?s.instagram:r.key==='youtube'?s.youtube:r.key==='spotify'?s.spotify:s.web)}</div>
+        <button class="btn btn-ghost btn-sm copy-link" onclick="copyText('${r.url.replace(/'/g,"\\'")}')">Copiar link</button>
+      </div>`).join('')}</div>
+    <div style="margin-top:16px;text-align:center"><button class="btn btn-ghost" onclick="editSocial()">✎ Editar mis redes</button></div>`;
+}
+function saveSocial(){
+  DB.social={instagram:document.getElementById('sq-ig')?.value.trim()||'',youtube:document.getElementById('sq-yt')?.value.trim()||'',spotify:document.getElementById('sq-sp')?.value.trim()||'',web:document.getElementById('sq-web')?.value.trim()||''};
+  persist();renderQR();toast('Redes guardadas ✓');
+}
+function editSocial(){
+  const s=DB.social||{};
+  document.getElementById('qr-content').innerHTML=`<div class="card"><div class="field">
+    <label>Instagram (usuario sin @)</label><input id="sq-ig" placeholder="mibanda" value="${esc(s.instagram||'')}">
+    <label style="margin-top:12px">YouTube (nombre del canal)</label><input id="sq-yt" placeholder="Mi Banda Oficial" value="${esc(s.youtube||'')}">
+    <label style="margin-top:12px">Spotify (nombre del artista)</label><input id="sq-sp" placeholder="Mi Banda" value="${esc(s.spotify||'')}">
+    <label style="margin-top:12px">Web / Linktree</label><input id="sq-web" placeholder="https://linktr.ee/mibanda" value="${esc(s.web||'')}">
+    <button class="btn btn-prim" style="margin-top:16px;width:100%;justify-content:center" onclick="saveSocial()">Guardar redes</button>
+  </div></div>`;
+}
+
+/* ===== BUSCADOR DE LOCALES ===== */
+let buscadorFiltros={genero:'',size:'',trato:''};
+function renderBuscador(){
+  const elF=document.getElementById('buscador-filtros'),elL=document.getElementById('buscador-list');
+  if(!elF||!elL)return;
+  const generos=[...new Set(DB.localesCatalogo.flatMap(l=>l.generos))].sort();
+  const filtroG=buscadorFiltros.genero, filtroT=buscadorFiltros.trato;
+  elF.innerHTML=
+    `<span style="font-size:12px;font-weight:700;color:var(--gris);align-self:center">Género:</span>`+
+    generos.map(g=>`<button class="fchip ${filtroG===g?'on':''}" onclick="setBFiltro('genero','${esc(g)}')">${esc(g)}</button>`).join('')+
+    `<span style="font-size:12px;font-weight:700;color:var(--gris);align-self:center;margin-left:8px">Trato:</span>`+
+    ['4','5'].map(v=>`<button class="fchip ${filtroT===v?'on':''}" onclick="setBFiltro('trato','${v}')">${'★'.repeat(+v)}${'☆'.repeat(5-+v)}</button>`).join('');
+  let lista=DB.localesCatalogo;
+  if(filtroG) lista=lista.filter(l=>l.generos.includes(filtroG));
+  if(filtroT) lista=lista.filter(l=>l.trato>= +filtroT);
+  if(!lista.length){elL.innerHTML='<div class="card empty"><b>Sin resultados</b>Cambia los filtros para ver más locales.</div>';return;}
+  elL.innerHTML=lista.map(l=>{
+    const stars='★'.repeat(l.trato)+'☆'.repeat(5-l.trato);
+    const starsT='★'.repeat(l.tecnico)+'☆'.repeat(5-l.tecnico);
+    const patChip=l.patente==='si'?'chip-ok':l.patente==='tramite'?'chip-warn':'chip-red';
+    const acuChip=l.acustico==='si'?'chip-ok':'chip-warn';
+    return `<div class="venue-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">
+        <div>
+          <h4>${esc(l.nombre)}</h4>
+          <div class="venue-meta">${esc(l.comuna)} · 👥 ${l.cap} personas</div>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div style="font-size:12px;color:var(--gris)">Trato</div>
+          <div class="stars" style="font-size:16px">${stars}</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+        ${l.generos.map(g=>`<span class="chip chip-mut">${esc(g)}</span>`).join('')}
+      </div>
+      <div style="font-size:13px;color:var(--gris);margin-bottom:12px;line-height:1.5">${esc(l.desc)}</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <span class="chip ${patChip}">Patente: ${l.patente==='si'?'al día':l.patente==='tramite'?'en trámite':'sin patente'}</span>
+        <span class="chip ${acuChip}">Acústica: ${l.acustico==='si'?'buena':'parcial'}</span>
+        <span style="font-size:12px;color:var(--gris);align-self:center">Técnico: ${starsT}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+function setBFiltro(k,v){buscadorFiltros[k]=buscadorFiltros[k]===v?'':v;renderBuscador();}
 
 load();
 </script>
