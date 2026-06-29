@@ -10,6 +10,25 @@
     --rojo:#E1121C;--rojo-osc:#A50D14;--rojo-glow:rgba(225,18,28,.35);
     --texto:#F2F0EE;--gris:#8C8A90;--gris-2:#5C5A60;--ok:#36C26B;--warn:#E6A726;
   }
+  [data-theme="light"]{
+    --negro:#F5F4F2;--carbon:#FFFFFF;--panel:#EEEDEB;--panel-2:#E3E2DF;--linea:#CCCAC6;
+    --rojo:#D1101A;--rojo-osc:#A50D14;--rojo-glow:rgba(209,16,26,.18);
+    --texto:#0A0A0B;--gris:#6B6970;--gris-2:#9C9AA0;--ok:#228A49;--warn:#B5720F;
+  }
+  [data-theme="light"] body::before{opacity:.025}
+  [data-theme="light"] .gate{background:radial-gradient(120% 90% at 50% -10%,#ffe8e9 0%,var(--negro) 60%)}
+  [data-theme="light"] .chip-ok{background:rgba(34,138,73,.12);color:var(--ok)}
+  [data-theme="light"] .chip-warn{background:rgba(181,114,15,.12);color:var(--warn)}
+  [data-theme="light"] .chip-red{background:rgba(209,16,26,.1);color:var(--rojo)}
+  [data-theme="light"] .chip-mut{background:var(--panel-2);color:var(--gris)}
+  [data-theme="light"] .alert.green{background:rgba(34,138,73,.07);border-color:rgba(34,138,73,.25)}
+  [data-theme="light"] .alert.amber{background:rgba(181,114,15,.07);border-color:rgba(181,114,15,.25)}
+  [data-theme="light"] .alert.red{background:rgba(209,16,26,.06);border-color:rgba(209,16,26,.2)}
+  [data-theme="light"] .banner{background:rgba(209,16,26,.05);border-color:rgba(209,16,26,.18)}
+  [data-theme="light"] .sim-result{background:var(--panel-2)}
+  [data-theme="light"] .toast{box-shadow:0 8px 30px rgba(0,0,0,.15)}
+  .theme-btn{background:none;border:1px solid var(--linea);border-radius:8px;color:var(--gris);cursor:pointer;font-size:15px;padding:7px 10px;transition:.14s;touch-action:manipulation;-webkit-appearance:none;display:inline-flex;align-items:center;gap:6px;font-family:inherit;font-size:13px;font-weight:700}
+  .theme-btn:hover{border-color:var(--gris-2);color:var(--texto)}
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
   html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
   body{font-family:"Inter","Helvetica Neue",Arial,sans-serif;background:var(--negro);color:var(--texto);-webkit-font-smoothing:antialiased;min-height:100vh;min-height:-webkit-fill-available;-webkit-overflow-scrolling:touch}
@@ -317,6 +336,9 @@
       </button>
     </div>
     <div class="note">Demo del Equipo 10 · Puedes cambiar de cuenta en cualquier momento desde el menú.</div>
+    <div style="margin-top:22px">
+      <button class="theme-btn" onclick="toggleTheme()" id="gate-theme-btn">☀️ Tema claro</button>
+    </div>
   </div>
 </div>
 
@@ -343,7 +365,10 @@
         <div class="avatar" id="av">RB</div>
         <div><b id="who-name">Mi banda</b><small id="who-role">Solista · Segmento B</small></div>
       </div>
-      <button class="btn btn-ghost btn-sm" style="width:100%;justify-content:center;margin-top:12px" onclick="backToGate()">↩ Cambiar cuenta</button>
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <button class="btn btn-ghost btn-sm" style="flex:1;justify-content:center" onclick="backToGate()">↩ Cambiar cuenta</button>
+        <button class="theme-btn" onclick="toggleTheme()" id="side-theme-btn" title="Cambiar tema">☀️</button>
+      </div>
     </div>
   </aside>
 
@@ -352,6 +377,7 @@
     <div class="mobile-bar" id="mobile-bar">
       <button class="btn btn-ghost btn-sm" id="burger" style="padding:8px 12px">☰</button>
       <span class="mb-title" id="mb-title">Inicio</span>
+      <button class="theme-btn" onclick="toggleTheme()" id="mob-theme-btn">☀️</button>
     </div>
 
     <!-- INICIO -->
@@ -1500,6 +1526,30 @@ function renderBuscador(){
   }).join('');
 }
 function setBFiltro(k,v){buscadorFiltros[k]=buscadorFiltros[k]===v?'':v;renderBuscador();}
+
+/* ===== TEMA CLARO / OSCURO ===== */
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  const isDark = t === 'dark';
+  const icon = isDark ? '☀️' : '🌙';
+  const label = isDark ? '☀️ Tema claro' : '🌙 Tema oscuro';
+  ['gate-theme-btn','side-theme-btn','mob-theme-btn'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.textContent = id === 'gate-theme-btn' ? label : icon;
+  });
+}
+function toggleTheme(){
+  const current = document.documentElement.getAttribute('data-theme') || 'dark';
+  const next = current === 'dark' ? 'light' : 'dark';
+  try{ localStorage.setItem('errebe:theme', next) }catch(e){}
+  applyTheme(next);
+}
+// Inicializar tema guardado al cargar
+(function(){
+  let saved = 'dark';
+  try{ saved = localStorage.getItem('errebe:theme') || 'dark' }catch(e){}
+  applyTheme(saved);
+})();
 
 load();
 </script>
