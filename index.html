@@ -213,35 +213,40 @@
   .acct:hover .enter{gap:12px}
   .gate .note{margin-top:30px;font-size:12px;color:var(--gris-2)}
 
-  /* ----- tutorial guiado (coachmarks) ----- */
-  .tut-dim{position:fixed;top:0;left:0;right:0;bottom:0;z-index:400;background:rgba(0,0,0,.55);-webkit-backdrop-filter:blur(1px);backdrop-filter:blur(1px);display:none}
-  .tut-dim.show{display:block}
-  .tut-ring{position:fixed;z-index:401;border:2px solid var(--rojo);border-radius:14px;pointer-events:none;
-    box-shadow:0 0 0 9999px rgba(0,0,0,.62),0 0 26px var(--rojo-glow);-webkit-transition:all .28s cubic-bezier(.4,0,.2,1);transition:all .28s cubic-bezier(.4,0,.2,1);-webkit-transform:translateZ(0);transform:translateZ(0)}
-  .tut-pop{position:fixed;z-index:402;background:var(--carbon);border:1px solid var(--linea);border-radius:14px;
-    width:300px;max-width:calc(100vw - 32px);padding:18px;box-shadow:0 20px 60px rgba(0,0,0,.6);-webkit-transition:all .28s cubic-bezier(.4,0,.2,1);transition:all .28s cubic-bezier(.4,0,.2,1);-webkit-transform:translateZ(0);transform:translateZ(0)}
-  .tut-pop .step{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--rojo);margin-bottom:8px}
-  .tut-pop h4{font-size:16px;font-weight:800;margin-bottom:7px}
-  .tut-pop p{font-size:13.5px;color:var(--gris);line-height:1.55}
-  .tut-pop .ctrls{display:flex;align-items:center;justify-content:space-between;margin-top:16px;gap:8px}
-  .tut-pop .dots{display:flex;gap:5px}
-  .tut-pop .dots i{width:6px;height:6px;border-radius:50%;background:var(--gris-2);transition:.2s}
-  .tut-pop .dots i.on{background:var(--rojo);width:16px;border-radius:3px}
-  .tut-pop .nav{display:flex;gap:8px}
-  .tut-skip{position:fixed;z-index:402;top:18px;right:18px;background:var(--panel);border:1px solid var(--linea);
-    color:var(--gris);font-family:inherit;font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:8px;cursor:pointer}
-  .tut-skip:hover{color:var(--texto)}
-  .tut-skip[hidden]{display:none}
-
-  /* diálogo de bienvenida al tutorial */
-  .tut-ask{position:fixed;top:0;left:0;right:0;bottom:0;z-index:410;background:rgba(0,0,0,.7);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:20px;overflow-y:auto;-webkit-overflow-scrolling:touch}
-  .tut-ask.show{display:flex}
-  .tut-ask .box{background:var(--carbon);border:1px solid var(--linea);border-radius:18px;max-width:420px;width:100%;padding:30px 28px;text-align:center;animation:pop .25s ease}
-  .tut-ask .box .ico{font-size:38px;display:block;margin-bottom:12px}
-  .tut-ask .box h3{font-size:20px;font-weight:800;margin-bottom:8px}
-  .tut-ask .box p{font-size:14px;color:var(--gris);line-height:1.55;margin-bottom:22px}
-  .tut-ask .box .row2{display:flex;gap:10px}
-  .tut-ask .box .row2 .btn{flex:1;justify-content:center}
+  /* ----- botón de ayuda flotante + guía por página ----- */
+  .help-fab{position:fixed;top:18px;right:18px;z-index:120;width:42px;height:42px;border-radius:50%;
+    background:var(--rojo);border:none;color:#fff;font-size:20px;font-weight:800;cursor:pointer;
+    display:none;align-items:center;justify-content:center;box-shadow:0 6px 20px var(--rojo-glow);
+    touch-action:manipulation;-webkit-appearance:none;appearance:none;font-family:inherit;
+    -webkit-transition:.16s;transition:.16s}
+  .help-fab.show{display:inline-flex}
+  .help-fab:hover{-webkit-transform:scale(1.08);transform:scale(1.08);background:var(--rojo-osc)}
+  .mob-help-btn{background:none;border:1px solid var(--linea);border-radius:8px;color:var(--rojo);
+    cursor:pointer;font-size:15px;font-weight:800;padding:6px 11px;touch-action:manipulation;
+    -webkit-appearance:none;appearance:none;font-family:inherit;line-height:1}
+  .help-ov{position:fixed;top:0;left:0;right:0;bottom:0;z-index:430;background:rgba(0,0,0,.7);
+    -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);display:none;align-items:center;
+    justify-content:center;padding:20px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .help-ov.show{display:flex}
+  .help-box{background:var(--carbon);border:1px solid var(--linea);border-radius:18px;max-width:460px;
+    width:100%;padding:26px 26px 22px;animation:pop .25s ease;max-height:92vh;overflow-y:auto;
+    -webkit-overflow-scrolling:touch}
+  .help-box .help-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px}
+  .help-box .help-ico{font-size:32px;line-height:1;flex-shrink:0}
+  .help-box .help-kicker{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+    color:var(--rojo);margin-bottom:4px}
+  .help-box h3{font-size:21px;font-weight:800;line-height:1.1}
+  .help-box .help-x{margin-left:auto;background:none;border:none;color:var(--gris);font-size:20px;
+    cursor:pointer;padding:2px 6px;touch-action:manipulation;font-family:inherit;line-height:1}
+  .help-box .help-x:hover{color:var(--texto)}
+  .help-box .help-intro{font-size:14px;color:var(--gris);line-height:1.6;margin-bottom:18px}
+  .help-box .help-item{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--linea)}
+  .help-box .help-item .hnum{flex-shrink:0;width:24px;height:24px;border-radius:7px;background:var(--panel-2);
+    color:var(--rojo);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .help-box .help-item .htx b{display:block;font-size:14px;font-weight:800;margin-bottom:3px}
+  .help-box .help-item .htx span{font-size:13px;color:var(--gris);line-height:1.55}
+  .help-box .help-foot{margin-top:20px}
+  .help-box .help-foot .btn{width:100%;justify-content:center}
 
   /* ---- mobile sticky bar ---- */
   .mobile-bar{display:none;position:sticky;top:0;z-index:80;background:var(--carbon);border-bottom:1px solid var(--linea);padding:10px 16px;align-items:center;gap:10px}
@@ -289,6 +294,7 @@
   .burger{display:none}
   @media(max-width:780px){
     .mobile-bar{display:flex}
+    .help-fab.show{display:none}
     aside{position:fixed;left:0;top:0;z-index:90;-webkit-transform:translateX(-100%);transform:translateX(-100%);-webkit-transition:.25s;transition:.25s;box-shadow:0 0 50px rgba(0,0,0,.6);overflow-y:auto;-webkit-overflow-scrolling:touch}
     aside.open{-webkit-transform:translateX(0);transform:translateX(0)}
     main{padding:20px 18px 60px}
@@ -377,6 +383,7 @@
     <div class="mobile-bar" id="mobile-bar">
       <button class="btn btn-ghost btn-sm" id="burger" style="padding:8px 12px">☰</button>
       <span class="mb-title" id="mb-title">Inicio</span>
+      <button class="mob-help-btn" onclick="openHelp()" id="mob-help-btn" title="Ayuda de esta página" aria-label="Ayuda">?</button>
       <button class="theme-btn" onclick="toggleTheme()" id="mob-theme-btn">☀️</button>
     </div>
 
@@ -624,33 +631,23 @@
   </div>
 </div>
 
-<!-- TUTORIAL: diálogo de bienvenida -->
-<div class="tut-ask" id="tut-ask">
-  <div class="box">
-    <span class="ico">🧭</span>
-    <h3 id="tut-ask-title">¿Te muestro cómo funciona?</h3>
-    <p id="tut-ask-text">Es un recorrido de 30 segundos por las partes principales. Puedes saltarlo cuando quieras.</p>
-    <div class="row2">
-      <button class="btn btn-ghost" onclick="declineTour()">Ahora no</button>
-      <button class="btn btn-prim" onclick="startTour()">Hacer el recorrido</button>
-    </div>
-  </div>
-</div>
+<!-- BOTÓN DE AYUDA FLOTANTE (escritorio) -->
+<button class="help-fab" id="help-fab" onclick="openHelp()" title="Ayuda de esta página" aria-label="Ayuda">?</button>
 
-<!-- TUTORIAL: coachmarks -->
-<div class="tut-dim" id="tut-dim"></div>
-<button class="tut-skip" id="tut-skip" onclick="endTour()" hidden>Saltar recorrido ✕</button>
-<div class="tut-ring" id="tut-ring" style="display:none"></div>
-<div class="tut-pop" id="tut-pop" style="display:none">
-  <div class="step" id="tut-step"></div>
-  <h4 id="tut-h"></h4>
-  <p id="tut-p"></p>
-  <div class="ctrls">
-    <div class="dots" id="tut-dots"></div>
-    <div class="nav">
-      <button class="btn btn-ghost btn-sm" id="tut-prev" onclick="tourPrev()">Anterior</button>
-      <button class="btn btn-prim btn-sm" id="tut-next" onclick="tourNext()">Siguiente</button>
+<!-- GUÍA POR PÁGINA -->
+<div class="help-ov" id="help-ov" onclick="if(event.target===this)closeHelp()">
+  <div class="help-box">
+    <div class="help-head">
+      <span class="help-ico" id="help-ico">💡</span>
+      <div>
+        <div class="help-kicker">Guía de la página</div>
+        <h3 id="help-title">Ayuda</h3>
+      </div>
+      <button class="help-x" onclick="closeHelp()" aria-label="Cerrar">✕</button>
     </div>
+    <p class="help-intro" id="help-intro"></p>
+    <div id="help-items"></div>
+    <div class="help-foot"><button class="btn btn-prim" onclick="closeHelp()">Entendido</button></div>
   </div>
 </div>
 
@@ -719,11 +716,13 @@ async function load(){try{if(window.storage){const r=await window.storage.get('e
 function enter(r){
   document.getElementById('gate').classList.add('hide');
   setRole(r);
-  askTour(r);
+  const fab=document.getElementById('help-fab');if(fab)fab.classList.add('show');
 }
 function backToGate(){
   document.getElementById('aside').classList.remove('open');
   document.getElementById('gate').classList.remove('hide');
+  const fab=document.getElementById('help-fab');if(fab)fab.classList.remove('show');
+  closeHelp();
   window.scrollTo(0,0);
 }
 
@@ -1251,91 +1250,115 @@ function markPaid(id){
   persist();renderStats();toast('Pago registrado ✓');
 }
 
-/* ===== TUTORIAL GUIADO ===== */
-const TOURS={
-  musico:[
-    {sel:'.brand',v:'inicio',t:'Tu espacio',d:'Esta es la cuenta de músico. Todo lo de tus shows vive acá: acuerdos, fichas de los locales y tu agenda.'},
-    {sel:'.nav-item[data-v="acuerdos"]',v:'inicio',t:'Acuerdos',d:'Guarda lo conversado con cada local: reparto, asistencia mínima y forma de pago. Por escrito y sin letra chica.'},
-    {sel:'.nav-item[data-v="fichas"]',v:'fichas',t:'Fichas técnicas',d:'Acá ves el backline real que publica cada local. Tú solo las consultas para saber qué hay y qué llevar.'},
-    {sel:'.nav-item[data-v="agenda"]',v:'agenda',t:'Agenda',d:'Tus fechas con prueba de sonido, hora y pendientes. Cada una se confirma cuando el show está cerrado.'},
-    {sel:'.nav-item[data-v="stats"]',v:'stats',t:'Estadísticas',d:'Cuánto ganaste, qué shows rindieron más y qué pagos siguen pendientes. Cierra cada show para alimentar estos números.'},
-    {sel:'#home-cta',v:'inicio',t:'Empieza acá',d:'Crea tu primer acuerdo desde este botón. ¡Eso es todo, explora a tu ritmo!'},
-  ],
-  local:[
-    {sel:'.brand',v:'inicio',t:'Panel del local',d:'Esta es la cuenta de local. Desde acá mantienes la información que los músicos verán al tocar contigo.'},
-    {sel:'.nav-item[data-v="fichas"]',v:'fichas',t:'Tu ficha técnica',d:'Acá publicas el backline real de tu local. Es tuya: solo tú la editas, y es lo que verán los músicos.'},
-    {sel:'.nav-item[data-v="stats"]',v:'stats',t:'Estadísticas',d:'La rentabilidad de tu local: ingresos, ocupación promedio y qué bandas convocan más público.'},
-    {sel:'#home-cta',v:'inicio',t:'Mantenla al día',d:'Edita tu ficha desde este botón. Si pasa más de un mes sin actualizar, te avisamos para que siga siendo confiable.'},
-  ]
+/* ===== GUÍA POR PÁGINA (botón de ayuda ?) ===== */
+/* Cada entrada explica una página individual. Si el valor depende del rol,
+   se usa {musico:{...}, local:{...}}; si no, un objeto plano sirve para ambos. */
+const HELP={
+  inicio:{
+    musico:{ico:'🏠',title:'Inicio',intro:'Tu resumen del día: próximos shows, pagos pendientes y accesos rápidos a todo.',items:[
+      ['Vista general','Aquí ves de un vistazo qué tienes pendiente y tus próximas fechas confirmadas.'],
+      ['Botón principal','El botón de arriba a la derecha crea un nuevo acuerdo al toque.'],
+      ['Menú lateral','Usa el menú (☰ en el teléfono) para saltar a Acuerdos, Fichas, Agenda y más.'],
+    ]},
+    local:{ico:'🏠',title:'Inicio',intro:'El panel de tu local: el estado de tu ficha técnica y tus números principales.',items:[
+      ['Vista general','Revisa de un vistazo si tu información está al día y tus indicadores clave.'],
+      ['Mantén tu ficha','Desde aquí puedes ir a editar tu ficha técnica cuando cambie tu equipo.'],
+      ['Menú lateral','Usa el menú (☰ en el teléfono) para moverte entre secciones.'],
+    ]},
+  },
+  acuerdos:{ico:'🤝',title:'Acuerdos',intro:'Todo lo conversado con cada local, por escrito y sin letra chica.',items:[
+    ['Qué guarda','Reparto (%), cuota mínima de asistencia, forma y plazo de pago, y condiciones especiales.'],
+    ['Nuevo acuerdo','Con “+ Nuevo acuerdo” registras un trato antes de tocar, para que nadie cambie las reglas después.'],
+    ['Toca para ver','Pulsa cualquier acuerdo para ver el detalle completo y su estado (aceptado o pendiente).'],
+  ]},
+  'acuerdo-det':{ico:'📄',title:'Detalle del acuerdo',intro:'La ficha completa de un trato con un local específico.',items:[
+    ['Todos los términos','Reparto, cuota, seguro, precio de entrada, horario de carga y datos del sonidista.'],
+    ['Condiciones','La sección de condiciones deja claro qué pasa si se suspende o si el aforo no llega.'],
+    ['Volver','Usa el menú para volver al listado de acuerdos cuando termines de revisar.'],
+  ]},
+  fichas:{
+    musico:{ico:'🎛️',title:'Fichas técnicas',intro:'El backline real que publica cada local. Tú solo las consultas antes de tocar.',items:[
+      ['Qué hay','Equipo disponible, consola, capacidad, aforo y estado del mantenimiento de cada local.'],
+      ['Qué llevar','La ficha te dice qué debes traer tú, para no llegar con sorpresas el día del show.'],
+      ['Confiabilidad','Fíjate en cuándo se actualizó por última vez: mientras más reciente, más confiable.'],
+    ]},
+    local:{ico:'🎛️',title:'Tu ficha técnica',intro:'Aquí publicas el equipo real de tu local. Es tuya: solo tú la editas.',items:[
+      ['Lo que ven los músicos','Todo lo que cargues aquí es lo que verán las bandas al coordinar contigo.'],
+      ['Mantenla al día','Edita el equipo, la consola y el aforo cuando cambien. Una ficha vieja genera desconfianza.'],
+      ['Detalles clave','Indica capacidad, patente al día, tratamiento acústico y qué debe traer la banda.'],
+    ]},
+  },
+  agenda:{ico:'📅',title:'Agenda',intro:'Tus fechas con prueba de sonido, hora de show y pendientes.',items:[
+    ['Tus fechas','Cada tarjeta muestra el local, la hora de prueba, la del show y su estado.'],
+    ['Estados','Una fecha puede estar como propuesta o confirmada; se confirma cuando el show queda cerrado.'],
+    ['Pendientes','Anota lo que falta por preparar en cada evento para no olvidar nada.'],
+  ]},
+  simulador:{ico:'🧮',title:'Simulador de rentabilidad',intro:'Calcula si un show te conviene antes de aceptarlo.',items:[
+    ['Ingresa los datos','Pon asistencia esperada, precio de entrada, reparto y tus costos (flete, seguro, etc.).'],
+    ['Resultado en vivo','El resultado se recalcula solo mientras escribes: verde conviene, rojo pierdes plata.'],
+    ['Decide con números','Úsalo para negociar el reparto o la cuota mínima con datos, no a ojo.'],
+  ]},
+  tareas:{ico:'✅',title:'Tareas del equipo',intro:'Quién hace qué antes del show, para que nada se caiga.',items:[
+    ['Reparte el trabajo','Cada tarea tiene responsable, categoría (logística, difusión, cobros…) y fecha.'],
+    ['Marca lo hecho','Toca el círculo para marcar una tarea como completada; se tacha al instante.'],
+    ['Agrega y elimina','Usa el botón para crear tareas nuevas y bórralas cuando ya no sirvan.'],
+  ]},
+  alertas:{ico:'⚖️',title:'Alertas legales',intro:'Avisos sobre permisos y requisitos de cada local para tocar tranquilo.',items:[
+    ['Qué revisa','Patente al día, aforo permitido, edad mínima y tratamiento acústico del recinto.'],
+    ['Semáforo','Verde: todo en regla. Ámbar: revisar. Rojo: hay algo que puede impedir el show.'],
+    ['Anticípate','Resuelve las alertas antes de la fecha para evitar multas o suspensiones.'],
+  ]},
+  qr:{ico:'📲',title:'QR & Público',intro:'Comparte tus redes y tu evento con un código QR listo para mostrar.',items:[
+    ['Tus redes','Guarda tu Instagram, YouTube, Spotify y web; se arma un QR con tus enlaces.'],
+    ['Compartir','Muestra el QR en el show o cópialo con el botón para pegarlo donde quieras.'],
+    ['Edítalo','Actualiza tus redes cuando cambien y el QR se regenera automáticamente.'],
+  ]},
+  buscador:{ico:'🔎',title:'Buscador de locales',intro:'Encuentra el local ideal según lo que necesitas.',items:[
+    ['Filtra','Usa los chips para filtrar por comuna, género musical, aforo o calidad técnica.'],
+    ['Compara','Cada tarjeta muestra capacidad, géneros, trato y nivel técnico con estrellas.'],
+    ['Elige mejor','Combina filtros para dar con locales que calcen con tu propuesta y tu público.'],
+  ]},
+  stats:{
+    musico:{ico:'📊',title:'Estadísticas',intro:'Cuánto ganaste, qué shows rindieron más y qué pagos siguen pendientes.',items:[
+      ['Tus números','Ingresos, ganancia y asistencia de tus shows cerrados, con filtros de tiempo.'],
+      ['Pagos pendientes','Ve rápido qué locales aún te deben para poder cobrar a tiempo.'],
+      ['Alimenta los datos','Cierra cada show (con asistencia y monto) para que estos números sean reales.'],
+    ]},
+    local:{ico:'📊',title:'Estadísticas',intro:'La rentabilidad de tu local: ingresos, ocupación y qué bandas convocan.',items:[
+      ['Tus números','Ingresos y ocupación promedio de tu local según el período que elijas.'],
+      ['Qué convoca','Identifica qué bandas y qué noches llenan más para programar mejor.'],
+      ['Decide','Usa estos datos para ajustar tu reparto, cuotas y calendario.'],
+    ]},
+  },
 };
-let tour=[], ti=0;
 
-function askTour(r){
-  document.getElementById('tut-ask-title').textContent = r==='musico'?'¿Te muestro cómo funciona?':'¿Te muestro el panel?';
-  document.getElementById('tut-ask').classList.add('show');
+function currentView(){
+  const cur=document.querySelector('.view.show');
+  return cur ? cur.dataset.view : 'inicio';
 }
-function declineTour(){document.getElementById('tut-ask').classList.remove('show')}
-function startTour(){
-  document.getElementById('tut-ask').classList.remove('show');
-  tour=TOURS[ROLE]; ti=0;
-  document.getElementById('tut-dim').classList.add('show');
-  document.getElementById('tut-skip').hidden=false;
-  document.getElementById('tut-ring').style.display='block';
-  document.getElementById('tut-pop').style.display='block';
-  renderDots();
-  showStep();
+function resolveHelp(v){
+  let h=HELP[v]||HELP.inicio;
+  if(h && (h.musico||h.local)) h = h[ROLE] || h.musico || h.local;
+  return h;
 }
-function renderDots(){
-  document.getElementById('tut-dots').innerHTML=tour.map((_,i)=>`<i class="${i===ti?'on':''}"></i>`).join('');
-}
-function showStep(){
-  const s=tour[ti];
-  if(s.v){ const cur=document.querySelector('.view.show'); if(!cur||cur.dataset.view!==s.v) go(s.v); }
-  // dar tiempo a que cambie de vista / renderice
-  requestAnimationFrame(()=>requestAnimationFrame(()=>placeStep(s)));
-}
-function placeStep(s){
-  const el=document.querySelector(s.sel);
-  // en móvil, si el objetivo vive en el sidebar, ábrelo para que sea visible
-  if(el && el.closest('aside') && innerWidth<=780){ document.getElementById('aside').classList.add('open'); }
-  const ring=document.getElementById('tut-ring'), pop=document.getElementById('tut-pop');
-  document.getElementById('tut-step').textContent='Paso '+(ti+1)+' de '+tour.length;
-  document.getElementById('tut-h').textContent=s.t;
-  document.getElementById('tut-p').textContent=s.d;
-  document.getElementById('tut-prev').style.visibility = ti===0?'hidden':'visible';
-  document.getElementById('tut-next').textContent = ti===tour.length-1?'Terminar':'Siguiente';
-  renderDots();
-
-  if(!el){ // fallback: centrar
-    ring.style.display='none';
-    pop.style.left='50%'; pop.style.top='50%'; pop.style.transform='translate(-50%,-50%)';
-    return;
+function openHelp(){
+  const h=resolveHelp(currentView());
+  if(!h) return;
+  const ico=document.getElementById('help-ico');if(ico)ico.textContent=h.ico||'💡';
+  const title=document.getElementById('help-title');if(title)title.textContent=h.title||'Ayuda';
+  const intro=document.getElementById('help-intro');if(intro)intro.textContent=h.intro||'';
+  const box=document.getElementById('help-items');
+  if(box){
+    box.innerHTML=(h.items||[]).map((it,i)=>
+      '<div class="help-item"><div class="hnum">'+(i+1)+'</div><div class="htx"><b>'+
+      it[0]+'</b><span>'+it[1]+'</span></div></div>'
+    ).join('');
   }
-  ring.style.display='block';
-  const r=el.getBoundingClientRect(), pad=8;
-  ring.style.left=(r.left-pad)+'px'; ring.style.top=(r.top-pad)+'px';
-  ring.style.width=(r.width+pad*2)+'px'; ring.style.height=(r.height+pad*2)+'px';
-
-  // posicionar pop: a la derecha si cabe, si no abajo o sobre
-  pop.style.transform='none';
-  const pw=300, ph=pop.offsetHeight||180, gap=16, vw=innerWidth, vh=innerHeight;
-  let left, top;
-  if(r.right+gap+pw < vw){ left=r.right+gap; top=Math.min(Math.max(12,r.top), vh-ph-12); }
-  else if(r.bottom+gap+ph < vh){ left=Math.min(Math.max(12,r.left), vw-pw-12); top=r.bottom+gap; }
-  else { left=Math.min(Math.max(12,r.left), vw-pw-12); top=Math.max(12,r.top-ph-gap); }
-  pop.style.left=left+'px'; pop.style.top=top+'px';
+  const ov=document.getElementById('help-ov');if(ov)ov.classList.add('show');
 }
-function tourNext(){ if(ti<tour.length-1){ti++;showStep();} else endTour(true); }
-function tourPrev(){ if(ti>0){ti--;showStep();} }
-function endTour(done){
-  document.getElementById('tut-dim').classList.remove('show');
-  document.getElementById('tut-skip').hidden=true;
-  document.getElementById('tut-ring').style.display='none';
-  document.getElementById('tut-pop').style.display='none';
-  go('inicio');
-  if(done) toast('¡Listo! Explora a tu ritmo 🎸');
+function closeHelp(){
+  const ov=document.getElementById('help-ov');if(ov)ov.classList.remove('show');
 }
-addEventListener('resize',()=>{ if(document.getElementById('tut-dim').classList.contains('show')) placeStep(tour[ti]); });
 
 /* ===== SIMULADOR DE RENTABILIDAD ===== */
 function calcSim(){
