@@ -1,0 +1,42 @@
+name: Deploy a gh-pages
+
+# Publica errebeapp.html como index.html en la rama gh-pages
+# cada vez que se actualiza la rama de desarrollo.
+on:
+  push:
+    branches:
+      - claude/mobile-document-responsive-hwaaw3
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout rama de desarrollo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Copiar app y publicar en gh-pages
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          cp errebeapp.html /tmp/index.html
+          git fetch origin gh-pages
+          git checkout gh-pages
+          cp /tmp/index.html index.html
+          git add index.html
+          if git diff --cached --quiet; then
+            echo "Sin cambios en index.html"
+          else
+            git commit -m "Deploy automático desde ${GITHUB_SHA:0:7}"
+            git push origin gh-pages
+          fi
