@@ -1,0 +1,66 @@
+{
+  "participante": "P00",
+  "inicio": "2026-10-05T16:34:25.871Z",
+  "fecha": "2026-10-05",
+  "version": "ErreBe prototipo · Lab 9.2",
+  "hipotesis": "Músicos Segmento B registran el acuerdo completo y deciden qué equipos llevar sin ayuda",
+  "dispositivo": "escritorio",
+  "viewport": "1440x900",
+  "tareas": [
+    {
+      "n": 1,
+      "id": "registrar_acuerdo",
+      "req": "R1",
+      "titulo": "Registrar y enviar un acuerdo",
+      "tiempo_s": 2,
+      "completada": true,
+      "clics": 2,
+      "respuesta": "campos 4/4; reparto=60; cuota=30; metodo=Transferencia; plazo=48 horas; estado=enviado; coincide_escenario=si",
+      "esperado": "4/4 campos y enviado (60 / 30 / Transferencia / 48 horas)",
+      "abandono": false
+    },
+    {
+      "n": 2,
+      "id": "decidir_equipos",
+      "req": "R2",
+      "titulo": "Decidir qué equipos llevar",
+      "tiempo_s": 1,
+      "completada": true,
+      "clics": 0,
+      "respuesta": "Platillos; Amplificador de bajo; Cables de instrumento",
+      "esperado": "Platillos; Amplificador de bajo; Cables de instrumento",
+      "abandono": false
+    },
+    {
+      "n": 3,
+      "id": "prueba_sonido",
+      "req": "R3",
+      "titulo": "Encontrar la prueba de sonido",
+      "tiempo_s": 0,
+      "completada": true,
+      "clics": 0,
+      "respuesta": "si 19:00",
+      "esperado": "Sí, 19:00",
+      "abandono": false
+    },
+    {
+      "n": 4,
+      "id": "recuperar_acuerdo",
+      "req": "R1",
+      "titulo": "Recuperar el acuerdo",
+      "tiempo_s": 1,
+      "completada": true,
+      "clics": 1,
+      "respuesta": "90000",
+      "esperado": "90000",
+      "abandono": false
+    }
+  ],
+  "likert": {
+    "claridad": 4,
+    "utilidad": 5,
+    "usaria": 4
+  },
+  "comentario": "Ejemplo de respuesta abierta (sesión de prueba del equipo).",
+  "fin": "2026-10-05T16:34:32.286Z"
+}

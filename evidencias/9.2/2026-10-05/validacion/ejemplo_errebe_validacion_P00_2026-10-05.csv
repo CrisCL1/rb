@@ -1,0 +1,5 @@
+﻿fecha,participante,dispositivo,viewport,tarea_n,tarea_id,requerimiento,tarea,tiempo_s,completada,clics,respuesta,esperado,likert_claridad,likert_utilidad,likert_usaria,comentario
+2026-10-05,P00,escritorio,1440x900,1,registrar_acuerdo,R1,Registrar y enviar un acuerdo,2,si,2,"campos 4/4; reparto=60; cuota=30; metodo=Transferencia; plazo=48 horas; estado=enviado; coincide_escenario=si",4/4 campos y enviado (60 / 30 / Transferencia / 48 horas),4,5,4,Ejemplo de respuesta abierta (sesión de prueba del equipo).
+2026-10-05,P00,escritorio,1440x900,2,decidir_equipos,R2,Decidir qué equipos llevar,1,si,0,"Platillos; Amplificador de bajo; Cables de instrumento","Platillos; Amplificador de bajo; Cables de instrumento",4,5,4,Ejemplo de respuesta abierta (sesión de prueba del equipo).
+2026-10-05,P00,escritorio,1440x900,3,prueba_sonido,R3,Encontrar la prueba de sonido,0,si,0,si 19:00,"Sí, 19:00",4,5,4,Ejemplo de respuesta abierta (sesión de prueba del equipo).
+2026-10-05,P00,escritorio,1440x900,4,recuperar_acuerdo,R1,Recuperar el acuerdo,1,si,1,90000,90000,4,5,4,Ejemplo de respuesta abierta (sesión de prueba del equipo).

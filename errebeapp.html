@@ -144,7 +144,7 @@
   .back:hover{color:var(--rojo)}
   .sectitle{font-size:12px;font-weight:700;color:var(--gris-2);text-transform:uppercase;letter-spacing:1.4px;margin:26px 0 12px}
 
-  .pill-role{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:20px;background:var(--panel-2);color:var(--gris)}
+  .pill-role{white-space:nowrap;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:20px;background:var(--panel-2);color:var(--gris)}
   .banner{background:rgba(225,18,28,.08);border:1px solid rgba(225,18,28,.25);border-radius:12px;padding:14px 16px;font-size:13px;color:var(--texto);margin-bottom:18px;display:flex;gap:10px;align-items:flex-start}
   .banner b{color:#ff5862}
 
@@ -291,8 +291,69 @@
   .venue-meta{font-size:12.5px;color:var(--gris);margin-bottom:10px}
   .stars{color:var(--warn);letter-spacing:1px;font-size:15px}
 
+  /* ---- acuerdos: grupo obligatorio y pasos de estado ---- */
+  .ac-group{border:1px solid var(--linea);border-radius:12px;padding:14px 14px 0;margin-bottom:4px;background:var(--panel)}
+  .ac-group .field input,.ac-group .field select{background:var(--carbon)}
+  .ac-group-h{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--texto);margin-bottom:12px}
+  .field.miss input,.field.miss select{border-color:var(--warn)}
+  .steps{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:4px 0 18px;font-size:12px;font-weight:700;color:var(--gris-2)}
+  .steps .st{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:20px;border:1px solid var(--linea)}
+  .steps .st.done{color:var(--ok);border-color:rgba(54,194,107,.4)}
+  .steps .st.now{color:var(--texto);border-color:var(--rojo);background:var(--panel)}
+  .steps .st.obs{color:var(--warn);border-color:rgba(230,167,38,.5)}
+  .steps .sep{color:var(--gris-2)}
+  .hist{font-size:12.5px;color:var(--gris);line-height:1.7}
+  .hist b{color:var(--texto);font-weight:700}
+
+  /* ---- ficha: editor de equipos y estado por equipo ---- */
+  .gear-ed{display:flex;gap:8px;margin-bottom:8px;align-items:center}
+  .gear-ed input{flex:1.4;min-width:0}
+  .gear-ed select{flex:1;min-width:0}
+  .gear-ed .gx{background:none;border:1px solid var(--linea);border-radius:8px;color:var(--gris);font-size:18px;line-height:1;padding:9px 11px;cursor:pointer;touch-action:manipulation;-webkit-appearance:none;appearance:none;font-family:inherit}
+  .llevar{margin-top:14px;padding:12px 14px;border-radius:10px;border:1px solid rgba(230,167,38,.35);background:rgba(230,167,38,.07);font-size:13px;line-height:1.55}
+  .llevar b{color:var(--warn)}
+  .llevar.ok{border-color:rgba(54,194,107,.3);background:rgba(54,194,107,.06)}
+  .llevar.ok b{color:var(--ok)}
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+  .fact{background:var(--carbon);border:1px solid var(--linea);border-radius:10px;padding:9px 11px;font-size:12.5px;line-height:1.4}
+  .fact small{display:block;font-size:10.5px;color:var(--gris-2);text-transform:uppercase;letter-spacing:.6px;font-weight:700;margin-bottom:2px}
+
+  /* ---- modo validación (?test=1) ---- */
+  .vt-panel{position:fixed;right:18px;bottom:18px;z-index:450;width:360px;max-width:calc(100% - 24px);max-height:80vh;overflow-y:auto;-webkit-overflow-scrolling:touch;background:var(--carbon);border:2px solid var(--rojo);border-radius:16px;box-shadow:0 18px 60px rgba(0,0,0,.55);padding:16px 18px;font-size:14px;line-height:1.5}
+  .vt-panel[hidden]{display:none}
+  .vt-panel.full{top:50%;left:50%;right:auto;bottom:auto;width:520px;max-height:92vh;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}
+  .vt-panel.min{width:auto;padding:10px 14px;cursor:pointer}
+  .vt-back{position:fixed;top:0;left:0;right:0;bottom:0;z-index:440;background:rgba(0,0,0,.72)}
+  .vt-kick{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--rojo);margin-bottom:6px}
+  .vt-kick button{background:none;border:1px solid var(--linea);border-radius:7px;color:var(--gris);font-size:12px;font-weight:700;padding:4px 9px;cursor:pointer;touch-action:manipulation;-webkit-appearance:none;appearance:none;font-family:inherit}
+  .vt-panel h3{font-family:Impact,"Arial Black",sans-serif;font-weight:400;font-size:24px;letter-spacing:.3px;line-height:1.1;margin-bottom:8px}
+  .vt-panel p{color:var(--gris);margin-bottom:10px}
+  .vt-panel .vt-task{font-size:15px;color:var(--texto);font-weight:600;margin-bottom:12px}
+  .vt-scen{background:var(--panel);border:1px solid var(--linea);border-radius:10px;padding:10px 12px;font-size:13px;margin-bottom:12px}
+  .vt-scen div{display:flex;justify-content:space-between;gap:10px;padding:3px 0}
+  .vt-scen span{color:var(--gris)}
+  .vt-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .vt-row .btn{flex:1;justify-content:center}
+  .vt-opts{display:flex;flex-direction:column;gap:6px;margin:6px 0 4px}
+  .vt-opts label{display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:6px 8px;border:1px solid var(--linea);border-radius:8px}
+  .vt-opts input{width:18px;height:18px;flex-shrink:0}
+  .vt-panel .field input,.vt-panel .field select,.vt-panel .field textarea{font-size:16px}
+  .likert{display:flex;gap:6px;margin:4px 0 14px}
+  .likert button{flex:1;padding:10px 0;border-radius:8px;border:1px solid var(--linea);background:var(--panel);color:var(--texto);font-weight:800;font-size:15px;cursor:pointer;touch-action:manipulation;-webkit-appearance:none;appearance:none;font-family:inherit}
+  .likert button.on{background:var(--rojo);border-color:var(--rojo);color:#fff}
+  .likert-ends{display:flex;justify-content:space-between;font-size:11px;color:var(--gris-2);margin-top:-10px;margin-bottom:12px}
+  .vt-sum{width:100%;border-collapse:collapse;font-size:13px;margin:6px 0 12px}
+  .vt-sum td{padding:6px 4px;border-bottom:1px solid var(--linea)}
+
   .burger{display:none}
   @media(max-width:780px){
+    .vt-panel{left:12px;right:12px;bottom:12px;width:auto;max-width:none;max-height:58vh;padding:14px 16px}
+    .vt-panel.full{left:12px;right:12px;top:auto;bottom:12px;width:auto;max-height:90vh;-webkit-transform:none;transform:none}
+    .vt-panel.min{left:auto;right:0;top:50%;bottom:auto;border-radius:12px 0 0 12px;border-right:none;padding:10px 10px 10px 12px}
+    .vt-panel.min .vt-long{display:none}
+    .facts{grid-template-columns:1fr}
+    .gear-ed{flex-wrap:wrap}
+    .gear-ed input{flex-basis:100%}
     .mobile-bar{display:flex}
     .help-fab.show{display:none}
     aside{position:fixed;left:0;top:0;z-index:90;-webkit-transform:translateX(-100%);transform:translateX(-100%);-webkit-transition:.25s;transition:.25s;box-shadow:0 0 50px rgba(0,0,0,.6);overflow-y:auto;-webkit-overflow-scrolling:touch}
@@ -355,7 +416,7 @@
 
     <nav class="side">
       <button class="nav-item active" data-v="inicio"><span class="ic">◎</span> Inicio</button>
-      <button class="nav-item" data-v="acuerdos" data-role="musico"><span class="ic">▤</span> Acuerdos</button>
+      <button class="nav-item" data-v="acuerdos"><span class="ic">▤</span> Acuerdos</button>
       <button class="nav-item" data-v="fichas"><span class="ic">♪</span> Fichas técnicas</button>
       <button class="nav-item" data-v="agenda" data-role="musico"><span class="ic">▦</span> Agenda</button>
       <button class="nav-item" data-v="simulador" data-role="musico"><span class="ic">💰</span> Simulador</button>
@@ -402,9 +463,10 @@
     <!-- ACUERDOS (músico) -->
     <section class="view" data-view="acuerdos">
       <div class="topline">
-        <div><h1>Acuerdos</h1><div class="sub">Lo conversado con cada local, por escrito y sin letra chica.</div></div>
-        <button class="btn btn-prim" onclick="openAcuerdo()">+ Nuevo acuerdo</button>
+        <div><h1>Acuerdos</h1><div class="sub" id="acuerdos-sub">Lo conversado con cada local, por escrito y sin letra chica.</div></div>
+        <div id="acuerdos-cta"><button class="btn btn-prim" onclick="openAcuerdo()">+ Nuevo acuerdo</button></div>
       </div>
+      <div id="acuerdos-pasos"></div>
       <div class="listcard" id="list-acuerdos"></div>
     </section>
 
@@ -512,27 +574,37 @@
 <!-- MODAL ACUERDO -->
 <div class="overlay" id="ov-acuerdo">
   <div class="modal">
-    <div class="modal-head"><h3>Nuevo acuerdo</h3><button class="x" onclick="close_('ov-acuerdo')">×</button></div>
+    <div class="modal-head"><h3 id="ac-title">Nuevo acuerdo</h3><button class="x" onclick="close_('ov-acuerdo')">×</button></div>
     <div class="modal-body">
-      <div class="field"><label>Local / Espacio</label><input id="ac-local" placeholder="Peña El Trauco"></div>
-      <div class="two">
-        <div class="field"><label>Reparto (% para ti)</label><input id="ac-reparto" type="number" min="0" max="100" placeholder="60"><div class="hint">El resto va al local</div></div>
-        <div class="field"><label>Asistencia mínima</label><input id="ac-cuota" type="number" min="0" placeholder="35"><div class="hint">Personas para cumplir cuota</div></div>
+      <div id="ac-obs-box"></div>
+      <div class="field"><label>Local / Espacio</label><input id="ac-local" list="ac-locales" placeholder="Escribe o elige un local" autocomplete="off"><datalist id="ac-locales"></datalist></div>
+      <div class="ac-group">
+        <div class="ac-group-h">Lo que necesitas para enviarlo <span id="ac-count" class="chip chip-mut">0 de 4</span></div>
+        <div class="two">
+          <div class="field"><label>Reparto (% para la banda)</label><input id="ac-reparto" type="number" inputmode="numeric" min="0" max="100" placeholder="60" oninput="acCount()"><div class="hint">El resto queda para el local</div></div>
+          <div class="field"><label>Asistencia mínima</label><input id="ac-cuota" type="number" inputmode="numeric" min="0" placeholder="35" oninput="acCount()"><div class="hint">Personas que pide el local. Pon 0 si no pide.</div></div>
+        </div>
+        <div class="two">
+          <div class="field"><label>Método de pago</label>
+            <select id="ac-metodo" onchange="acCount()"><option value="">Elige…</option><option>Transferencia</option><option>Efectivo</option><option>Por puerta (entradas)</option></select>
+          </div>
+          <div class="field"><label>Plazo de pago</label>
+            <select id="ac-plazo" onchange="acCount()"><option value="">Elige…</option><option>Al cierre del show</option><option>Mismo día</option><option>48 horas</option><option>7 días</option></select>
+          </div>
+        </div>
       </div>
+      <div class="sectitle" style="margin-top:18px">Detalles opcionales</div>
       <div class="two">
-        <div class="field"><label>Seguro de sala (CLP)</label><input id="ac-seguro" type="number" min="0" placeholder="0"><div class="hint">Monto fijo si no se cumple cuota</div></div>
-        <div class="field"><label>Precio entrada (CLP)</label><input id="ac-precio-ent" type="number" min="0" placeholder="5000"></div>
-      </div>
-      <div class="field"><label>Método de pago</label>
-        <select id="ac-pago"><option>Transferencia, mismo día</option><option>Transferencia, 48 hrs</option><option>Efectivo al cierre</option><option>Por puerta (entradas)</option></select>
+        <div class="field"><label>Precio entrada (CLP)</label><input id="ac-precio-ent" type="number" inputmode="numeric" min="0" placeholder="5000"><div class="hint">Para calcular cuánto recibe la banda</div></div>
+        <div class="field"><label>Seguro de sala (CLP)</label><input id="ac-seguro" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">Lo que pagas si no se llega a la asistencia mínima</div></div>
       </div>
       <div class="two">
         <div class="field"><label>Hora carga / llegada</label><input id="ac-carga" type="time"><div class="hint">Hora de acceso al recinto</div></div>
         <div class="field"><label>Contacto sonidista</label><input id="ac-sonidista" placeholder="Juan · +56 9 1234 5678"></div>
       </div>
-      <div class="field"><label>Condiciones acordadas</label><textarea id="ac-cond" placeholder="Ej: si se suspende por el local, no hay costo para la banda. La cuota se mide con lista de entrada."></textarea><div class="hint">Escríbelo claro: esto es lo que firman ambos.</div></div>
+      <div class="field"><label>Condiciones acordadas</label><textarea id="ac-cond" placeholder="Ej: si se suspende por el local, no hay costo para la banda. La asistencia se mide con lista de entrada."></textarea><div class="hint">Escríbelo claro: esto es lo que verá el local antes de confirmar.</div></div>
     </div>
-    <div class="modal-foot"><button class="btn btn-ghost" onclick="close_('ov-acuerdo')">Cancelar</button><button class="btn btn-prim" onclick="saveAcuerdo()">Guardar acuerdo</button></div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="saveAcuerdo(false)">Guardar borrador</button><button class="btn btn-prim" onclick="saveAcuerdo(true)">Enviar al local</button></div>
   </div>
 </div>
 
@@ -544,14 +616,25 @@
       <div class="field"><label>Nombre del local</label><input id="fi-local" placeholder="Bar Estación"></div>
       <div class="two">
         <div class="field"><label>Capacidad (personas)</label><input id="fi-cap" type="number" min="0" placeholder="80"></div>
-        <div class="field"><label>Edad mínima ingreso</label><input id="fi-edad" type="number" min="0" placeholder="18"></div>
+        <div class="field"><label>Edad mínima de ingreso</label><input id="fi-edad" type="number" inputmode="numeric" min="0" placeholder="18"><div class="hint">Pon 0 si entran todas las edades</div></div>
       </div>
       <div class="field"><label>Especificaciones consola de sonido</label><input id="fi-consola" placeholder="Ej: Yamaha MG16, 16 canales"></div>
-      <div class="field"><label>Estado de mantenimiento</label>
+      <div class="field"><label>Estado general de los equipos</label>
         <select id="fi-mant"><option value="bueno">Bueno — equipos en buen estado</option><option value="regular">Regular — algunos equipos con desgaste</option><option value="precario">Precario — equipos con fallas conocidas</option></select>
       </div>
-      <div class="field"><label>Equipos disponibles (uno por línea)</label><textarea id="fi-gear" placeholder="Batería&#10;Amplificador de bajo&#10;2 monitores&#10;3 micrófonos vocales"></textarea><div class="hint">Anota solo lo que de verdad hay en el local. Esto es lo que verán los músicos.</div></div>
-      <div class="field"><label>Recomienda llevar</label><input id="fi-traer" placeholder="Cables, pedalera"></div>
+      <div class="field"><label>Equipos del local y su estado real</label>
+        <div id="fi-gear-list"></div>
+        <button type="button" class="btn btn-ghost btn-sm" onclick="gearAdd()" style="margin-top:8px">+ Agregar equipo</button>
+        <div class="hint">Si algo falla, márcalo. Esto es lo que ven los músicos para decidir qué llevar.</div>
+      </div>
+      <div class="field"><label>La banda debe traer</label><input id="fi-traer" placeholder="Cables, pedalera"></div>
+      <div class="two">
+        <div class="field"><label>Prueba de sonido</label>
+          <select id="fi-prueba" onchange="fiPruebaToggle()"><option value="si">Sí, hay prueba</option><option value="no">No hay prueba</option></select>
+        </div>
+        <div class="field" id="fi-prueba-hora-f"><label>Hora de la prueba</label><input id="fi-prueba-hora" type="time"></div>
+      </div>
+      <div class="field" id="fi-prueba-dur-f"><label>Duración de la prueba (minutos)</label><input id="fi-prueba-dur" type="number" inputmode="numeric" min="0" placeholder="30"></div>
       <div class="two">
         <div class="field"><label>Patente al día</label>
           <select id="fi-patente"><option value="si">Sí</option><option value="no">No</option><option value="tramite">En trámite</option></select>
@@ -651,6 +734,21 @@
   </div>
 </div>
 
+<!-- MODAL OBSERVAR ACUERDO (solo local) -->
+<div class="overlay" id="ov-observar">
+  <div class="modal">
+    <div class="modal-head"><h3>Observar acuerdo</h3><button class="x" onclick="close_('ov-observar')">×</button></div>
+    <div class="modal-body">
+      <p style="font-size:14px;color:var(--gris);line-height:1.55;margin-bottom:14px">Explica qué cambiarías. La banda lo verá en el acuerdo, podrá corregirlo y volver a enviártelo.</p>
+      <div class="field"><label>Tu observación</label><textarea id="ob-texto" placeholder="Ej: la asistencia mínima que pedimos es 40 personas, no 30."></textarea></div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="close_('ov-observar')">Cancelar</button><button class="btn btn-prim" onclick="saveObservacion()">Enviar observación</button></div>
+  </div>
+</div>
+
+<!-- MODO VALIDACIÓN (solo con ?test=1) -->
+<div class="vt-panel" id="vt-panel" hidden></div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -661,8 +759,8 @@ let DB={
     {id:2,local:"Bar Estación",reparto:50,cuota:40,seguro:30000,precio_ent:5000,carga:"20:00",sonidista:"Felipe · +56 9 7766 5544",pago:"Por puerta (entradas)",cond:"Reparto 50/50 sobre puerta. El pago se entrega el mismo día sin descuentos no avisados.",estado:"pendiente"},
   ],
   fichas:[
-    {id:1,local:"Bar Estación",gear:["Batería","Amplificador de bajo","2 monitores","3 micrófonos vocales"],consola:"Yamaha MG16 — 16 canales",mant:"bueno",cap:80,edad:18,patente:"si",acustico:"parcial",traer:"Cables, pedalera",updated:daysAgo(9)},
-    {id:2,local:"Peña El Trauco",gear:["PA básico","1 micrófono"],consola:"Behringer Xenyx 802",mant:"regular",cap:60,edad:18,patente:"si",acustico:"si",traer:"Todo el backline",updated:daysAgo(48)},
+    {id:1,local:"Bar Estación",gear:[{n:"Batería",st:"ok"},{n:"Amplificador de bajo",st:"ok"},{n:"2 monitores",st:"desgaste"},{n:"3 micrófonos vocales",st:"ok"}],consola:"Yamaha MG16 — 16 canales",mant:"bueno",cap:80,edad:18,patente:"si",acustico:"parcial",traer:"Cables, pedalera",prueba:"si",prueba_hora:"20:00",prueba_dur:30,updated:daysAgo(9)},
+    {id:2,local:"Peña El Trauco",gear:[{n:"PA básico",st:"ok"},{n:"1 micrófono",st:"desgaste"}],consola:"Behringer Xenyx 802",mant:"regular",cap:60,edad:18,patente:"si",acustico:"si",traer:"Todo el backline",prueba:"no",updated:daysAgo(48)},
   ],
   tareas:[
     {id:201,desc:"Reservar flete para el show del sábado",quien:"Rodrigo",cat:"Logística",fecha:nextDate(4),done:false},
@@ -702,14 +800,38 @@ let seq=100;
 function daysAgo(d){const x=new Date();x.setDate(x.getDate()-d);return x.toISOString().slice(0,10)}
 function nextDate(d){const x=new Date();x.setDate(x.getDate()+d);return x.toISOString().slice(0,10)}
 
-async function persist(){try{if(window.storage){await window.storage.set('errebe:db',JSON.stringify(DB))}}catch(e){}}
-async function load(){try{if(window.storage){const r=await window.storage.get('errebe:db');if(r&&r.value){DB=JSON.parse(r.value)}}}catch(e){}
+// Modo validación: solo con ?test=1. Usa datos de ejemplo en memoria y nunca escribe sobre 'errebe:db'.
+const TEST_MODE=/[?&]test=1(&|$)/.test(location.search);
+async function persist(){if(TEST_MODE)return;try{if(window.storage){await window.storage.set('errebe:db',JSON.stringify(DB))}}catch(e){}}
+async function load(){
+  if(TEST_MODE){DB=buildTestDB();}
+  else{try{if(window.storage){const r=await window.storage.get('errebe:db');if(r&&r.value){DB=JSON.parse(r.value)}}}catch(e){}}
   // defaults por compatibilidad con datos guardados de versiones previas
   if(!DB.capacidades)DB.capacidades={"Bar Estación":80,"Peña El Trauco":60};
   if(!DB.tareas)DB.tareas=[];
   if(!DB.social)DB.social={instagram:'',youtube:'',spotify:'',web:''};
   if(!DB.localesCatalogo)DB.localesCatalogo=[];
   DB.eventos.forEach(e=>{if(!e.banda)e.banda='Mi banda'});
+  DB.acuerdos.forEach(normAcuerdo);
+  DB.fichas.forEach(normFicha);
+  if(TEST_MODE)vtInit();
+}
+// Acuerdos guardados con el modelo anterior (aceptado/pendiente y pago en un solo texto)
+function normAcuerdo(a){
+  if(a.estado==='aceptado')a.estado='confirmado';
+  if(a.estado==='pendiente')a.estado='enviado';
+  if(!a.estado)a.estado='borrador';
+  if(!a.banda)a.banda='Mi banda';
+  if(!a.historial)a.historial=[];
+  if(!a.metodo&&a.pago){
+    const p=a.pago.toLowerCase();
+    a.metodo=p.indexOf('transfer')===0?'Transferencia':p.indexOf('efectivo')===0?'Efectivo':p.indexOf('puerta')>=0?'Por puerta (entradas)':'';
+    a.plazo=p.indexOf('mismo día')>=0?'Mismo día':p.indexOf('48')>=0?'48 horas':(p.indexOf('cierre')>=0||p.indexOf('puerta')>=0)?'Al cierre del show':'';
+  }
+}
+// Fichas con equipos como texto plano pasan a {n: nombre, st: estado}
+function normFicha(f){
+  f.gear=(f.gear||[]).map(g=>typeof g==='string'?{n:g,st:'ok'}:g);
 }
 
 /* ----- gate: elegir cuenta al entrar ----- */
@@ -763,7 +885,7 @@ function fichaDe(local){return DB.fichas.find(f=>f.local===local)}
 function fmtMoney(n){n=Math.round(n||0);return '$'+n.toLocaleString('es-CL')}
 function fmtK(n){n=Math.round(n||0);return n>=1000?'$'+(n/1000).toFixed(n%1000?1:0).replace('.',',')+'k':'$'+n}
 function acuerdoDe(local){return DB.acuerdos.find(a=>a.local===local)}
-function repartoDe(local){const a=acuerdoDe(local);return a?a.reparto:60}
+function repartoDe(local){const a=acuerdoDe(local);return a&&hasNum(a.reparto)?+a.reparto:60}
 
 function renderAll(){renderInicio();renderAcuerdos();renderFichas();renderAgenda();renderStats();renderTareas();renderAlertas();renderQR();renderBuscador();calcSim();}
 
@@ -777,25 +899,27 @@ function renderInicio(){
     const prox=DB.eventos.filter(e=>diffDays(e.fecha)>=0).sort((a,b)=>a.fecha.localeCompare(b.fecha));
     c.innerHTML=`
       <div class="grid g-3" style="margin-bottom:8px">
-        <div class="card accent stat"><b>${DB.acuerdos.length}</b><span>Acuerdos guardados</span></div>
+        <div class="card accent stat"><b>${DB.acuerdos.filter(a=>a.estado==='confirmado').length}/${DB.acuerdos.length}</b><span>Acuerdos confirmados</span></div>
         <div class="card stat"><b>${prox.filter(e=>e.estado==='confirmado').length}</b><span>Fechas confirmadas</span></div>
         <div class="card stat"><b>${prox.filter(e=>e.estado==='propuesta').length}</b><span>Por confirmar</span></div>
       </div>
       <div class="sectitle">Tu próxima fecha</div>${nextEventCard()}
       <div class="sectitle">Acuerdos recientes</div>
-      <div class="listcard">${DB.acuerdos.slice(0,3).map(rowAcuerdo).join('')||emptyRow('Aún no hay acuerdos')}</div>`;
+      <div class="listcard">${DB.acuerdos.slice(0,3).map(rowAcuerdo).join('')||emptyRow('Aún no hay acuerdos. Crea uno con “+ Nuevo acuerdo”.')}</div>`;
   } else {
     t.innerHTML='Panel del local 🏠'; s.textContent='Mantén tu ficha técnica al día para que los músicos sepan qué llevar.';
     cta.innerHTML='<button class="btn btn-prim" onclick="openFicha()">Editar mi ficha</button>';
     const f=fichaDe(DB.miLocal);
     const dias=f?diffDays(f.updated)*-1:null;
     const stale=f&&dias>30;
+    const porRev=DB.acuerdos.filter(a=>a.local===DB.miLocal&&a.estado==='enviado').length;
     c.innerHTML=`
       <div class="grid g-3" style="margin-bottom:8px">
         <div class="card accent stat"><b>${f?f.gear.length:0}</b><span>Equipos publicados</span></div>
         <div class="card stat"><b>${f?dias:'—'}</b><span>Días desde actualización</span></div>
         <div class="card stat"><b>${DB.eventos.filter(e=>e.local===DB.miLocal).length}</b><span>Shows agendados aquí</span></div>
       </div>
+      ${porRev?`<div class="banner" style="cursor:pointer" onclick="go('acuerdos')">📨 <div><b>${porRev} acuerdo${porRev>1?'s':''} por revisar.</b> Una banda te envió sus condiciones: confírmalas u obsérvalas antes de la fecha. <u>Ver acuerdos</u></div></div>`:''}
       ${stale?'<div class="banner">⚠ <div><b>Tu ficha está desactualizada.</b> Los músicos confían en que el backline sea real. Actualízala para que sepan con qué cuentan.</div></div>':''}
       <div class="sectitle">Mi ficha técnica</div>
       ${f?fichaCard(f,true):'<div class="card empty"><b>Aún no publicas tu ficha</b>Sube el backline real de tu local.</div>'}`;
@@ -814,57 +938,167 @@ function nextEventCard(){
 }
 
 /* ----- ACUERDOS ----- */
+/* Ciclo de un acuerdo: borrador → enviado → confirmado (o observado por el local y reenviado por la banda) */
+function hasNum(v){return v!==null&&v!==undefined&&v!==''&&!isNaN(v)}
+function acCampos(a){return [hasNum(a.reparto),hasNum(a.cuota),!!a.metodo,!!a.plazo]}
+function acCompleto(a){return acCampos(a).every(Boolean)}
+function pagoTxt(a){return a.metodo?(a.metodo+(a.plazo?' · '+a.plazo.toLowerCase():'')):(a.pago||'')}
+function acuerdosVisibles(){
+  return ROLE==='local'?DB.acuerdos.filter(a=>a.local===DB.miLocal&&a.estado!=='borrador'):DB.acuerdos;
+}
+function chipAcuerdo(a){
+  if(a.estado==='confirmado')return '<span class="chip chip-ok">Confirmado por ambos</span>';
+  if(a.estado==='observado')return ROLE==='local'?'<span class="chip chip-warn">Esperando a la banda</span>':'<span class="chip chip-red">El local lo observó</span>';
+  if(a.estado==='enviado')return ROLE==='local'?'<span class="chip chip-red">Por revisar</span>':'<span class="chip chip-warn">Esperando al local</span>';
+  return '<span class="chip chip-mut">Borrador · '+acCampos(a).filter(Boolean).length+' de 4</span>';
+}
 function rowAcuerdo(a){
-  const est=a.estado==='aceptado'?'<span class="chip chip-ok">Aceptado por ambos</span>':'<span class="chip chip-warn">Pendiente</span>';
-  return `<div class="item clk" onclick="verAcuerdo(${a.id})"><div class="lead"><b>${esc(a.local)}</b><span>${a.reparto}% para ti · mín. ${a.cuota} pers. · ${esc(a.pago)}</span></div>${est}</div>`;
+  const quien=ROLE==='local'?a.banda:a.local;
+  const det=[hasNum(a.reparto)?a.reparto+'% banda':'reparto sin definir',hasNum(a.cuota)?(+a.cuota?'mín. '+a.cuota+' pers.':'sin asistencia mínima'):'asistencia mín. sin definir',pagoTxt(a)||'pago sin definir'].join(' · ');
+  return `<div class="item clk" onclick="verAcuerdo(${a.id})"><div class="lead"><b>${esc(quien)}</b><span>${esc(det)}</span></div>${chipAcuerdo(a)}</div>`;
 }
 function renderAcuerdos(){
-  document.getElementById('list-acuerdos').innerHTML=`<div class="lc-head"><h3>${DB.acuerdos.length} acuerdos</h3></div>`+(DB.acuerdos.map(rowAcuerdo).join('')||emptyRow('Crea tu primer acuerdo'));
+  const el=document.getElementById('list-acuerdos');if(!el)return;
+  const sub=document.getElementById('acuerdos-sub'),cta=document.getElementById('acuerdos-cta'),pasos=document.getElementById('acuerdos-pasos');
+  const list=acuerdosVisibles();
+  if(ROLE==='local'){
+    if(sub)sub.textContent='Lo que te proponen las bandas. Confírmalo o deja una observación antes de la fecha.';
+    if(cta)cta.innerHTML='';
+    if(pasos)pasos.innerHTML='';
+    const pend=list.filter(a=>a.estado==='enviado').length;
+    el.innerHTML=`<div class="lc-head"><h3>${list.length} acuerdos${pend?' · '+pend+' por revisar':''}</h3></div>`+
+      (list.map(rowAcuerdo).join('')||`<div class="empty"><b>Aún no te envían acuerdos</b>Cuando una banda te envíe uno, aparecerá aquí para que lo confirmes u observes.</div>`);
+  } else {
+    if(sub)sub.textContent='Lo conversado con cada local, por escrito y sin letra chica.';
+    if(cta)cta.innerHTML='<button class="btn btn-prim" onclick="openAcuerdo()">+ Nuevo acuerdo</button>';
+    if(pasos)pasos.innerHTML='<div class="steps"><span class="st">1 · Lo escribes</span><span class="sep">→</span><span class="st">2 · Lo envías al local</span><span class="sep">→</span><span class="st">3 · El local lo confirma u observa</span></div>';
+    el.innerHTML=`<div class="lc-head"><h3>${list.length} acuerdos</h3></div>`+
+      (list.map(rowAcuerdo).join('')||`<div class="empty"><b>Aún no tienes acuerdos</b>Anota reparto, asistencia mínima, método y plazo de pago antes de cerrar la fecha.<div style="margin-top:14px"><button class="btn btn-prim" onclick="openAcuerdo()">+ Nuevo acuerdo</button></div></div>`);
+  }
 }
+function pasosAcuerdo(a){
+  const orden=['borrador','enviado','confirmado'];
+  const idx=a.estado==='observado'?1:orden.indexOf(a.estado);
+  const lbl=['Borrador',a.estado==='observado'?'Observado':'Enviado','Confirmado'];
+  return '<div class="steps">'+lbl.map((l,i)=>{
+    const cls=i<idx?'done':i===idx?(a.estado==='observado'?'obs':'now'):'';
+    return `<span class="st ${cls}">${i<idx?'✓ ':''}${l}</span>`;
+  }).join('<span class="sep">→</span>')+'</div>';
+}
+function fmtFechaHora(iso){const d=new Date(iso);return d.getDate()+' '+MESES[d.getMonth()]+' · '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)}
+const HIST_TXT={borrador:'Borrador guardado',enviado:'Enviado al local',observado:'Observado por el local',confirmado:'Confirmado por el local'};
 function verAcuerdo(id){
   const a=DB.acuerdos.find(x=>x.id===id);if(!a)return;go('acuerdo-det');
-  const est=a.estado==='aceptado'?'<span class="chip chip-ok">Aceptado por ambos</span>':'<span class="chip chip-warn">Pendiente de aceptación</span>';
-  document.getElementById('acuerdo-det-body').innerHTML=`
-    <div class="topline"><div><h1>${esc(a.local)}</h1><div class="sub">Registro del acuerdo</div></div>${est}</div>
+  const body=document.getElementById('acuerdo-det-body');if(!body)return;
+  const campos=acCampos(a), faltan=['reparto','asistencia mínima','método de pago','plazo de pago'].filter((x,i)=>!campos[i]);
+  const precio=a.precio_ent||PRECIO_ENTRADA;
+  const recibe=hasNum(a.reparto)&&hasNum(a.cuota)&&+a.cuota>0?Math.round(a.cuota*precio*a.reparto/100):null;
+  let aviso='';
+  if(a.estado==='observado'&&a.observacion){
+    aviso=`<div class="alert amber" style="max-width:620px">💬 <div><b>Observación de ${esc(a.local)}:</b> ${esc(a.observacion)}</div></div>`;
+  } else if(a.estado==='enviado'){
+    aviso=ROLE==='local'
+      ?`<div class="alert amber" style="max-width:620px">📨 <div><b>La banda te envió este acuerdo.</b> Revísalo y confírmalo, o deja una observación si algo no calza.</div></div>`
+      :`<div class="alert amber" style="max-width:620px">📨 <div><b>Enviado a ${esc(a.local)}.</b> Falta que el local lo confirme o lo observe.</div></div>`;
+  } else if(a.estado==='borrador'){
+    aviso=faltan.length
+      ?`<div class="alert amber" style="max-width:620px">✎ <div><b>Borrador sin enviar.</b> Para enviarlo falta: ${faltan.join(', ')}.</div></div>`
+      :`<div class="alert amber" style="max-width:620px">✎ <div><b>Borrador sin enviar.</b> Está completo: envíalo al local para que lo confirme.</div></div>`;
+  } else if(a.estado==='confirmado'){
+    aviso=`<div class="alert green" style="max-width:620px">✓ <div><b>Confirmado por ambos.</b> Este registro ya no se puede editar.</div></div>`;
+  }
+  let acciones='';
+  if(ROLE==='local'){
+    if(a.estado==='enviado')acciones=`<button class="btn btn-prim" onclick="confirmarAcuerdo(${a.id})">Confirmar acuerdo</button><button class="btn btn-ghost" onclick="openObservar(${a.id})">Observar</button>`;
+  } else {
+    if(a.estado==='borrador')acciones=`<button class="btn btn-prim" onclick="enviarAcuerdo(${a.id})">Enviar al local</button><button class="btn btn-ghost" onclick="openAcuerdo(${a.id})">Editar</button><button class="btn btn-ghost" onclick="delAcuerdo(${a.id})">Eliminar</button>`;
+    else if(a.estado==='observado')acciones=`<button class="btn btn-prim" onclick="openAcuerdo(${a.id})">Corregir y reenviar</button>`;
+    else if(a.estado==='enviado')acciones=`<button class="btn btn-ghost" onclick="openAcuerdo(${a.id})">Editar y reenviar</button>`;
+  }
+  const hist=(a.historial||[]).map(h=>`<div>${fmtFechaHora(h.f)} — <b>${HIST_TXT[h.e]||h.e}</b>${h.txt?': “'+esc(h.txt)+'”':''}</div>`).join('');
+  body.innerHTML=`
+    <div class="topline"><div><h1>${esc(ROLE==='local'?a.banda:a.local)}</h1><div class="sub">${ROLE==='local'?'Banda que propone el acuerdo':'Registro del acuerdo'}</div></div>${chipAcuerdo(a)}</div>
+    ${pasosAcuerdo(a)}
+    ${aviso}
     <div class="card" style="max-width:620px">
-      <div class="kv"><span class="k">Reparto de ganancia</span><span class="v">${a.reparto}% banda / ${100-a.reparto}% local</span></div>
-      <div class="kv"><span class="k">Asistencia mínima</span><span class="v">${a.cuota} personas</span></div>
-      ${a.seguro?`<div class="kv"><span class="k">Seguro de sala</span><span class="v" style="color:var(--warn)">${fmtMoney(a.seguro)} si no se cumple cuota</span></div>`:''}
-      ${a.precio_ent?`<div class="kv"><span class="k">Precio entrada referencia</span><span class="v">${fmtMoney(a.precio_ent)}</span></div>`:''}
+      <div class="kv"><span class="k">Reparto de ganancia</span><span class="v">${hasNum(a.reparto)?a.reparto+'% banda / '+(100-a.reparto)+'% local':'<span style="color:var(--warn)">Sin definir</span>'}</span></div>
+      <div class="kv"><span class="k">Asistencia mínima</span><span class="v">${hasNum(a.cuota)?(+a.cuota?a.cuota+' personas':'No pide'):'<span style="color:var(--warn)">Sin definir</span>'}</span></div>
+      <div class="kv"><span class="k">Método de pago</span><span class="v">${a.metodo?esc(a.metodo):(a.pago?esc(a.pago):'<span style="color:var(--warn)">Sin definir</span>')}</span></div>
+      <div class="kv"><span class="k">Plazo de pago</span><span class="v">${a.plazo?esc(a.plazo):'<span style="color:var(--warn)">Sin definir</span>'}</span></div>
+      ${a.precio_ent?`<div class="kv"><span class="k">Precio entrada</span><span class="v">${fmtMoney(a.precio_ent)}</span></div>`:''}
+      ${a.seguro?`<div class="kv"><span class="k">Seguro de sala</span><span class="v" style="color:var(--warn)">${fmtMoney(a.seguro)} si no se llega a la asistencia mínima</span></div>`:''}
       ${a.carga?`<div class="kv"><span class="k">Hora de carga / llegada</span><span class="v">${esc(a.carga)}</span></div>`:''}
       ${a.sonidista?`<div class="kv"><span class="k">Contacto sonidista</span><span class="v">${esc(a.sonidista)}</span></div>`:''}
-      <div class="kv"><span class="k">Método de pago</span><span class="v">${esc(a.pago)}</span></div></div>
+    </div>
+    ${recibe!==null?`<div class="card accent" style="max-width:620px;margin-top:12px"><div style="font-size:12px;color:var(--gris);text-transform:uppercase;letter-spacing:1px">Si llegan justo ${a.cuota} personas a ${fmtMoney(precio)}</div><div class="sim-big sim-ok" style="font-size:30px">${fmtMoney(recibe)}</div><div style="font-size:13px;color:var(--gris)">es lo que recibe la banda (${a.reparto}% de ${fmtMoney(a.cuota*precio)}).</div></div>`:''}
     <div class="sectitle">Condiciones acordadas</div>
     <div class="card" style="max-width:620px;line-height:1.6">${esc(a.cond)||'<span style="color:var(--gris)">Sin condiciones extra.</span>'}</div>
-    <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap">
-      ${a.estado!=='aceptado'?`<button class="btn btn-prim" onclick="aceptar(${a.id})">Marcar como aceptado</button>`:''}
-      <button class="btn btn-ghost" onclick="delAcuerdo(${a.id})">Eliminar</button></div>`;
+    ${hist?`<div class="sectitle">Historial</div><div class="card hist" style="max-width:620px">${hist}</div>`:''}
+    ${acciones?`<div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap">${acciones}</div>`:''}`;
 }
-function aceptar(id){DB.acuerdos.find(x=>x.id===id).estado='aceptado';persist();verAcuerdo(id);toast('Acuerdo aceptado ✓')}
+function logAcuerdo(a,e,txt){a.estado=e;a.historial=a.historial||[];a.historial.push({e,f:new Date().toISOString(),txt:txt||''})}
+function enviarAcuerdo(id){
+  const a=DB.acuerdos.find(x=>x.id===id);if(!a)return;
+  if(!acCompleto(a)){openAcuerdo(id);acCount(true);toast('Completa las 4 condiciones para enviarlo');return}
+  logAcuerdo(a,'enviado');persist();verAcuerdo(id);toast('Enviado a '+a.local+' ✓');
+}
+function confirmarAcuerdo(id){const a=DB.acuerdos.find(x=>x.id===id);if(!a)return;logAcuerdo(a,'confirmado');persist();verAcuerdo(id);toast('Acuerdo confirmado ✓')}
+let obsId=null;
+function openObservar(id){obsId=id;document.getElementById('ob-texto').value='';document.getElementById('ov-observar').classList.add('show')}
+function saveObservacion(){
+  const a=DB.acuerdos.find(x=>x.id===obsId);if(!a)return;
+  const t=val('ob-texto');if(!t){toast('Escribe qué cambiarías');return}
+  a.observacion=t;logAcuerdo(a,'observado',t);close_('ov-observar');persist();verAcuerdo(a.id);toast('Observación enviada a la banda ✓');
+}
 function delAcuerdo(id){DB.acuerdos=DB.acuerdos.filter(x=>x.id!==id);persist();go('acuerdos');toast('Acuerdo eliminado')}
 
 /* ----- FICHAS ----- */
+const GEAR_ST={ok:['Buen estado','chip-ok'],desgaste:['Con desgaste, funciona','chip-warn'],falla:['Con falla · no usar','chip-red'],no:['No hay · llévalo','chip-red']};
+// Lo que la banda debe llevar: equipos con falla o que no hay, más lo que el local pide traer
+function llevarDe(f){
+  const items=(f.gear||[]).filter(g=>g.st==='falla'||g.st==='no').map(g=>g.n+(g.st==='falla'?' (el del local falla)':' (no hay)'));
+  if(f.traer)items.push(f.traer);
+  return items;
+}
+function pruebaTxt(f){
+  if(f.prueba==='si')return 'Sí'+(f.prueba_hora?' · '+f.prueba_hora+' hrs':'')+(f.prueba_dur?' · '+f.prueba_dur+' min':'');
+  if(f.prueba==='no')return 'No hay prueba de sonido';
+  return 'No informado';
+}
+function menoresTxt(f){
+  if(!hasNum(f.edad))return 'No informado';
+  if(+f.edad===0)return 'Todas las edades';
+  if(+f.edad>=18)return 'No admite menores (+'+f.edad+')';
+  return 'Admite desde los '+f.edad+' años';
+}
 function fichaCard(f,owner){
   const d=diffDays(f.updated)*-1, stale=d>30;
   const mantChip=f.mant==='bueno'?'chip-ok':f.mant==='regular'?'chip-warn':'chip-red';
   const mantLbl=f.mant==='bueno'?'Equipos en buen estado':f.mant==='regular'?'Estado regular':'Equipos con fallas';
   const patChip=f.patente==='si'?'chip-ok':f.patente==='tramite'?'chip-warn':'chip-red';
   const acuChip=f.acustico==='si'?'chip-ok':f.acustico==='parcial'?'chip-warn':'chip-red';
+  const llevar=llevarDe(f);
+  const pChip=f.prueba==='si'?'':' style="color:var(--warn)"';
   return `<div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px">
       <b style="font-size:16px">${esc(f.local)}</b>
-      ${owner?`<button class="btn btn-ghost btn-sm" onclick="openFicha()">Editar</button>`:`<span class="pill-role">Solo lectura</span>`}
+      ${owner?`<button class="btn btn-ghost btn-sm" onclick="openFicha()">Editar</button>`:`<span class="pill-role">Publicada por el local</span>`}
     </div>
-    <div class="fresh ${stale?'stale':''}"><span class="pulse"></span>${stale?'Desactualizada · hace '+d+' días':'Actualizada hace '+d+' días'}</div>
-    ${f.cap||f.edad?`<div style="display:flex;gap:12px;margin-top:10px;font-size:12.5px;color:var(--gris)">${f.cap?'<span>👥 Cap. '+f.cap+' pers.</span>':''}${f.edad?'<span>🔞 +'+f.edad+' años</span>':''}</div>`:''}
-    ${f.consola?`<div style="margin-top:10px;font-size:12.5px"><span style="color:var(--gris)">Consola: </span>${esc(f.consola)}</div>`:''}
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+    <div class="fresh ${stale?'stale':''}"><span class="pulse"></span>${stale?'Desactualizada · hace '+d+' días':(d===0?'Actualizada hoy':'Actualizada hace '+d+' días')}</div>
+    <div class="facts">
+      <div class="fact"><small>Prueba de sonido</small><span${pChip}>${pruebaTxt(f)}</span></div>
+      <div class="fact"><small>Menores de edad</small>${menoresTxt(f)}</div>
+      ${f.cap?`<div class="fact"><small>Capacidad</small>${f.cap} personas</div>`:''}
+      ${f.consola?`<div class="fact"><small>Consola</small>${esc(f.consola)}</div>`:''}
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
       <span class="chip ${mantChip}">${mantLbl}</span>
       ${f.patente?`<span class="chip ${patChip}">Patente: ${f.patente==='si'?'al día':f.patente==='tramite'?'en trámite':'sin patente'}</span>`:''}
       ${f.acustico?`<span class="chip ${acuChip}">Acústica: ${f.acustico==='si'?'óptima':f.acustico==='parcial'?'parcial':'sin aislamiento'}</span>`:''}
     </div>
-    <div style="margin-top:12px">${f.gear.map(g=>`<div class="gear-row"><span>${esc(g)}</span><span class="chip chip-ok">Disponible</span></div>`).join('')}</div>
-    ${f.traer?`<div style="margin-top:12px;font-size:13px;color:var(--warn)">⚠ Recomiendan llevar: ${esc(f.traer)}</div>`:''}
+    <div class="sectitle" style="margin:16px 0 4px">Equipos del local</div>
+    <div>${(f.gear||[]).map(g=>{const st=GEAR_ST[g.st]||GEAR_ST.ok;return `<div class="gear-row"><span>${esc(g.n)}</span><span class="chip ${st[1]}">${st[0]}</span></div>`}).join('')||'<div style="font-size:13px;color:var(--gris);padding:10px 0">El local no ha listado equipos.</div>'}</div>
+    ${llevar.length?`<div class="llevar">🎒 <b>La banda debe llevar:</b> ${llevar.map(esc).join(' · ')}</div>`:`<div class="llevar ok">✓ <b>El local cubre todo lo listado.</b></div>`}
     ${owner?`<div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-ghost btn-sm" onclick="refreshFicha(${f.id})">Marcar como vigente hoy</button></div>`:''}
   </div>`;
 }
@@ -907,12 +1141,13 @@ function verEvento(id){
   let body=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
       <div style="font-size:15px;font-weight:700">${fd.n} ${fd.m} · ${e.show||'—'}</div>${est}</div>
     <div class="kv"><span class="k">Local</span><span class="v">${esc(e.local)||'Sin asignar'}</span></div>
-    <div class="kv"><span class="k">Prueba de sonido</span><span class="v">${e.prueba||'—'}</span></div>
+    <div class="kv"><span class="k">Prueba de sonido</span><span class="v">${e.prueba?e.prueba+' hrs':(f?pruebaTxt(f)+(f.prueba==='si'?' (según el local)':''):'—')}</span></div>
     <div class="kv"><span class="k">Pendientes</span><span class="v">${esc(e.todo)||'—'}</span></div>`;
   if(f){
-    body+=`<div class="sectitle" style="margin:18px 0 10px">Qué hay en el local (ficha oficial)</div>
-      <div style="font-size:13px;color:var(--gris);margin-bottom:8px">${f.gear.map(esc).join(' · ')}</div>
-      ${f.traer?`<div style="font-size:13px;color:var(--warn);font-weight:700">⚠ Debes llevar: ${esc(f.traer)}</div>`:'<div style="font-size:13px;color:var(--ok)">El local cubre el backline.</div>'}`;
+    const llevar=llevarDe(f);
+    body+=`<div class="sectitle" style="margin:18px 0 10px">Qué hay en el local (ficha publicada por el local)</div>
+      <div style="font-size:13px;color:var(--gris);margin-bottom:8px">${f.gear.map(g=>esc(g.n)+(g.st&&g.st!=='ok'?' ('+GEAR_ST[g.st][0].toLowerCase()+')':'')).join(' · ')}</div>
+      ${llevar.length?`<div style="font-size:13px;color:var(--warn);font-weight:700">🎒 Debes llevar: ${llevar.map(esc).join(' · ')}</div>`:'<div style="font-size:13px;color:var(--ok)">El local cubre todo lo listado.</div>'}`;
   } else if(e.local){
     body+=`<div class="sectitle" style="margin:18px 0 10px">Ficha técnica</div><div style="font-size:13px;color:var(--gris-2)">Este local aún no publica su ficha. Pídesela antes del show.</div>`;
   }
@@ -935,16 +1170,46 @@ function reabrirEvento(id){DB.eventos.find(x=>x.id===id).estado='propuesta';pers
 function delEvento(id){DB.eventos=DB.eventos.filter(x=>x.id!==id);persist();close_('ov-evdet');renderAll();toast('Fecha eliminada')}
 
 /* ----- modales ----- */
-function openAcuerdo(){document.getElementById('ov-acuerdo').classList.add('show')}
+let acEditId=null;
+const AC_REQ=['ac-reparto','ac-cuota','ac-metodo','ac-plazo'];
+function openAcuerdo(id){
+  const a=id?DB.acuerdos.find(x=>x.id===id):null;
+  acEditId=a?a.id:null;
+  const dl=document.getElementById('ac-locales');
+  if(dl)dl.innerHTML=[...new Set([...DB.fichas.map(f=>f.local),...DB.localesCatalogo.map(l=>l.nombre)])].map(l=>`<option value="${esc(l)}">`).join('');
+  const set=(k,v)=>{const el=document.getElementById(k);if(el)el.value=(v===null||v===undefined)?'':v};
+  set('ac-local',a?a.local:'');set('ac-reparto',a?a.reparto:'');set('ac-cuota',a?a.cuota:'');
+  set('ac-metodo',a?a.metodo||'':'');set('ac-plazo',a?a.plazo||'':'');
+  set('ac-seguro',a&&a.seguro?a.seguro:'');set('ac-precio-ent',a&&a.precio_ent?a.precio_ent:'');
+  set('ac-carga',a?a.carga:'');set('ac-sonidista',a?a.sonidista:'');set('ac-cond',a?a.cond:'');
+  document.getElementById('ac-title').textContent=a?(a.estado==='observado'?'Corregir acuerdo':'Editar acuerdo'):'Nuevo acuerdo';
+  document.getElementById('ac-obs-box').innerHTML=a&&a.estado==='observado'&&a.observacion?`<div class="alert amber">💬 <div><b>${esc(a.local)} observó:</b> ${esc(a.observacion)}</div></div>`:'';
+  AC_REQ.forEach(k=>{const f=document.getElementById(k);if(f)f.parentNode.classList.remove('miss')});
+  acCount();
+  document.getElementById('ov-acuerdo').classList.add('show');
+}
+// Cuenta las 4 condiciones que exige el envío; con mark=true resalta las que faltan
+function acCount(mark){
+  let n=0;
+  AC_REQ.forEach(k=>{const el=document.getElementById(k);if(!el)return;const ok=el.value.trim()!=='';if(ok)n++;
+    if(mark===true)el.parentNode.classList.toggle('miss',!ok);else if(ok)el.parentNode.classList.remove('miss');});
+  const c=document.getElementById('ac-count');
+  if(c){c.textContent=n+' de 4';c.className='chip '+(n===4?'chip-ok':'chip-mut');}
+  return n;
+}
 function openFicha(){
   const f=fichaDe(DB.miLocal);
   document.getElementById('fi-local').value=f?f.local:DB.miLocal;
-  document.getElementById('fi-gear').value=f?f.gear.join('\n'):'';
+  gearRender(f?f.gear:[{n:'',st:'ok'}]);
+  document.getElementById('fi-prueba').value=f&&f.prueba==='no'?'no':'si';
+  document.getElementById('fi-prueba-hora').value=f?f.prueba_hora||'':'';
+  document.getElementById('fi-prueba-dur').value=f&&f.prueba_dur?f.prueba_dur:'';
+  fiPruebaToggle();
   document.getElementById('fi-traer').value=f?f.traer:'';
   document.getElementById('fi-consola').value=f?f.consola||'':'';
   document.getElementById('fi-mant').value=f?f.mant||'bueno':'bueno';
   document.getElementById('fi-cap').value=f?f.cap||'':'';
-  document.getElementById('fi-edad').value=f?f.edad||18:18;
+  document.getElementById('fi-edad').value=f&&hasNum(f.edad)?f.edad:18;
   document.getElementById('fi-patente').value=f?f.patente||'si':'si';
   document.getElementById('fi-acustico').value=f?f.acustico||'si':'si';
   document.getElementById('fi-title').textContent=f?'Editar mi ficha técnica':'Publicar mi ficha técnica';
@@ -958,22 +1223,46 @@ function openEvento(){
 }
 function close_(id){document.getElementById(id).classList.remove('show')}
 
-function saveAcuerdo(){
+function saveAcuerdo(enviar){
   const local=val('ac-local');if(!local){toast('Falta el nombre del local');return}
-  DB.acuerdos.unshift({id:++seq,local,reparto:+val('ac-reparto')||0,cuota:+val('ac-cuota')||0,seguro:+val('ac-seguro')||0,precio_ent:+val('ac-precio-ent')||5000,carga:val('ac-carga'),sonidista:val('ac-sonidista'),pago:val('ac-pago'),cond:val('ac-cond'),estado:'pendiente'});
-  clearForm(['ac-local','ac-reparto','ac-cuota','ac-seguro','ac-precio-ent','ac-carga','ac-sonidista','ac-cond']);close_('ov-acuerdo');persist();go('acuerdos');toast('Acuerdo guardado ✓');
+  if(enviar&&acCount(true)<4){toast('Para enviarlo completa las 4 condiciones');return}
+  const num=k=>{const v=val(k);return v===''?null:+v};
+  const data={local,reparto:num('ac-reparto'),cuota:num('ac-cuota'),metodo:val('ac-metodo'),plazo:val('ac-plazo'),seguro:+val('ac-seguro')||0,precio_ent:+val('ac-precio-ent')||0,carga:val('ac-carga'),sonidista:val('ac-sonidista'),cond:val('ac-cond')};
+  let a=acEditId?DB.acuerdos.find(x=>x.id===acEditId):null;
+  if(a){Object.assign(a,data);delete a.pago;}
+  else{a=Object.assign({id:++seq,banda:'Mi banda',estado:'borrador',historial:[],creado:new Date().toISOString()},data);DB.acuerdos.unshift(a);}
+  if(enviar)logAcuerdo(a,'enviado');
+  else if(a.estado!=='confirmado')logAcuerdo(a,'borrador');
+  clearForm(['ac-local','ac-reparto','ac-cuota','ac-metodo','ac-plazo','ac-seguro','ac-precio-ent','ac-carga','ac-sonidista','ac-cond']);
+  close_('ov-acuerdo');persist();verAcuerdo(a.id);
+  toast(enviar?'Enviado a '+local+' ✓':'Borrador guardado');
 }
 function saveFicha(){
   const local=val('fi-local');if(!local){toast('Falta el nombre del local');return}
-  const gear=val('fi-gear').split('\n').map(x=>x.trim()).filter(Boolean);
+  const gear=gearRead();
+  const edadV=val('fi-edad'), prueba=val('fi-prueba');
   const ex=fichaDe(DB.miLocal);
   DB.miLocal=local;
-  const fiData={local,gear,consola:val('fi-consola'),mant:val('fi-mant'),cap:+val('fi-cap')||0,edad:+val('fi-edad')||18,patente:val('fi-patente'),acustico:val('fi-acustico'),traer:val('fi-traer'),updated:new Date().toISOString().slice(0,10)};
+  const fiData={local,gear,consola:val('fi-consola'),mant:val('fi-mant'),cap:+val('fi-cap')||0,edad:edadV===''?18:+edadV,patente:val('fi-patente'),acustico:val('fi-acustico'),traer:val('fi-traer'),
+    prueba,prueba_hora:prueba==='si'?val('fi-prueba-hora'):'',prueba_dur:prueba==='si'?(+val('fi-prueba-dur')||0):0,updated:new Date().toISOString().slice(0,10)};
   if(ex){Object.assign(ex,fiData);}
   else{DB.fichas.unshift({id:++seq,...fiData});}
   close_('ov-ficha');persist();
   document.getElementById('who-name').textContent=DB.miLocal;
   renderAll();toast('Ficha publicada ✓');
+}
+/* editor de equipos de la ficha (una fila por equipo con su estado) */
+function gearRowHTML(g){
+  return `<div class="gear-ed"><input placeholder="Ej: Amplificador de bajo" value="${esc(g.n)}"><select>${Object.keys(GEAR_ST).map(k=>`<option value="${k}"${g.st===k?' selected':''}>${GEAR_ST[k][0]}</option>`).join('')}</select><button type="button" class="gx" onclick="this.parentNode.remove()" aria-label="Quitar">×</button></div>`;
+}
+function gearRender(list){const el=document.getElementById('fi-gear-list');if(!el)return;el.innerHTML=(list.length?list:[{n:'',st:'ok'}]).map(gearRowHTML).join('')}
+function gearAdd(){const el=document.getElementById('fi-gear-list');if(!el)return;el.insertAdjacentHTML('beforeend',gearRowHTML({n:'',st:'ok'}));const ins=el.querySelectorAll('input');ins[ins.length-1].focus()}
+function gearRead(){
+  return Array.prototype.map.call(document.querySelectorAll('#fi-gear-list .gear-ed'),r=>({n:r.querySelector('input').value.trim(),st:r.querySelector('select').value})).filter(g=>g.n);
+}
+function fiPruebaToggle(){
+  const si=document.getElementById('fi-prueba').value==='si';
+  ['fi-prueba-hora-f','fi-prueba-dur-f'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=si?'':'none'});
 }
 function openTarea(){document.getElementById('ov-tarea').classList.add('show')}
 function saveTarea(){
@@ -1209,10 +1498,18 @@ function openCerrar(id){
   document.getElementById('cs-asist').value=e.asistentes||'';
   document.getElementById('cs-precio').value=PRECIO_ENTRADA;
   document.getElementById('cs-bruto').value=e.bruto||'';
-  document.getElementById('cs-metodo').value=e.metodo_pago||(acuerdoDe(e.local)?acuerdoDe(e.local).pago:'Transferencia, mismo día');
+  document.getElementById('cs-metodo').value=e.metodo_pago||legacyPago(acuerdoDe(e.local));
   document.getElementById('cs-pagado').checked=!!e.pagado;
   csRecalc();
   document.getElementById('ov-cerrar').classList.add('show');
+}
+// Traduce método + plazo del acuerdo a las opciones del registro de resultado
+function legacyPago(a){
+  if(!a)return 'Transferencia, mismo día';
+  if(a.metodo==='Efectivo')return 'Efectivo al cierre';
+  if(a.metodo==='Por puerta (entradas)')return 'Por puerta (entradas)';
+  if(a.metodo==='Transferencia')return (a.plazo==='48 horas'||a.plazo==='7 días')?'Transferencia, 48 hrs':'Transferencia, mismo día';
+  return a.pago||'Transferencia, mismo día';
 }
 function csRecalc(){
   const asist=+val('cs-asist')||0, precio=+val('cs-precio')||0;
@@ -1266,26 +1563,33 @@ const HELP={
       ['Menú lateral','Usa el menú (☰ en el teléfono) para moverte entre secciones.'],
     ]},
   },
-  acuerdos:{ico:'🤝',title:'Acuerdos',intro:'Todo lo conversado con cada local, por escrito y sin letra chica.',items:[
-    ['Qué guarda','Reparto (%), cuota mínima de asistencia, forma y plazo de pago, y condiciones especiales.'],
-    ['Nuevo acuerdo','Con “+ Nuevo acuerdo” registras un trato antes de tocar, para que nadie cambie las reglas después.'],
-    ['Toca para ver','Pulsa cualquier acuerdo para ver el detalle completo y su estado (aceptado o pendiente).'],
-  ]},
+  acuerdos:{
+    musico:{ico:'🤝',title:'Acuerdos',intro:'Todo lo conversado con cada local, por escrito y sin letra chica.',items:[
+      ['Qué guarda','Reparto (%), asistencia mínima, método y plazo de pago. Sin esas cuatro cosas no se puede enviar.'],
+      ['Cómo avanza','Lo guardas como borrador, lo envías al local y el local lo confirma o deja una observación.'],
+      ['Toca para ver','Pulsa cualquier acuerdo para ver el detalle, su estado y el historial de cambios.'],
+    ]},
+    local:{ico:'🤝',title:'Acuerdos',intro:'Las condiciones que te envían las bandas antes de una fecha.',items:[
+      ['Por revisar','Los acuerdos nuevos aparecen marcados como “Por revisar”.'],
+      ['Confirmar','Si todo calza, confírmalo: queda registrado para ambos y ya no se puede editar.'],
+      ['Observar','Si algo no calza, escribe qué cambiarías. La banda lo corrige y te lo vuelve a enviar.'],
+    ]},
+  },
   'acuerdo-det':{ico:'📄',title:'Detalle del acuerdo',intro:'La ficha completa de un trato con un local específico.',items:[
-    ['Todos los términos','Reparto, cuota, seguro, precio de entrada, horario de carga y datos del sonidista.'],
-    ['Condiciones','La sección de condiciones deja claro qué pasa si se suspende o si el aforo no llega.'],
-    ['Volver','Usa el menú para volver al listado de acuerdos cuando termines de revisar.'],
+    ['Todos los términos','Reparto, asistencia mínima, método y plazo de pago, y los detalles opcionales.'],
+    ['Cuánto recibe la banda','Si hay precio de entrada y asistencia mínima, verás cuánto recibe la banda en ese caso.'],
+    ['Historial','Abajo queda cada paso: cuándo se envió, si el local lo observó y cuándo se confirmó.'],
   ]},
   fichas:{
     musico:{ico:'🎛️',title:'Fichas técnicas',intro:'El backline real que publica cada local. Tú solo las consultas antes de tocar.',items:[
-      ['Qué hay','Equipo disponible, consola, capacidad, aforo y estado del mantenimiento de cada local.'],
-      ['Qué llevar','La ficha te dice qué debes traer tú, para no llegar con sorpresas el día del show.'],
+      ['Qué hay','Cada equipo con su estado real, la consola, la capacidad, la prueba de sonido y si admite menores.'],
+      ['Qué llevar','El recuadro “La banda debe llevar” junta lo que falla, lo que no hay y lo que pide el local.'],
       ['Confiabilidad','Fíjate en cuándo se actualizó por última vez: mientras más reciente, más confiable.'],
     ]},
     local:{ico:'🎛️',title:'Tu ficha técnica',intro:'Aquí publicas el equipo real de tu local. Es tuya: solo tú la editas.',items:[
       ['Lo que ven los músicos','Todo lo que cargues aquí es lo que verán las bandas al coordinar contigo.'],
       ['Mantenla al día','Edita el equipo, la consola y el aforo cuando cambien. Una ficha vieja genera desconfianza.'],
-      ['Detalles clave','Indica capacidad, patente al día, tratamiento acústico y qué debe traer la banda.'],
+      ['Detalles clave','Marca el estado de cada equipo, la prueba de sonido (hora y duración) y la edad mínima de ingreso.'],
     ]},
   },
   agenda:{ico:'📅',title:'Agenda',intro:'Tus fechas con prueba de sonido, hora de show y pendientes.',items:[
@@ -1549,6 +1853,251 @@ function renderBuscador(){
   }).join('');
 }
 function setBFiltro(k,v){buscadorFiltros[k]=buscadorFiltros[k]===v?'':v;renderBuscador();}
+
+/* ===== MODO VALIDACIÓN (?test=1) =====
+   Sesiones de test de la Actividad 9.2. Usa datos de ejemplo en memoria (buildTestDB),
+   no escribe sobre 'errebe:db' y guarda resultados solo en 'errebe:test:sesiones'. */
+const VT_ESCENARIO={local:'La Bodega Sonora',reparto:60,cuota:30,metodo:'Transferencia',plazo:'48 horas',precio:5000};
+function buildTestDB(){
+  const L=VT_ESCENARIO.local;
+  return {
+    acuerdos:[
+      {id:1,banda:'Mi banda',local:'Peña El Trauco',reparto:70,cuota:0,metodo:'Efectivo',plazo:'Al cierre del show',seguro:0,precio_ent:4000,carga:'19:00',sonidista:'Carlos · +56 9 8812 3344',cond:'Si se suspende por el local, la banda no asume costos.',estado:'confirmado',
+        historial:[{e:'enviado',f:new Date(Date.now()-9*864e5).toISOString()},{e:'confirmado',f:new Date(Date.now()-8*864e5).toISOString()}]},
+      {id:2,banda:'Mi banda',local:'Bar Estación',reparto:50,cuota:30,metodo:'Por puerta (entradas)',plazo:'Al cierre del show',seguro:30000,precio_ent:5000,carga:'20:00',sonidista:'Felipe · +56 9 7766 5544',cond:'Reparto 50/50 sobre puerta.',estado:'observado',observacion:'La asistencia mínima que pedimos es 40 personas, no 30.',
+        historial:[{e:'enviado',f:new Date(Date.now()-3*864e5).toISOString()},{e:'observado',f:new Date(Date.now()-2*864e5).toISOString(),txt:'La asistencia mínima que pedimos es 40 personas, no 30.'}]},
+    ],
+    fichas:[
+      {id:1,local:L,gear:[{n:'Batería (cuerpos y pedal)',st:'ok'},{n:'Platillos',st:'no'},{n:'Amplificador de guitarra Fender 40W',st:'ok'},{n:'Amplificador de bajo',st:'falla'},{n:'3 micrófonos vocales',st:'ok'},{n:'2 monitores de piso',st:'desgaste'}],
+        consola:'Behringer X32 Compact — 16 canales',mant:'regular',cap:90,edad:18,patente:'si',acustico:'si',traer:'Cables de instrumento',prueba:'si',prueba_hora:'19:00',prueba_dur:30,updated:daysAgo(3)},
+      {id:2,local:'Bar Estación',gear:[{n:'Batería',st:'ok'},{n:'Amplificador de bajo',st:'ok'},{n:'2 monitores',st:'desgaste'},{n:'3 micrófonos vocales',st:'ok'}],consola:'Yamaha MG16 — 16 canales',mant:'bueno',cap:80,edad:18,patente:'si',acustico:'parcial',traer:'Cables, pedalera',prueba:'si',prueba_hora:'20:00',prueba_dur:20,updated:daysAgo(9)},
+      {id:3,local:'Peña El Trauco',gear:[{n:'PA básico',st:'ok'},{n:'1 micrófono',st:'desgaste'}],consola:'Behringer Xenyx 802',mant:'regular',cap:60,edad:0,patente:'si',acustico:'si',traer:'Todo el backline',prueba:'no',updated:daysAgo(48)},
+    ],
+    tareas:[
+      {id:201,desc:'Confirmar transporte de la batería',quien:'Rodrigo',cat:'Logística',fecha:nextDate(8),done:false},
+      {id:202,desc:'Subir afiche de la fecha a Instagram',quien:'Valentina',cat:'Difusión',fecha:nextDate(5),done:false},
+    ],
+    social:{instagram:'@mibanda',youtube:'Mi Banda Oficial',spotify:'Mi Banda',web:''},
+    localesCatalogo:[
+      {id:1,nombre:L,comuna:'Santiago Centro',cap:90,generos:['Rock','Indie','Punk'],trato:4,tecnico:4,desc:'Sala con consola digital. Prueba de sonido a las 19:00. Pide asistencia mínima.',patente:'si',acustico:'si'},
+      {id:2,nombre:'Bar Estación',comuna:'Santiago Centro',cap:80,generos:['Rock','Cumbia','Jazz'],trato:4,tecnico:4,desc:'Local consolidado con equipo propio. Reparto 50/50.',patente:'si',acustico:'parcial'},
+      {id:3,nombre:'Peña El Trauco',comuna:'Barrio Italia',cap:60,generos:['Folklore','Rock','Fusión'],trato:5,tecnico:3,desc:'Trato directo con el dueño. Backline limitado: llevar casi todo.',patente:'si',acustico:'si'},
+    ],
+    eventos:[
+      {id:1,nombre:'Fecha en '+L,banda:'Mi banda',local:L,fecha:nextDate(10),prueba:'',show:'21:30',estado:'propuesta',todo:''},
+      {id:2,nombre:'Tocata en El Trauco',banda:'Mi banda',local:'Peña El Trauco',fecha:nextDate(17),prueba:'',show:'21:00',estado:'confirmado',todo:'Llevar backline completo'},
+      {id:11,nombre:'Set en Bar Estación',banda:'Mi banda',local:'Bar Estación',fecha:daysAgo(12),prueba:'20:00',show:'22:00',estado:'confirmado',todo:'',asistentes:44,bruto:220000,ganancia:110000,gananciaLocal:110000,metodo_pago:'Por puerta (entradas)',pagado:true,fecha_pago:daysAgo(12)},
+    ],
+    capacidades:{[L]:90,'Bar Estación':80,'Peña El Trauco':60},
+    miLocal:L
+  };
+}
+function vtBodega(){return DB.acuerdos.find(a=>/bodega/i.test(a.local||''))}
+const VT_TAREAS=[
+  {id:'registrar_acuerdo',req:'R1',titulo:'Registrar y enviar un acuerdo',
+   texto:'Cerraste una fecha con La Bodega Sonora. Registra el acuerdo con estas condiciones y envíaselo al local.',
+   escenario:[['Local','La Bodega Sonora'],['Reparto para la banda','60 %'],['Asistencia mínima','30 personas'],['Pago','Transferencia, a 48 horas'],['Precio de entrada','$5.000']],
+   evaluar:function(){
+     const a=vtBodega();
+     if(!a)return {ok:false,resp:'sin acuerdo registrado',campos:0};
+     const n=acCampos(a).filter(Boolean).length, env=a.estado==='enviado'||a.estado==='confirmado';
+     const coincide=+a.reparto===VT_ESCENARIO.reparto&&+a.cuota===VT_ESCENARIO.cuota&&a.metodo===VT_ESCENARIO.metodo&&a.plazo===VT_ESCENARIO.plazo;
+     return {ok:n===4&&env,campos:n,resp:'campos '+n+'/4; reparto='+(hasNum(a.reparto)?a.reparto:'')+'; cuota='+(hasNum(a.cuota)?a.cuota:'')+'; metodo='+(a.metodo||'')+'; plazo='+(a.plazo||'')+'; estado='+a.estado+'; coincide_escenario='+(coincide?'si':'no')};
+   },
+   esperado:'4/4 campos y enviado (60 / 30 / Transferencia / 48 horas)'},
+  {id:'decidir_equipos',req:'R2',titulo:'Decidir qué equipos llevar',
+   texto:'Tu banda toca batería, guitarra, bajo y voz. Revisa en la app lo que tiene La Bodega Sonora y marca qué debe llevar tu banda.',
+   pregunta:{tipo:'multi',opciones:['Batería (cuerpos)','Platillos','Amplificador de guitarra','Amplificador de bajo','Micrófonos','Cables de instrumento'],correctas:['Platillos','Amplificador de bajo','Cables de instrumento']},
+   esperado:'Platillos; Amplificador de bajo; Cables de instrumento'},
+  {id:'prueba_sonido',req:'R3',titulo:'Encontrar la prueba de sonido',
+   texto:'¿La Bodega Sonora tiene prueba de sonido? Si tiene, ¿a qué hora es?',
+   pregunta:{tipo:'prueba'},
+   esperado:'Sí, 19:00'},
+  {id:'recuperar_acuerdo',req:'R1',titulo:'Recuperar el acuerdo',
+   texto:'Vuelve a abrir el acuerdo con La Bodega Sonora. Si llega justo la asistencia mínima, ¿cuánto dinero recibe la banda?',
+   pregunta:{tipo:'monto'},
+   esperado:null}
+];
+const VT_LIKERT=[
+  ['claridad','¿Qué tan claro fue encontrar lo que se te pedía?','Nada claro','Muy claro'],
+  ['utilidad','¿Qué tan útil sería esto para cerrar tus fechas reales?','Nada útil','Muy útil'],
+  ['usaria','¿Qué tan probable es que la uses en tu próxima fecha?','Nada probable','Muy probable']
+];
+let VT={paso:'intro',i:0,activa:false,t0:0,clics:0,res:null,min:false};
+function vtSesiones(){try{return JSON.parse(localStorage.getItem('errebe:test:sesiones')||'[]')}catch(e){return []}}
+function vtGuardarSesion(r){try{const s=vtSesiones().filter(x=>!(x.participante===r.participante&&x.inicio===r.inicio));s.push(r);localStorage.setItem('errebe:test:sesiones',JSON.stringify(s))}catch(e){}}
+function vtSiguienteCodigo(){
+  const n=vtSesiones().reduce((m,s)=>{const k=parseInt(String(s.participante||'').replace(/\D/g,''),10);return isNaN(k)?m:Math.max(m,k)},0)+1;
+  return 'P'+(n<10?'0'+n:n);
+}
+function vtInit(){
+  const p=document.getElementById('vt-panel');if(!p)return;
+  p.hidden=false;
+  document.addEventListener('click',function(e){
+    if(!VT.activa)return;
+    if(p.contains(e.target))return;
+    VT.clics++;
+  },true);
+  vtRender();
+}
+function vtBackdrop(on){
+  let b=document.getElementById('vt-back');
+  if(on&&!b){b=document.createElement('div');b.id='vt-back';b.className='vt-back';document.body.appendChild(b);}
+  if(!on&&b)b.remove();
+}
+function vtRender(){
+  const p=document.getElementById('vt-panel');if(!p)return;
+  const full=VT.paso!=='tarea';
+  p.className='vt-panel'+(full?' full':'')+(!full&&VT.min?' min':'');
+  vtBackdrop(full);
+  const N=VT_TAREAS.length;
+  if(VT.paso==='intro'){
+    p.innerHTML=`<div class="vt-kick">Modo validación · Actividad 9.2</div>
+      <h3>Antes de empezar</h3>
+      <p>Vas a hacer ${N} tareas cortas en la app, una a la vez. Evaluamos la app, no a ti: si algo no se entiende, es información útil para nosotros.</p>
+      <p>Se mide el tiempo, los toques en pantalla y si la tarea se completa. No se guardan nombres.</p>
+      <div class="field"><label>Código de participante</label><input id="vt-cod" value="${vtSiguienteCodigo()}" autocomplete="off" style="text-transform:uppercase"><div class="hint">Formato P01, P02… Lo asigna quien observa.</div></div>
+      <div class="vt-row"><button class="btn btn-prim" onclick="vtEmpezar()">Empezar</button></div>
+      ${vtSesiones().length?`<div class="vt-row"><button class="btn btn-ghost btn-sm" onclick="vtDescargarTodo()">Descargar todas las sesiones (CSV)</button></div>`:''}`;
+    return;
+  }
+  if(VT.paso==='previa'){
+    const t=VT_TAREAS[VT.i];
+    p.innerHTML=`<div class="vt-kick">Tarea ${VT.i+1} de ${N} · ${VT.res.participante}</div>
+      <h3>${t.titulo}</h3>
+      <div class="vt-task">${t.texto}</div>${vtEscenario(t)}
+      <p>Cuando toques “Comenzar”, empieza a correr el tiempo. Puedes volver a ver esta instrucción con el botón flotante.</p>
+      <div class="vt-row"><button class="btn btn-prim" onclick="vtComenzarTarea()">Comenzar tarea ${VT.i+1}</button></div>`;
+    setTimeout(()=>{const b=p.querySelector('.btn-prim');if(b)b.focus()},50);
+    return;
+  }
+  if(VT.paso==='tarea'){
+    const t=VT_TAREAS[VT.i];
+    if(VT.min){
+      p.innerHTML=`<div onclick="vtToggle()" style="font-weight:800;font-size:13px;display:flex;gap:6px;align-items:center">📋 <span class="vt-long">Tarea</span> ${VT.i+1}/${N}<span class="vt-long"> · ver instrucción ▴</span></div>`;
+      return;
+    }
+    p.innerHTML=`<div class="vt-kick">Tarea ${VT.i+1} de ${N}<button onclick="vtToggle()">Ocultar ▾</button></div>
+      <div class="vt-task">${t.texto}</div>${vtEscenario(t)}${vtPregunta(t)}
+      <div class="vt-row"><button class="btn btn-prim" onclick="vtTerminar(true)">${t.pregunta?'Responder':'Listo, terminé'}</button><button class="btn btn-ghost" onclick="vtTerminar(false)">No pude</button></div>`;
+    return;
+  }
+  if(VT.paso==='likert'){
+    const L=VT.res.likert;
+    p.innerHTML=`<div class="vt-kick">Últimas preguntas · ${VT.res.participante}</div>
+      <h3>¿Cómo te fue?</h3>
+      ${VT_LIKERT.map(q=>`<div style="font-weight:700;margin-bottom:6px">${q[1]}</div>
+        <div class="likert">${[1,2,3,4,5].map(v=>`<button class="${L[q[0]]===v?'on':''}" onclick="vtLikert('${q[0]}',${v})">${v}</button>`).join('')}</div>
+        <div class="likert-ends"><span>1 · ${q[2]}</span><span>5 · ${q[3]}</span></div>`).join('')}
+      <div class="field"><label>¿Qué fue lo más difícil o qué te faltó para usarla en una fecha real?</label><textarea id="vt-com" placeholder="Escribe con tus palabras. Sin nombres de personas.">${esc(VT.res.comentario||'')}</textarea></div>
+      <div class="vt-row"><button class="btn btn-prim" onclick="vtCerrar()">Guardar respuestas</button></div>`;
+    return;
+  }
+  if(VT.paso==='fin'){
+    const r=VT.res;
+    p.innerHTML=`<div class="vt-kick">Sesión guardada · ${r.participante}</div>
+      <h3>¡Gracias!</h3>
+      <table class="vt-sum">${r.tareas.map(t=>`<tr><td>${t.n}. ${t.titulo}</td><td>${t.completada?'✓':'✗'}</td><td>${t.tiempo_s}s</td><td>${t.clics} clics</td></tr>`).join('')}</table>
+      <div class="vt-row"><button class="btn btn-prim" onclick="vtDescargar('csv')">Descargar CSV</button><button class="btn btn-prim" onclick="vtDescargar('json')">Descargar JSON</button></div>
+      <div class="vt-row"><button class="btn btn-ghost btn-sm" onclick="vtDescargarTodo()">Todas las sesiones (CSV)</button><button class="btn btn-ghost btn-sm" onclick="vtNueva()">Nueva sesión</button></div>`;
+  }
+}
+function vtEscenario(t){
+  if(!t.escenario)return '';
+  return '<div class="vt-scen">'+t.escenario.map(r=>`<div><span>${r[0]}</span><b>${r[1]}</b></div>`).join('')+'</div>';
+}
+function vtPregunta(t){
+  const q=t.pregunta;if(!q)return '';
+  const d=VT.draft||{}, m=d.multi||[], dv=k=>esc(d[k]||'');
+  if(q.tipo==='multi')return '<div class="vt-opts">'+q.opciones.map(o=>`<label><input type="checkbox" class="vt-op" value="${esc(o)}"${m.indexOf(o)>=0?' checked':''}> ${esc(o)}</label>`).join('')+'</div>';
+  if(q.tipo==='prueba')return `<div class="two"><div class="field"><label>¿Tiene prueba?</label><select id="vt-pr"><option value="">Elige…</option><option value="si"${d['vt-pr']==='si'?' selected':''}>Sí</option><option value="no"${d['vt-pr']==='no'?' selected':''}>No</option></select></div><div class="field"><label>Hora</label><input id="vt-hr" type="time" value="${dv('vt-hr')}"></div></div>`;
+  if(q.tipo==='monto')return `<div class="field"><label>Monto para la banda (CLP)</label><input id="vt-monto" type="number" inputmode="numeric" placeholder="Ej: 50000" value="${dv('vt-monto')}"></div>`;
+  return '';
+}
+function vtEmpezar(){
+  const c=(document.getElementById('vt-cod').value||'').trim().toUpperCase();
+  if(!/^P\d{2,3}$/.test(c)){toast('Usa un código tipo P01');return}
+  VT.res={participante:c,inicio:new Date().toISOString(),fecha:new Date().toISOString().slice(0,10),version:'ErreBe prototipo · Lab 9.2',
+    hipotesis:'Músicos Segmento B registran el acuerdo completo y deciden qué equipos llevar sin ayuda',
+    dispositivo:window.innerWidth<=780?'movil':'escritorio',viewport:window.innerWidth+'x'+window.innerHeight,
+    tareas:[],likert:{claridad:null,utilidad:null,usaria:null},comentario:''};
+  VT.i=0;VT.paso='previa';
+  enter('musico');
+  vtRender();
+}
+function vtComenzarTarea(){
+  document.querySelectorAll('.overlay').forEach(o=>o.classList.remove('show'));
+  closeHelp();go('inicio');
+  VT.paso='tarea';VT.min=true;VT.clics=0;VT.t0=Date.now();VT.activa=true;VT.draft={};
+  vtRender();
+}
+// Guarda lo respondido antes de redibujar el panel (ocultar/mostrar no debe borrar la respuesta)
+function vtGuardarBorrador(){
+  const d=VT.draft||{};
+  const ops=document.querySelectorAll('.vt-op');if(ops.length)d.multi=Array.prototype.filter.call(ops,x=>x.checked).map(x=>x.value);
+  ['vt-pr','vt-hr','vt-monto'].forEach(id=>{const el=document.getElementById(id);if(el)d[id]=el.value});
+  VT.draft=d;
+}
+function vtToggle(){vtGuardarBorrador();VT.min=!VT.min;vtRender()}
+function vtTerminar(intento){
+  const t=VT_TAREAS[VT.i];
+  const tiempo=Math.round((Date.now()-VT.t0)/1000);
+  let ok=false,resp='',esperado=t.esperado;
+  if(t.id==='registrar_acuerdo'){const r=t.evaluar();ok=intento&&r.ok;resp=r.resp;}
+  else if(t.pregunta&&t.pregunta.tipo==='multi'){
+    const sel=Array.prototype.filter.call(document.querySelectorAll('.vt-op'),x=>x.checked).map(x=>x.value);
+    resp=sel.join('; ');
+    const corr=t.pregunta.correctas;
+    ok=intento&&sel.length===corr.length&&corr.every(c=>sel.indexOf(c)>=0);
+  } else if(t.pregunta&&t.pregunta.tipo==='prueba'){
+    const pr=val('vt-pr'),hr=val('vt-hr');resp=(pr||'sin respuesta')+(hr?' '+hr:'');
+    ok=intento&&pr==='si'&&hr==='19:00';
+  } else if(t.pregunta&&t.pregunta.tipo==='monto'){
+    const a=vtBodega(),m=+val('vt-monto')||0;
+    // Se compara con lo que quedó registrado en la app (mide si recupera el acuerdo, no si lo registró bien)
+    const exp=a&&hasNum(a.cuota)&&hasNum(a.reparto)?Math.round(a.cuota*(a.precio_ent||PRECIO_ENTRADA)*a.reparto/100):Math.round(VT_ESCENARIO.cuota*VT_ESCENARIO.precio*VT_ESCENARIO.reparto/100);
+    esperado=String(exp);resp=val('vt-monto')||'sin respuesta';
+    ok=intento&&m>0&&Math.abs(m-exp)<=1000;
+  }
+  if(intento&&t.pregunta&&!resp.replace('sin respuesta','').trim()){toast('Responde la pregunta o toca “No pude”');return}
+  VT.activa=false;
+  VT.res.tareas.push({n:VT.i+1,id:t.id,req:t.req,titulo:t.titulo,tiempo_s:tiempo,completada:ok,clics:VT.clics,respuesta:resp,esperado:esperado,abandono:!intento});
+  vtGuardarSesion(VT.res);
+  VT.i++;
+  VT.paso=VT.i<VT_TAREAS.length?'previa':'likert';
+  vtRender();
+}
+function vtLikert(k,v){VT.res.likert[k]=v;const c=document.getElementById('vt-com');if(c)VT.res.comentario=c.value;vtRender()}
+function vtCerrar(){
+  const L=VT.res.likert;
+  if(!L.claridad||!L.utilidad||!L.usaria){toast('Responde las 3 preguntas de 1 a 5');return}
+  VT.res.comentario=(document.getElementById('vt-com').value||'').trim();
+  VT.res.fin=new Date().toISOString();
+  vtGuardarSesion(VT.res);
+  VT.paso='fin';vtRender();
+}
+function csvCell(v){v=v===null||v===undefined?'':String(v);return /[",;\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+const VT_COLS=['fecha','participante','dispositivo','viewport','tarea_n','tarea_id','requerimiento','tarea','tiempo_s','completada','clics','respuesta','esperado','likert_claridad','likert_utilidad','likert_usaria','comentario'];
+function vtFilas(r){
+  return r.tareas.map(t=>[r.fecha,r.participante,r.dispositivo,r.viewport,t.n,t.id,t.req,t.titulo,t.tiempo_s,t.completada?'si':'no',t.clics,t.respuesta,t.esperado,r.likert.claridad,r.likert.utilidad,r.likert.usaria,r.comentario].map(csvCell).join(','));
+}
+function vtArchivo(nombre,contenido,tipo){
+  const blob=new Blob([contenido],{type:tipo});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=nombre;
+  document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);
+}
+function vtDescargar(tipo){
+  const r=VT.res;if(!r)return;
+  const base='errebe_validacion_'+r.participante+'_'+r.fecha;
+  if(tipo==='json')vtArchivo(base+'.json',JSON.stringify(r,null,2),'application/json');
+  else vtArchivo(base+'.csv','﻿'+VT_COLS.join(',')+'\n'+vtFilas(r).join('\n'),'text/csv;charset=utf-8');
+}
+function vtDescargarTodo(){
+  const s=vtSesiones();if(!s.length){toast('Aún no hay sesiones');return}
+  vtArchivo('errebe_validacion_todas_'+new Date().toISOString().slice(0,10)+'.csv','﻿'+VT_COLS.join(',')+'\n'+s.map(vtFilas).filter(x=>x.length).map(x=>x.join('\n')).join('\n'),'text/csv;charset=utf-8');
+}
+function vtNueva(){location.reload()}
 
 /* ===== TEMA CLARO / OSCURO ===== */
 function applyTheme(t){

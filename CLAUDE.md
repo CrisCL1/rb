@@ -44,3 +44,8 @@ Antes de hacer cualquier cambio en HTML, CSS o JavaScript, verificar:
 - La preferencia se guarda en `localStorage` con la clave `errebe:theme`
 - Se inicializa al cargar la página antes de cualquier render para evitar flash
 - Los botones de toggle están en: pantalla de bienvenida, sidebar, y barra móvil
+
+### Modo validación (Lab 9.2)
+- Se activa solo con `?test=1` (ej.: `https://criscl1.github.io/rb/?test=1`). Usa `buildTestDB()` en memoria, no llama a `persist()` y guarda resultados en `localStorage['errebe:test:sesiones']`.
+- Evidencias: `NODE_PATH=$(npm root -g) node evidencias/9.2/capturar.js` (también sirve de prueba del flujo).
+- Decisiones de diseño: `DECISIONES.md`; evidencia citable: `CONTEXTO_ERREBE.md`.
