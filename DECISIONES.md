@@ -94,3 +94,15 @@ llevar (R2) sin ayuda ni consultar al local. Perfil: músicos del Segmento B que
 - **Qué:** la app guarda en `window.storage`, que no existe en GitHub Pages, así que al recargar se vuelve a los datos de ejemplo. No se cambió.
 - **Por qué:** para el test es irrelevante (cada sesión parte limpia) y cambiarla ahora podría mezclar datos de sesiones.
 - **Evidencia:** ninguna. **Por validar:** R1 pide recuperar el acuerdo "después"; en el test solo se mide dentro de la misma sesión.
+
+---
+
+## 2026-10-14 · Corrección: los intentos no llegaban al equipo
+
+### D15 · Cada intento se envía a una planilla compartida y queda también en el dispositivo
+- **Qué pasó:** se hizo una prueba con P02 y el resultado no apareció en ninguna parte del proyecto. El modo validación solo guardaba en el navegador del dispositivo usado, y para que llegara al equipo había que descargar el CSV a mano.
+- **Qué:** cada sesión se envía a la planilla de Google Sheets "ErreBe · Resultados validación 9.2", tras cada tarea y al final; también se envían las sesiones abandonadas a la mitad. Si no hay conexión, queda pendiente y se reintenta al abrir `?test=1` de nuevo. La pantalla de inicio lista los intentos guardados en el dispositivo y su estado de envío, con botones Enviar y Compartir (en el teléfono abre WhatsApp, Drive o correo). Se registra además quién observa la sesión.
+- **Por qué:** la 9.1 pide consolidar las 4 planillas en una sola (paso 12). Un archivo que depende de que alguien recuerde descargarlo se pierde.
+- **Evidencia:** 9.1 §5, paso 12; falla observada en la sesión P02.
+- **Descartado:** subir los resultados al repositorio desde la app (exigiría una clave de GitHub expuesta en la página); un servicio externo de base de datos (otra cuenta más que mantener).
+- **Datos personales:** el participante sigue identificado solo por código. "Quién observa" es un integrante del equipo, no el participante.

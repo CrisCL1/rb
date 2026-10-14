@@ -141,6 +141,7 @@ async function flujoValidacion(page, { video = false, fotos = false, vp = '1440'
   if (fotos) await foto(page, DIRS.val, `01_intro_${vp}`, false);
   await pausa(900);
   await page.fill('#vt-cod', 'P00'); // P00 = corrida del equipo, nunca un participante real
+  await page.fill('#vt-obs', 'Equipo (prueba automática)');
   await clic('#vt-panel .btn-prim'); // Empezar
   if (fotos) await foto(page, DIRS.val, `02_tarea1_instruccion_${vp}`, false);
   await pausa(1200);
@@ -193,8 +194,8 @@ async function flujoValidacion(page, { video = false, fotos = false, vp = '1440'
   if (fotos) {
     await foto(page, DIRS.val, `09_fin_${vp}`, false);
     // Descargas: deben generar CSV y JSON con fecha y código, sin nombres
-    for (const [i, ext] of [[0, 'csv'], [1, 'json']]) {
-      const [dl] = await Promise.all([page.waitForEvent('download'), page.locator('#vt-panel .vt-row').first().locator('button').nth(i).click()]);
+    for (const ext of ['CSV', 'JSON']) {
+      const [dl] = await Promise.all([page.waitForEvent('download'), page.locator('#vt-panel button', { hasText: 'Descargar ' + ext }).click()]);
       const nombre = dl.suggestedFilename();
       if (!/^errebe_validacion_P00_\d{4}-\d{2}-\d{2}\.(csv|json)$/.test(nombre)) errores.push(`[${vp}] nombre de descarga inesperado: ${nombre}`);
       if (vp === '1440') await dl.saveAs(path.join(OUT, DIRS.val, 'ejemplo_' + nombre));

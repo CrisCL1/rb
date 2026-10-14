@@ -47,5 +47,6 @@ Antes de hacer cualquier cambio en HTML, CSS o JavaScript, verificar:
 
 ### Modo validación (Lab 9.2)
 - Se activa solo con `?test=1` (ej.: `https://criscl1.github.io/rb/?test=1`). Usa `buildTestDB()` en memoria, no llama a `persist()` y guarda resultados en `localStorage['errebe:test:sesiones']`.
+- Cada sesión también se envía (POST text/plain) a la planilla del equipo vía Apps Script: `validacion/planilla_apps_script.gs`. La URL va en `VT_ENDPOINT` o se fija con `?hoja=<url /exec>` (queda en `localStorage['errebe:test:endpoint']`). Los envíos fallidos se reintentan al abrir `?test=1`.
 - Evidencias: `NODE_PATH=$(npm root -g) node evidencias/9.2/capturar.js` (también sirve de prueba del flujo).
 - Decisiones de diseño: `DECISIONES.md`; evidencia citable: `CONTEXTO_ERREBE.md`.

@@ -1924,8 +1924,38 @@ const VT_LIKERT=[
   ['usaria','¿Qué tan probable es que la uses en tu próxima fecha?','Nada probable','Muy probable']
 ];
 let VT={paso:'intro',i:0,activa:false,t0:0,clics:0,res:null,min:false};
-function vtSesiones(){try{return JSON.parse(localStorage.getItem('errebe:test:sesiones')||'[]')}catch(e){return []}}
-function vtGuardarSesion(r){try{const s=vtSesiones().filter(x=>!(x.participante===r.participante&&x.inicio===r.inicio));s.push(r);localStorage.setItem('errebe:test:sesiones',JSON.stringify(s))}catch(e){}}
+/* Guardado de intentos: 1) siempre en este navegador; 2) además se envía a la planilla del equipo
+   (Google Sheets vía Apps Script, ver validacion/planilla_apps_script.gs). Si el envío falla, queda
+   pendiente y se reintenta al volver a abrir ?test=1. */
+const VT_ENDPOINT=''; // URL /exec de la aplicación web de Apps Script. También se puede fijar con ?hoja=<url>
+function lsGet(k,d){try{const v=localStorage.getItem(k);return v===null?d:v}catch(e){return d}}
+function lsSet(k,v){try{localStorage.setItem(k,v);return true}catch(e){return false}}
+function vtEndpoint(){return lsGet('errebe:test:endpoint','')||VT_ENDPOINT}
+function vtSesiones(){try{return JSON.parse(lsGet('errebe:test:sesiones','[]'))}catch(e){return []}}
+function vtIdDe(r){return r.id||(r.participante+'-'+r.inicio)}
+function vtGuardarLocal(r){
+  r.id=vtIdDe(r);
+  const s=vtSesiones().filter(x=>vtIdDe(x)!==r.id);s.push(r);
+  if(!lsSet('errebe:test:sesiones',JSON.stringify(s)))r.sinLocal=true;
+}
+function vtGuardarSesion(r){vtGuardarLocal(r);vtEnviar(r);}
+function vtEnviar(r,aviso){
+  const url=vtEndpoint();
+  if(!url){r.envio='sin-planilla';vtGuardarLocal(r);if(aviso)toast('Falta configurar la planilla del equipo');return Promise.resolve(false)}
+  r.envio='enviando';
+  const cuerpo=JSON.stringify({sesion_id:vtIdDe(r),filas:vtFilasObj(r),sesion:r});
+  const fin=(estado)=>{r.envio=estado;if(estado!=='error')r.enviado=new Date().toISOString();vtGuardarLocal(r);if(VT.res&&vtIdDe(VT.res)===vtIdDe(r))VT.res=r;if(VT.paso==='fin')vtRender();else if(VT.paso==='intro'){const el=document.getElementById('vt-lista');if(el)el.innerHTML=vtListaSesiones()}if(aviso)toast(estado==='error'?'No se pudo enviar. Revisa la conexión.':'Enviado a la planilla ✓');return estado!=='error'};
+  // text/plain evita la consulta previa de CORS; si la respuesta no se puede leer, se reintenta sin CORS
+  return fetch(url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:cuerpo})
+    .then(res=>res.json()).then(j=>fin(j&&j.ok?'ok':'error'))
+    .catch(()=>fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:cuerpo}).then(()=>fin('ok-sin-confirmar')).catch(()=>fin('error')));
+}
+function vtReintentarPendientes(){
+  if(!vtEndpoint())return;
+  vtSesiones().filter(r=>r.envio!=='ok'&&r.envio!=='ok-sin-confirmar').forEach(r=>vtEnviar(r));
+}
+const VT_ENVIO_TXT={'ok':'✓ En la planilla','ok-sin-confirmar':'✓ Enviada','enviando':'Enviando…','error':'⚠ Pendiente de envío','sin-planilla':'⚠ Solo en este dispositivo'};
+function vtEnvioTxt(r){return VT_ENVIO_TXT[r.envio]||'⚠ Solo en este dispositivo'}
 function vtSiguienteCodigo(){
   const n=vtSesiones().reduce((m,s)=>{const k=parseInt(String(s.participante||'').replace(/\D/g,''),10);return isNaN(k)?m:Math.max(m,k)},0)+1;
   return 'P'+(n<10?'0'+n:n);
@@ -1933,6 +1963,9 @@ function vtSiguienteCodigo(){
 function vtInit(){
   const p=document.getElementById('vt-panel');if(!p)return;
   p.hidden=false;
+  const m=/[?&]hoja=([^&]+)/.exec(location.search);
+  if(m){try{lsSet('errebe:test:endpoint',decodeURIComponent(m[1]))}catch(e){}}
+  vtReintentarPendientes();
   document.addEventListener('click',function(e){
     if(!VT.activa)return;
     if(p.contains(e.target))return;
@@ -1956,9 +1989,16 @@ function vtRender(){
       <h3>Antes de empezar</h3>
       <p>Vas a hacer ${N} tareas cortas en la app, una a la vez. Evaluamos la app, no a ti: si algo no se entiende, es información útil para nosotros.</p>
       <p>Se mide el tiempo, los toques en pantalla y si la tarea se completa. No se guardan nombres.</p>
-      <div class="field"><label>Código de participante</label><input id="vt-cod" value="${vtSiguienteCodigo()}" autocomplete="off" style="text-transform:uppercase"><div class="hint">Formato P01, P02… Lo asigna quien observa.</div></div>
+      <div class="two">
+        <div class="field"><label>Código de participante</label><input id="vt-cod" value="${vtSiguienteCodigo()}" autocomplete="off" style="text-transform:uppercase"><div class="hint">P01, P02… Lo asigna quien observa.</div></div>
+        <div class="field"><label>Quién observa</label><input id="vt-obs" value="${esc(lsGet('errebe:test:observador',''))}" placeholder="Integrante del equipo" autocomplete="off"><div class="hint">Para saber quién hizo la sesión.</div></div>
+      </div>
       <div class="vt-row"><button class="btn btn-prim" onclick="vtEmpezar()">Empezar</button></div>
-      ${vtSesiones().length?`<div class="vt-row"><button class="btn btn-ghost btn-sm" onclick="vtDescargarTodo()">Descargar todas las sesiones (CSV)</button></div>`:''}`;
+      <div id="vt-lista">${vtListaSesiones()}</div>
+      <details style="margin-top:14px"><summary style="cursor:pointer;font-size:13px;color:var(--gris)">Planilla del equipo: ${vtEndpoint()?'<b style="color:var(--ok)">configurada</b>':'<b style="color:var(--warn)">sin configurar</b>'}</summary>
+        <div class="field" style="margin-top:10px"><label>URL de la planilla (termina en /exec)</label><input id="vt-url" value="${esc(lsGet('errebe:test:endpoint',''))}" placeholder="https://script.google.com/macros/s/…/exec" autocomplete="off"></div>
+        <div class="vt-row"><button class="btn btn-ghost btn-sm" onclick="vtGuardarUrl()">Guardar y enviar pendientes</button></div>
+      </details>`;
     return;
   }
   if(VT.paso==='previa'){
@@ -1995,11 +2035,13 @@ function vtRender(){
   }
   if(VT.paso==='fin'){
     const r=VT.res;
-    p.innerHTML=`<div class="vt-kick">Sesión guardada · ${r.participante}</div>
+    const okEnvio=r.envio==='ok'||r.envio==='ok-sin-confirmar';
+    p.innerHTML=`<div class="vt-kick">Sesión ${r.participante}${r.observador?' · observa '+esc(r.observador):''}</div>
       <h3>¡Gracias!</h3>
       <table class="vt-sum">${r.tareas.map(t=>`<tr><td>${t.n}. ${t.titulo}</td><td>${t.completada?'✓':'✗'}</td><td>${t.tiempo_s}s</td><td>${t.clics} clics</td></tr>`).join('')}</table>
-      <div class="vt-row"><button class="btn btn-prim" onclick="vtDescargar('csv')">Descargar CSV</button><button class="btn btn-prim" onclick="vtDescargar('json')">Descargar JSON</button></div>
-      <div class="vt-row"><button class="btn btn-ghost btn-sm" onclick="vtDescargarTodo()">Todas las sesiones (CSV)</button><button class="btn btn-ghost btn-sm" onclick="vtNueva()">Nueva sesión</button></div>`;
+      <div class="alert ${okEnvio?'green':'amber'}" style="margin:4px 0 6px">${okEnvio?'✓':'⚠'} <div>${okEnvio?'<b>Guardada en la planilla del equipo.</b> También queda en este dispositivo.':r.envio==='enviando'?'<b>Enviando a la planilla…</b>':'<b>Guardada solo en este dispositivo.</b> '+(vtEndpoint()?'No se pudo enviar; se reintentará al abrir de nuevo ?test=1. Mientras, compártela.':'La planilla no está configurada: compártela o descárgala ahora.')}</div></div>
+      <div class="vt-row">${okEnvio?'':`<button class="btn btn-prim" onclick="vtEnviarId('${vtIdDe(r)}')">Reintentar envío</button>`}<button class="btn ${okEnvio?'btn-ghost':'btn-prim'}" onclick="vtCompartir('${vtIdDe(r)}')">Compartir CSV</button></div>
+      <div class="vt-row"><button class="btn btn-ghost btn-sm" onclick="vtDescargar('csv')">Descargar CSV</button><button class="btn btn-ghost btn-sm" onclick="vtDescargar('json')">Descargar JSON</button><button class="btn btn-ghost btn-sm" onclick="vtNueva()">Nueva sesión</button></div>`;
   }
 }
 function vtEscenario(t){
@@ -2017,7 +2059,10 @@ function vtPregunta(t){
 function vtEmpezar(){
   const c=(document.getElementById('vt-cod').value||'').trim().toUpperCase();
   if(!/^P\d{2,3}$/.test(c)){toast('Usa un código tipo P01');return}
-  VT.res={participante:c,inicio:new Date().toISOString(),fecha:new Date().toISOString().slice(0,10),version:'ErreBe prototipo · Lab 9.2',
+  const obs=(document.getElementById('vt-obs').value||'').trim();
+  if(!obs){toast('Escribe quién observa la sesión');return}
+  lsSet('errebe:test:observador',obs);
+  VT.res={participante:c,observador:obs,inicio:new Date().toISOString(),fecha:new Date().toISOString().slice(0,10),version:'ErreBe prototipo · Lab 9.2',
     hipotesis:'Músicos Segmento B registran el acuerdo completo y deciden qué equipos llevar sin ayuda',
     dispositivo:window.innerWidth<=780?'movil':'escritorio',viewport:window.innerWidth+'x'+window.innerHeight,
     tareas:[],likert:{claridad:null,utilidad:null,usaria:null},comentario:''};
@@ -2077,25 +2122,57 @@ function vtCerrar(){
   VT.paso='fin';vtRender();
 }
 function csvCell(v){v=v===null||v===undefined?'':String(v);return /[",;\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
-const VT_COLS=['fecha','participante','dispositivo','viewport','tarea_n','tarea_id','requerimiento','tarea','tiempo_s','completada','clics','respuesta','esperado','likert_claridad','likert_utilidad','likert_usaria','comentario'];
-function vtFilas(r){
-  return r.tareas.map(t=>[r.fecha,r.participante,r.dispositivo,r.viewport,t.n,t.id,t.req,t.titulo,t.tiempo_s,t.completada?'si':'no',t.clics,t.respuesta,t.esperado,r.likert.claridad,r.likert.utilidad,r.likert.usaria,r.comentario].map(csvCell).join(','));
+const VT_COLS=['sesion_id','fecha','participante','observador','estado','dispositivo','viewport','tarea_n','tarea_id','requerimiento','tarea','tiempo_s','completada','clics','respuesta','esperado','likert_claridad','likert_utilidad','likert_usaria','comentario'];
+function vtFilasObj(r){
+  const L=r.likert||{};
+  return (r.tareas||[]).map(t=>({sesion_id:vtIdDe(r),fecha:r.fecha,participante:r.participante,observador:r.observador||'',estado:r.fin?'completa':'parcial',
+    dispositivo:r.dispositivo,viewport:r.viewport,tarea_n:t.n,tarea_id:t.id,requerimiento:t.req,tarea:t.titulo,tiempo_s:t.tiempo_s,
+    completada:t.completada?'si':'no',clics:t.clics,respuesta:t.respuesta,esperado:t.esperado,
+    likert_claridad:L.claridad,likert_utilidad:L.utilidad,likert_usaria:L.usaria,comentario:r.comentario||''}));
 }
+function vtFilas(r){return vtFilasObj(r).map(f=>VT_COLS.map(c=>csvCell(f[c])).join(','))}
+function vtCsv(lista){return '\ufeff'+VT_COLS.join(',')+'\n'+lista.map(r=>vtFilas(r).join('\n')).filter(Boolean).join('\n')}
+function vtNombre(r,ext){return 'errebe_validacion_'+r.participante+'_'+r.fecha+'.'+ext}
 function vtArchivo(nombre,contenido,tipo){
   const blob=new Blob([contenido],{type:tipo});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=nombre;
   document.body.appendChild(a);a.click();
-  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);
 }
-function vtDescargar(tipo){
-  const r=VT.res;if(!r)return;
-  const base='errebe_validacion_'+r.participante+'_'+r.fecha;
-  if(tipo==='json')vtArchivo(base+'.json',JSON.stringify(r,null,2),'application/json');
-  else vtArchivo(base+'.csv','﻿'+VT_COLS.join(',')+'\n'+vtFilas(r).join('\n'),'text/csv;charset=utf-8');
+function vtPorId(id){return vtSesiones().filter(x=>vtIdDe(x)===id)[0]||(VT.res&&vtIdDe(VT.res)===id?VT.res:null)}
+function vtDescargar(tipo,id){
+  const r=id?vtPorId(id):VT.res;if(!r)return;
+  if(tipo==='json')vtArchivo(vtNombre(r,'json'),JSON.stringify(r,null,2),'application/json');
+  else vtArchivo(vtNombre(r,'csv'),vtCsv([r]),'text/csv;charset=utf-8');
+}
+// En el teléfono abre el menú de compartir (WhatsApp, Drive, correo); si no se puede, descarga
+function vtCompartir(id){
+  const r=vtPorId(id);if(!r)return;
+  try{
+    const f=new File([vtCsv([r])],vtNombre(r,'csv'),{type:'text/csv'});
+    if(navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:'ErreBe · '+r.participante}).catch(()=>{});return}
+  }catch(e){}
+  vtDescargar('csv',id);
+}
+function vtEnviarId(id){const r=vtPorId(id);if(r)vtEnviar(r,true)}
+function vtGuardarUrl(){
+  const u=(document.getElementById('vt-url').value||'').trim();
+  if(u&&!/^https:\/\/script\.google\.com\/.+\/exec$/.test(u)){toast('La URL debe ser de script.google.com y terminar en /exec');return}
+  const ob=document.getElementById('vt-obs');if(ob&&ob.value.trim())lsSet('errebe:test:observador',ob.value.trim());
+  lsSet('errebe:test:endpoint',u);toast(u?'Planilla guardada ✓':'Planilla quitada');
+  vtReintentarPendientes();vtRender();
+}
+function vtListaSesiones(){
+  const s=vtSesiones().slice().reverse();if(!s.length)return '';
+  return `<div class="sectitle" style="margin:16px 0 6px">Intentos guardados en este dispositivo (${s.length})</div>
+    <table class="vt-sum">${s.map(r=>{const id=vtIdDe(r);return `<tr><td><b>${esc(r.participante)}</b> · ${esc(r.fecha)}${r.observador?'<br><span style="color:var(--gris);font-size:12px">'+esc(r.observador)+'</span>':''}</td>
+      <td style="font-size:12px">${(r.tareas||[]).length}/${VT_TAREAS.length} tareas${r.fin?'':' (parcial)'}<br><span style="color:${r.envio==='ok'||r.envio==='ok-sin-confirmar'?'var(--ok)':'var(--warn)'}">${vtEnvioTxt(r)}</span></td>
+      <td style="text-align:right;white-space:nowrap">${r.envio==='ok'||r.envio==='ok-sin-confirmar'?'':`<button class="btn btn-ghost btn-sm" onclick="vtEnviarId('${id}')">Enviar</button> `}<button class="btn btn-ghost btn-sm" onclick="vtCompartir('${id}')">Compartir</button></td></tr>`}).join('')}</table>
+    <div class="vt-row"><button class="btn btn-ghost btn-sm" onclick="vtDescargarTodo()">Descargar todos (CSV)</button></div>`;
 }
 function vtDescargarTodo(){
   const s=vtSesiones();if(!s.length){toast('Aún no hay sesiones');return}
-  vtArchivo('errebe_validacion_todas_'+new Date().toISOString().slice(0,10)+'.csv','﻿'+VT_COLS.join(',')+'\n'+s.map(vtFilas).filter(x=>x.length).map(x=>x.join('\n')).join('\n'),'text/csv;charset=utf-8');
+  vtArchivo('errebe_validacion_todas_'+new Date().toISOString().slice(0,10)+'.csv',vtCsv(s),'text/csv;charset=utf-8');
 }
 function vtNueva(){location.reload()}
 
