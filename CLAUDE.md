@@ -45,8 +45,16 @@ Antes de hacer cualquier cambio en HTML, CSS o JavaScript, verificar:
 - Se inicializa al cargar la página antes de cualquier render para evitar flash
 - Los botones de toggle están en: pantalla de bienvenida, sidebar, y barra móvil
 
-### Modo validación (Lab 9.2)
+### Modo validación (?test=1)
 - Se activa solo con `?test=1` (ej.: `https://criscl1.github.io/rb/?test=1`). Usa `buildTestDB()` en memoria, no llama a `persist()` y guarda resultados en `localStorage['errebe:test:sesiones']`.
+- Versión registrada actual: `ErreBe prototipo · Hito 2 v2` (ronda 2). La ronda 1 quedó como `ErreBe prototipo · Lab 9.2` (commit `c1accc6`). **No cambiar** el escenario (La Bodega Sonora, 60 %, 30 personas, transferencia, 48 horas, $5.000), las 4 tareas ni sus respuestas correctas: así se comparan las rondas.
+- Además de tiempo, clics y completada, cada tarea registra `primera_seccion`, `pasos_formulario`, `pasos_secuencia` y, en T1, `guardo_borrador`. Columnas nuevas siempre **al final** del CSV (`VT_COLS`) y de la planilla.
 - Cada sesión también se envía (POST text/plain) a la planilla del equipo vía Apps Script: `validacion/planilla_apps_script.gs`. La URL va en `VT_ENDPOINT` o se fija con `?hoja=<url /exec>` (queda en `localStorage['errebe:test:endpoint']`). Los envíos fallidos se reintentan al abrir `?test=1`.
-- Evidencias: `NODE_PATH=$(npm root -g) node evidencias/9.2/capturar.js` (también sirve de prueba del flujo).
-- Decisiones de diseño: `DECISIONES.md`; evidencia citable: `CONTEXTO_ERREBE.md`.
+- Comparar rondas: `python3 validacion/comparar_rondas.py --ronda1 <exportes> --ronda2 <exportes>` (% sobre sesiones válidas de cada ronda; sesiones identificadas por archivo y observador).
+- Evidencias y prueba del flujo: `NODE_PATH=$(npm root -g) node evidencias/hito2/capturar.js` (falla si no se cumplen los criterios del Hito 2 o hay errores de consola). El de `evidencias/9.2/` corresponde a `c1accc6`.
+- Decisiones de diseño: `DECISIONES.md` (D1–D29); evidencia citable: `CONTEXTO_ERREBE.md` (incluye los resultados V1 de la primera ronda).
+
+### Estructura de navegación (Hito 2)
+- Menú visible: máximo 5 entradas por rol (Inicio, Acuerdos, Locales y fichas / Mi ficha técnica, Agenda / Mis fechas, y "Más herramientas" plegado). Lo nuevo que no sea del flujo principal va dentro de "Más herramientas".
+- Un solo botón primario (rojo) por vista. El "?" va junto al título de cada sección (`.q-btn`), no flotante.
+- El acuerdo se registra por pasos (`acIr(n)`); el pie del modal (`.wiz-foot`) es fijo y debe seguir visible en 390 × 700.

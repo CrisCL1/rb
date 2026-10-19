@@ -106,3 +106,100 @@ llevar (R2) sin ayuda ni consultar al local. Perfil: músicos del Segmento B que
 - **Evidencia:** 9.1 §5, paso 12; falla observada en la sesión P02.
 - **Descartado:** subir los resultados al repositorio desde la app (exigiría una clave de GitHub expuesta en la página); un servicio externo de base de datos (otra cuenta más que mantener).
 - **Datos personales:** el participante sigue identificado solo por código. "Quién observa" es un integrante del equipo, no el participante.
+
+---
+
+## 2026-10-19 · Hito 2: iteración tras la primera validación
+
+Evidencia: resultados V1 en [`CONTEXTO_ERREBE.md`](CONTEXTO_ERREBE.md#resultados-de-la-primera-validación-modo-test1-1418-oct-2026)
+(IDs V1-…). Línea base "antes": commit `c1accc6`. Capturas antes/después: [`evidencias/hito2/`](evidencias/hito2/).
+
+**Decisión del equipo: iterar, no pivotar.** El valor se entiende (utilidad 4,4) y la ficha técnica funciona
+(T2 y T3 con mediana de 1 clic); lo que falla es encontrar y completar el acuerdo (T1 40 %, T4 80 %) y
+orientarse al entrar (claridad 4,0; V1-e, V1-f, V1-g). Cada cambio apunta a una conducta observable en la
+ronda 2: **el músico envía el acuerdo sin pedir ayuda y lo vuelve a encontrar**. Lo que no ayuda a eso no se
+construye (clase U2.1). No se agregan pestañas, paneles ni textos que nombren los atributos.
+
+### D16 · El acuerdo se registra en 4 pasos cortos, con el botón de avanzar o enviar fijo al pie
+- **Qué cambió:** el formulario único "Nuevo acuerdo" pasa a 4 pasos: 1) local, 2) reparto y asistencia mínima, 3) método y plazo de pago, 4) revisar y enviar. El pie del modal (contador, "qué falta" y botón) queda fijo y visible en móvil y escritorio. Cada paso cabe en 390 × 700 sin desplazarse (verificado en `evidencias/hito2/<fecha>/verificacion/`).
+- **Por qué:** T1 llegó a 40 % (2 de 5; meta ≥ 80 %). Quienes fallaron usaron 27 a 49 clics y quienes lo lograron 16 y 18 (V1-b): más de 25 clics es buscar dónde está la acción, no un formulario largo. En `c1accc6` los botones de envío no se veían sin desplazarse (V1-h).
+- **Evidencia:** V1-T1, V1-b, V1-h; RIA R1.
+- **Descartado:** dejar el formulario único y solo fijar el botón (no ordena qué completar primero); un paso por campo (8 pantallas y más clics); bloquear el avance hasta completar cada paso (impediría guardar un borrador incompleto, que D4 permite).
+
+### D17 · Indicador de avance y lista de lo que falta, con enlace a su paso
+- **Qué cambió:** el encabezado dice "Paso n de 4" y muestra los 4 pasos (se puede saltar a cualquiera). El pie mantiene el contador "n de 4" de D4 y dice qué falta ("Para enviarlo falta: método de pago, plazo de pago"). En el paso 4, cada condición faltante aparece con "Completar en paso n". Si se intenta enviar incompleto, se marcan los campos (D4 sigue igual).
+- **Por qué:** visibilidad del estado y prevención de errores (workshop UX/UI). P05 pidió referencias de "en qué panel u opción está lo solicitado" (V1-f).
+- **Evidencia:** V1-f, V1-T1; D4.
+- **Descartado:** deshabilitar "Enviar al local" mientras falte algo (un botón gris no dice qué falta).
+
+### D18 · Los campos opcionales se pliegan; el precio de la entrada pasa al paso 2
+- **Qué cambió:** seguro de sala, hora de carga, contacto del sonidista y condiciones quedan en "Agregar detalles (opcional)", cerrado por defecto, en el paso 4. El precio de la entrada se pide en el paso 2 como "Precio de la entrada (para calcular tu ganancia)" y ahí mismo se calcula cuánto recibe la banda.
+- **Por qué:** "diseñar es restar": esos campos no los exige R1 y competían con los 4 que sí. El precio sí es necesario para mostrar el monto de D7, que es lo que pregunta T4.
+- **Evidencia:** RIA R1 (4 campos), D7, V1-T4.
+- **Descartado:** borrar los opcionales (los usa el detalle del acuerdo y los ve el local); hacer obligatorio el precio para enviar (cambiaría la regla de 4 campos de D4 y la pauta de T1).
+
+### D19 · Elegir de una lista avanza solo; la ruta mínima de T1 baja de 10 a 8 toques
+- **Qué cambió:** en el paso 1 el local se elige de una lista de botones (o se escribe otro) y al tocarlo se pasa al paso 2 con el cursor en el reparto. Método y plazo son botones de opción, no selects; con ambos elegidos se pasa solo al resumen, desde donde se puede volver con "Cambiar". Enter pasa al campo siguiente.
+- **Por qué:** cada select nativo cuesta 2 toques (abrir y elegir) y en iOS abre una rueda. Ruta mínima Inicio → enviado con el escenario completo: **antes 10 toques** (+ Nuevo acuerdo, local, reparto, asistencia, método ×2, plazo ×2, precio, Enviar; 9 sin el precio, que era opcional); **después 8** (Cerrar una fecha nueva, local, asistencia, precio, Siguiente, método, plazo, Enviar al local), medido con el contador de clics del modo validación a 390 y 1440 px.
+- **Evidencia:** V1-b (clics de T1); contexto de uso "de pie, apurado, con una mano y en el celular" (workshop UX/UI).
+- **Descartado:** avanzar solo al terminar de escribir un número (no se sabe cuándo terminó). **Por validar:** que el avance automático no desoriente; se revisará en `pasos_secuencia` de la ronda 2.
+
+### D20 · Después de enviar: estado explícito y el acuerdo arriba de la lista
+- **Qué cambió:** al enviar se vuelve a Acuerdos con el aviso "Enviado a La Bodega Sonora · esperando confirmación" y el acuerdo queda primero y marcado. La lista ordena lo pendiente arriba (Músico: observado, borrador, enviado, confirmado; Local: por revisar primero). Antes se abría el detalle y la lista seguía el orden de creación.
+- **Por qué:** en T4 dos personas no encontraron el acuerdo tras 41 y 48 clics (V1-c). Si el acuerdo recién enviado queda a la vista, reabrirlo es un toque.
+- **Evidencia:** V1-T4, V1-c; RIA R1 ("el usuario recupera el acuerdo sin ayuda").
+- **Descartado:** notificaciones o correo al local (funcionalidad nueva, fuera del alcance del prototipo).
+
+### D21 · Estados con texto, no solo color, y la acción que sigue
+- **Qué cambió:** "Falta que el local confirme", "Confirmado por ambos", "El local hizo una observación" (Músico); "Te toca revisarlo" y "Esperando que la banda corrija" (Local); "Borrador · n de 4". Bajo cada acuerdo pendiente se indica qué hacer ("Revisa la observación y corrígelo →").
+- **Por qué:** visibilidad del estado; "reconocer, no recordar". El ciclo de D5 seguía igual pero había que deducir qué hacer con cada estado.
+- **Evidencia:** D5, D6; V1-f.
+- **Descartado:** íconos sin texto.
+
+### D22 · Inicio con tres accesos grandes y solo lo que ayuda a decidir
+- **Qué cambió:** al entrar como Músico, arriba: "Cerrar una fecha nueva" (botón principal, rojo), "Ver mis acuerdos" (con contador de pendientes) y "Ver locales y sus fichas". Como Local: "Revisar acuerdos que te enviaron", "Mi ficha técnica" y "Mis fechas". Debajo, solo la próxima fecha y los acuerdos pendientes. Se quitaron las tarjetas de métricas (acuerdos confirmados, fechas confirmadas, equipos publicados, días desde actualización) porque no llevan a una acción; siguen en Estadísticas o en la ficha. Inicio no requiere desplazarse a 1440 × 900.
+- **Por qué:** "se siente como si fuese mucha información de una sola vez" (V1-e); la claridad (4,0) quedó bajo la utilidad (4,4) y una participante puso claridad 2 (V1-a); conclusión del equipo: página saturada (V1-g). "El valor vive en un paso concreto. Todo lo demás debería protegerlo, no enterrarlo."
+- **Evidencia:** V1-a, V1-e, V1-g, V1-h.
+- **Descartado:** mantener las métricas en Inicio; un tutorial modal al entrar (el equipo ya lo reemplazó por ayuda por página en `2fe7cec`).
+
+### D23 · Primera visita: "Así funciona ErreBe" en tres pasos, se cierra y no vuelve
+- **Qué cambió:** bajo los accesos de Inicio, un bloque breve: revisa la ficha del local → cierra el acuerdo → la fecha queda en tu agenda (en Local: publica tu ficha → revisa los acuerdos → la fecha queda en tus fechas). Cada paso lleva a su sección. La × lo oculta y deja una marca en `localStorage` (`errebe:guia:<rol>`, con try/catch). En `?test=1` no se guarda la marca: todos los participantes lo ven al empezar.
+- **Por qué:** P05: "Para un principio, las instrucciones son poco claras" (V1-f). Es una orientación de entrada que no bloquea.
+- **Evidencia:** V1-f.
+- **Descartado:** un recorrido paso a paso que bloquea la pantalla (mismo motivo que en D22). **Pendiente:** el acuerdo todavía no crea la fecha en la agenda; en el escenario del test la fecha con La Bodega Sonora ya existe.
+
+### D24 · Menú corto: 4 entradas y "Más herramientas" plegado
+- **Qué cambió:** el menú visible es Inicio, Acuerdos, Locales y fichas (Local: Mi ficha técnica) y Agenda (Local: Mis fechas), más "Más herramientas", cerrado por defecto, con Simulador, Tareas, Alertas legales, QR & Público, Buscador y Estadísticas (Local: Alertas legales, Buscador y Estadísticas). Cada una lleva una línea que dice para qué sirve. Ninguna se borró; si se abre una, el grupo queda desplegado y marcado. Local ahora tiene "Mis fechas" (antes no tenía agenda).
+- **Por qué:** 10 entradas en el menú del Músico (V1-h). Las tareas validadas usan solo Inicio, Acuerdos y Fichas. "El atributo también te dice qué no construir" (U2.1).
+- **Evidencia:** V1-h, V1-g; D2 (T4 y T6 de la 9.1 viven en las herramientas y siguen accesibles).
+- **Descartado:** eliminar herramientas; ocultarlas por completo.
+
+### D25 · Referencias de ubicación y "?" junto al título
+- **Qué cambió:** cada sección muestra su título y una línea que dice qué se hace ahí. En el teléfono la barra superior muestra la sección actual. El ítem activo del menú se marca con borde rojo y texto en negrita. El botón "?" ya no flota rojo arriba a la derecha (competía con "+ Nuevo acuerdo"): ahora va junto al título de cada sección, en gris, con el mismo contenido.
+- **Por qué:** P05 pidió referencias de en qué panel está lo solicitado (V1-f); un solo botón llamativo por pantalla.
+- **Evidencia:** V1-f, V1-h.
+- **Descartado:** quitar la ayuda; mantener el "?" en la barra móvil (se veía como una segunda acción).
+
+### D26 · Lenguaje del usuario y estados vacíos útiles
+- **Qué cambió:** "Cerrar una fecha nueva" en vez de "+ Nuevo acuerdo"; "Locales y fichas"; "equipo" en vez de "backline"; "para calcular tu ganancia", "lo que te pagaron y lo que te deben". En la bienvenida, bajo cada cuenta: "Cierra tus fechas por escrito y revisa el equipo de cada local" (músico) y "Publica tu ficha y recibe acuerdos claros de las bandas" (local). Alertas legales y QR & Público mantienen su nombre y dicen para qué sirven. Sin emojis en los títulos. Cuando no hay acuerdos, fechas o ficha, se dice qué hacer y hay un botón para hacerlo.
+- **Por qué:** las tareas deben poder completarse leyendo solo lo que aparece en pantalla, sin explicación del observador (V1-f).
+- **Evidencia:** V1-f, V1-e.
+- **Descartado:** renombrar Alertas legales y QR & Público: basta con decir para qué sirven.
+
+### D27 · Jerarquía visual y accesibilidad sin cambiar la paleta
+- **Qué cambió:** un solo botón primario rojo por vista; los secundarios con borde o subrayado ("Guardar borrador" pesa menos que "Enviar al local"). Objetivos táctiles de al menos 44 px en botones, menú, opciones y enlaces del formulario. Los textos secundarios (ayudas, subtítulos, etiquetas) usan `--gris` (≥ 4,5:1 sobre el fondo) en vez de `--gris-2`. En tema claro, los chips de estado llevan el texto en `--texto` con borde del color del estado, porque el ámbar y el verde claros no llegaban a 4,5:1.
+- **Por qué:** heurística de diseño minimalista; contraste 4,5:1 y 44 px; contexto de uso con una mano.
+- **Evidencia:** lineamientos del workshop UX/UI; CLAUDE.md.
+- **Descartado:** cambiar los valores de las variables de color (D13 sigue pendiente del equipo).
+
+### D28 · La ficha técnica no se rediseña: se hace visible desde la entrada
+- **Qué cambió:** acceso directo desde Inicio ("Ver locales y sus fichas") y entrada propia en el menú. Cada tarjeta mantiene la prueba de sonido como primer dato y el recuadro "La banda debe llevar". Se agregó en cada tarjeta un botón secundario "Cerrar una fecha con este local", que abre el acuerdo con el local ya elegido.
+- **Por qué:** T2 100 % y T3 100 % con mediana de 1 clic: funciona. T3 tuvo un caso de 386 s (V1-d), por eso los dos datos siguen destacados.
+- **Evidencia:** V1-T2, V1-T3, V1-d; D8, D9.
+- **Descartado:** reordenar o rediseñar la tarjeta.
+
+### D29 · Segunda ronda comparable con la primera
+- **Qué cambió:** la versión registrada pasa a `ErreBe prototipo · Hito 2 v2`. Escenario (La Bodega Sonora, 60 %, 30 personas, transferencia, 48 horas, $5.000), 4 tareas y respuestas correctas sin cambios. Se registra además, por tarea: primera sección o ventana abierta tras comenzar (`primera_seccion`), pasos del formulario recorridos (`pasos_formulario`, `pasos_secuencia`) y, en T1, si guardó un borrador en vez de enviar (`guardo_borrador`). Las columnas nuevas van al final del CSV y de la planilla. `validacion/comparar_rondas.py` calcula por tarea y ronda el % completado (sobre el total de sesiones válidas), las medianas de tiempo y clics y los promedios Likert.
+- **Por qué:** la rúbrica pide resultados conectados a los indicadores del RIA; solo se pueden comparar si las tareas y la pauta son las mismas. Las sesiones se identifican por archivo y observador porque varias se exportaron con el mismo código (P03).
+- **Evidencia:** D1–D3, D15; V1.
+- **Descartado:** cambiar tareas o escenario; una planilla aparte para la ronda 2 (la columna `version` separa las rondas). **Pendiente del equipo:** volver a implementar el Apps Script (misma URL) para ver las columnas nuevas en la hoja "Resultados"; mientras tanto quedan en "Sesiones (JSON)".

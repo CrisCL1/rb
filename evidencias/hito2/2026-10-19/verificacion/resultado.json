@@ -1,0 +1,394 @@
+{
+  "fecha": "2026-10-19",
+  "antes": "c1accc6",
+  "comprobaciones": [
+    {
+      "ok": true,
+      "que": "[390] musico: menú visible con ≤ 5 entradas",
+      "detalle": [
+        "◎ Inicio",
+        "▤ Acuerdos",
+        "♪ Locales y fichas",
+        "▦ Agenda",
+        "+ Más herramientas ▾"
+      ]
+    },
+    {
+      "ok": true,
+      "que": "[390] musico: \"Más herramientas\" lleva a cada herramienta",
+      "detalle": [
+        [
+          "simulador",
+          true
+        ],
+        [
+          "tareas",
+          true
+        ],
+        [
+          "alertas",
+          true
+        ],
+        [
+          "qr",
+          true
+        ],
+        [
+          "buscador",
+          true
+        ],
+        [
+          "stats",
+          true
+        ]
+      ]
+    },
+    {
+      "ok": true,
+      "que": "[390] musico: la barra superior muestra la sección actual",
+      "detalle": "Locales y fichas"
+    },
+    {
+      "ok": true,
+      "que": "[390] local: menú visible con ≤ 5 entradas",
+      "detalle": [
+        "◎ Inicio",
+        "▤ Acuerdos",
+        "♪ Mi ficha técnica",
+        "▦ Mis fechas",
+        "+ Más herramientas ▾"
+      ]
+    },
+    {
+      "ok": true,
+      "que": "[390] local: \"Más herramientas\" lleva a cada herramienta",
+      "detalle": [
+        [
+          "alertas",
+          true
+        ],
+        [
+          "buscador",
+          true
+        ],
+        [
+          "stats",
+          true
+        ]
+      ]
+    },
+    {
+      "ok": true,
+      "que": "[390] local: la barra superior muestra la sección actual",
+      "detalle": "Mi ficha técnica"
+    },
+    {
+      "ok": true,
+      "que": "[1440] musico: menú visible con ≤ 5 entradas",
+      "detalle": [
+        "◎ Inicio",
+        "▤ Acuerdos",
+        "♪ Locales y fichas",
+        "▦ Agenda",
+        "+ Más herramientas ▾"
+      ]
+    },
+    {
+      "ok": true,
+      "que": "[1440] musico: \"Más herramientas\" lleva a cada herramienta",
+      "detalle": [
+        [
+          "simulador",
+          true
+        ],
+        [
+          "tareas",
+          true
+        ],
+        [
+          "alertas",
+          true
+        ],
+        [
+          "qr",
+          true
+        ],
+        [
+          "buscador",
+          true
+        ],
+        [
+          "stats",
+          true
+        ]
+      ]
+    },
+    {
+      "ok": true,
+      "que": "[1440×900] musico: Inicio sin desplazarse",
+      "detalle": {
+        "alto": 900
+      }
+    },
+    {
+      "ok": true,
+      "que": "[1440] local: menú visible con ≤ 5 entradas",
+      "detalle": [
+        "◎ Inicio",
+        "▤ Acuerdos",
+        "♪ Mi ficha técnica",
+        "▦ Mis fechas",
+        "+ Más herramientas ▾"
+      ]
+    },
+    {
+      "ok": true,
+      "que": "[1440] local: \"Más herramientas\" lleva a cada herramienta",
+      "detalle": [
+        [
+          "alertas",
+          true
+        ],
+        [
+          "buscador",
+          true
+        ],
+        [
+          "stats",
+          true
+        ]
+      ]
+    },
+    {
+      "ok": true,
+      "que": "[1440×900] local: Inicio sin desplazarse",
+      "detalle": {
+        "alto": 900
+      }
+    },
+    {
+      "ok": true,
+      "que": "[1440×900] botón de avanzar/enviar visible en los 4 pasos",
+      "detalle": [
+        {
+          "paso": 1,
+          "boton": "Siguiente →",
+          "visible": true,
+          "cabe": true,
+          "scroll": 324,
+          "alto": 324
+        },
+        {
+          "paso": 2,
+          "boton": "Siguiente →",
+          "visible": true,
+          "cabe": true,
+          "scroll": 281,
+          "alto": 281
+        },
+        {
+          "paso": 3,
+          "boton": "Siguiente →",
+          "visible": true,
+          "cabe": true,
+          "scroll": 342,
+          "alto": 342
+        },
+        {
+          "paso": 4,
+          "boton": "Enviar al local",
+          "visible": true,
+          "cabe": true,
+          "scroll": 387,
+          "alto": 387
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "que": "[1440×900] tras enviar: confirmación de estado y acuerdo arriba en la lista",
+      "detalle": {
+        "estado": "enviado",
+        "aviso": "✓ Enviado a La Bodega Sonora · esperando confirmación. Cuando el local lo confirme o lo observe, lo verás aquí.",
+        "primero": true
+      }
+    },
+    {
+      "ok": true,
+      "que": "[390×844] botón de avanzar/enviar visible en los 4 pasos",
+      "detalle": [
+        {
+          "paso": 1,
+          "boton": "Siguiente →",
+          "visible": true,
+          "cabe": true,
+          "scroll": 315,
+          "alto": 315
+        },
+        {
+          "paso": 2,
+          "boton": "Siguiente →",
+          "visible": true,
+          "cabe": true,
+          "scroll": 413,
+          "alto": 413
+        },
+        {
+          "paso": 3,
+          "boton": "Siguiente →",
+          "visible": true,
+          "cabe": true,
+          "scroll": 356,
+          "alto": 356
+        },
+        {
+          "paso": 4,
+          "boton": "Enviar al local",
+          "visible": true,
+          "cabe": true,
+          "scroll": 395,
+          "alto": 395
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "que": "[390×844] tras enviar: confirmación de estado y acuerdo arriba en la lista",
+      "detalle": {
+        "estado": "enviado",
+        "aviso": "✓ Enviado a La Bodega Sonora · esperando confirmación. Cuando el local lo confirme o lo observe, lo verás aquí.",
+        "primero": true
+      }
+    },
+    {
+      "ok": true,
+      "que": "[390×700] botón de avanzar/enviar visible en los 4 pasos",
+      "detalle": [
+        {
+          "paso": 1,
+          "boton": "Siguiente →",
+          "visible": true,
+          "cabe": true,
+          "scroll": 315,
+          "alto": 315
+        },
+        {
+          "paso": 2,
+          "boton": "Siguiente →",
+          "visible": true,
+          "cabe": true,
+          "scroll": 413,
+          "alto": 413
+        },
+        {
+          "paso": 3,
+          "boton": "Siguiente →",
+          "visible": true,
+          "cabe": true,
+          "scroll": 356,
+          "alto": 356
+        },
+        {
+          "paso": 4,
+          "boton": "Enviar al local",
+          "visible": true,
+          "cabe": true,
+          "scroll": 395,
+          "alto": 395
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "que": "[390×700] cada paso cabe sin desplazarse",
+      "detalle": [
+        {
+          "paso": 1,
+          "boton": "Siguiente →",
+          "visible": true,
+          "cabe": true,
+          "scroll": 315,
+          "alto": 315
+        },
+        {
+          "paso": 2,
+          "boton": "Siguiente →",
+          "visible": true,
+          "cabe": true,
+          "scroll": 413,
+          "alto": 413
+        },
+        {
+          "paso": 3,
+          "boton": "Siguiente →",
+          "visible": true,
+          "cabe": true,
+          "scroll": 356,
+          "alto": 356
+        },
+        {
+          "paso": 4,
+          "boton": "Enviar al local",
+          "visible": true,
+          "cabe": true,
+          "scroll": 395,
+          "alto": 395
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "que": "[390×700] tras enviar: confirmación de estado y acuerdo arriba en la lista",
+      "detalle": {
+        "estado": "enviado",
+        "aviso": "✓ Enviado a La Bodega Sonora · esperando confirmación. Cuando el local lo confirme o lo observe, lo verás aquí.",
+        "primero": true
+      }
+    },
+    {
+      "ok": true,
+      "que": "[390] modo validación: las 4 tareas completadas",
+      "detalle": []
+    },
+    {
+      "ok": true,
+      "que": "[390] T1 ruta mínima Inicio → enviado en ≤ 8 clics",
+      "detalle": {
+        "clics": 8,
+        "pasos": "1>2>3>4"
+      }
+    },
+    {
+      "ok": true,
+      "que": "[390] versión registrada",
+      "detalle": "ErreBe prototipo · Hito 2 v2"
+    },
+    {
+      "ok": true,
+      "que": "[1440] modo validación: las 4 tareas completadas",
+      "detalle": []
+    },
+    {
+      "ok": true,
+      "que": "[1440] T1 ruta mínima Inicio → enviado en ≤ 8 clics",
+      "detalle": {
+        "clics": 8,
+        "pasos": "1>2>3>4"
+      }
+    },
+    {
+      "ok": true,
+      "que": "[1440] versión registrada",
+      "detalle": "ErreBe prototipo · Hito 2 v2"
+    },
+    {
+      "ok": true,
+      "que": "sin errores de JavaScript ni de consola",
+      "detalle": []
+    }
+  ],
+  "t1_clics": {
+    "390": 8,
+    "1440": 8
+  }
+}

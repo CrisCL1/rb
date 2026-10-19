@@ -54,3 +54,32 @@ Si algo de este archivo no calza con las fuentes, manda la fuente.
 - **Tareas definidas:** T1 registrar pre-acuerdo (R1); T2 decidir qué equipos llevar (R2); T3 prueba de sonido y horario, cronometrado (R3); T4 agendar y asignar 2 tareas (R4); T5 reabrir el acuerdo y decir cuánto le corresponde a la banda (R1); T6 simulador con un show real (R5); cierre con 2 preguntas abiertas. [9.1 §5]
 - El observador no interviene salvo 2 minutos sin avance; en ese caso se registra "completada con ayuda". [9.1 §5]
 - Test anterior (Tarea 5, CD1100): 1 solo usuario, perfil de afición, 100 % de tareas completadas; no concluyente. [RIA R4, 9.1 §1]
+
+## Resultados de la primera validación (modo `?test=1`, 14–18 oct 2026)
+
+Fuente: **[V1]** registro del modo validación (planilla "ErreBe · Resultados validación 9.2") y resumen del equipo.
+5 sesiones, una por integrante; 5 músicos del perfil objetivo (4 en computador, 1 en celular). Versión
+registrada: `ErreBe prototipo · Lab 9.2` (commit `c1accc6`).
+
+| ID | Tarea | Req. | Completada | Mediana tiempo | Mediana clics | Meta |
+|---|---|---|---|---|---|---|
+| V1-T1 | Registrar y enviar el acuerdo | R1 | 40 % (2 de 5) | 101 s | 27 | ≥ 80 % |
+| V1-T2 | Decidir qué equipo llevar | R2 | 100 % (5 de 5) | 60 s | 1 | ≥ 75 % |
+| V1-T3 | Encontrar la prueba de sonido | R3 | 100 %; 80 % en < 30 s | 23 s | 1 | 100 % en < 30 s |
+| V1-T4 | Reabrir el acuerdo y decir cuánto recibe la banda | R1 | 80 % (4 de 5) | 68 s | 3 | 100 % |
+| V1-R4 | Total de tareas sin ayuda | R4 | 80 % (16 de 20) | | | ≥ 90 % |
+
+| ID | Hallazgo | Fuente |
+|---|---|---|
+| V1-a | Valoración promedio (1 a 5): claridad 4,0 · utilidad 4,4 · intención de uso 4,0. Una participante puso claridad 2. | V1 |
+| V1-b | Quienes fallaron T1 usaron entre 27 y 49 clics (P02 27 en celular, P05 33, P03 49); quienes lo lograron, 16 y 18. | V1 |
+| V1-c | En T4, P03 usó 48 clics y P05 41 sin encontrar el acuerdo. | V1 |
+| V1-d | T3 tuvo un caso de 386 s. | V1 |
+| V1-e | P02 (celular), textual: "la claridad al momento de entrar a la página, ya que se siente como si fuese mucha información de una sola vez". | V1 |
+| V1-f | P05, textual: "Para un principio, las instrucciones son poco claras. Deberían añadir referencias que especifiquen en que panel u opción esta lo solicitado". | V1 |
+| V1-g | Conclusión del equipo: la página está saturada de información y las personas no la ven intuitiva. Decisión: iterar, no pivotar. | V1 |
+| V1-h | Saturación medible en la versión `c1accc6`: 10 entradas en el menú del Músico; "+ Nuevo acuerdo" compite con el botón "?" arriba a la derecha; el formulario de acuerdo no muestra los botones de envío sin desplazarse (`evidencias/9.2/2026-10-05/antes-despues/musico_acuerdo-nuevo_1440_despues.png`). | V1, capturas 9.2 |
+
+Los textos V1-e y V1-f son los **únicos** textos de participantes que se pueden citar. Los códigos P0x
+no identifican personas; varias sesiones se exportaron con el mismo código (P03), por eso se distinguen
+por archivo y observador.

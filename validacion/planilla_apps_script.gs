@@ -11,10 +11,16 @@
  *
  * Cada sesión se identifica por sesion_id. Si llega otra vez (por ejemplo, una sesión parcial
  * que luego se completa), sus filas anteriores se reemplazan: no quedan duplicados.
+ *
+ * Hito 2 (ronda 2): se agregaron 5 columnas AL FINAL (version, primera_seccion, pasos_formulario,
+ * pasos_secuencia, guardo_borrador) para no mover las de la ronda 1. Para recibirlas hay que volver a
+ * implementar: Implementar → Gestionar implementaciones → editar (lápiz) → Versión: nueva → Implementar.
+ * Así la URL /exec no cambia. Mientras no se haga, esos datos igual quedan en la hoja "Sesiones (JSON)".
  */
 const COLUMNAS = ['sesion_id', 'fecha', 'participante', 'observador', 'estado', 'dispositivo', 'viewport',
   'tarea_n', 'tarea_id', 'requerimiento', 'tarea', 'tiempo_s', 'completada', 'clics', 'respuesta', 'esperado',
-  'likert_claridad', 'likert_utilidad', 'likert_usaria', 'comentario', 'recibido'];
+  'likert_claridad', 'likert_utilidad', 'likert_usaria', 'comentario', 'recibido',
+  'version', 'primera_seccion', 'pasos_formulario', 'pasos_secuencia', 'guardo_borrador'];
 
 function doPost(e) {
   const lock = LockService.getScriptLock();
@@ -53,6 +59,7 @@ function hojaResultados_() {
   const h = ss.getSheetByName('Resultados') || ss.getSheets()[0];
   if (h.getName() !== 'Resultados') h.setName('Resultados');
   if (h.getLastRow() === 0) h.appendRow(COLUMNAS);
+  else if (h.getLastColumn() < COLUMNAS.length) h.getRange(1, 1, 1, COLUMNAS.length).setValues([COLUMNAS]); // agrega los encabezados nuevos
   return h;
 }
 function hojaCruda_() {

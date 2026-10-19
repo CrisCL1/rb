@@ -10,6 +10,9 @@ NODE_PATH=$(npm root -g) node evidencias/9.2/capturar.js --fecha=2026-10-05 --an
 El script levanta un servidor local, recorre la app y falla si hay errores de JavaScript o si el flujo de
 referencia del modo validación no completa las 4 tareas.
 
+> Este script corresponde a la versión `c1accc6` (Lab 9.2). Desde el Hito 2 el formulario de acuerdo va por
+> pasos y el script nuevo es [`evidencias/hito2/capturar.js`](../hito2/README.md).
+
 ## Estructura de `<fecha>/`
 
 | Carpeta | Contenido |
