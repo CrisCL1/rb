@@ -36,24 +36,24 @@
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
   .app{position:relative;z-index:1;display:flex;min-height:100vh;min-height:-webkit-fill-available}
 
-  aside{width:230px;background:var(--carbon);border-right:1px solid var(--linea);padding:22px 16px;display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100vh;flex-shrink:0}
+  aside{width:240px;background:var(--carbon);border-right:1px solid var(--linea);padding:22px 16px;display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100vh;flex-shrink:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
   .brand{font-family:"Arial Black",Impact,sans-serif;font-size:30px;font-weight:900;letter-spacing:-1px;text-transform:uppercase;margin:4px 6px 18px;line-height:1}
   .brand b{color:var(--rojo)}
-  .brand .eq{display:block;font-family:Inter,sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--gris-2);margin-top:6px}
+  .brand .eq{display:block;font-family:Inter,sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--gris);margin-top:6px}
 
   /* selector de rol */
 
   nav.side{display:flex;flex-direction:column;gap:3px}
-  .nav-item{display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:9px;color:var(--gris);font-size:14px;font-weight:600;cursor:pointer;border:1px solid transparent;transition:.14s;text-align:left;background:none;width:100%;font-family:inherit;touch-action:manipulation;-webkit-appearance:none;appearance:none}
+  .nav-item{display:flex;align-items:center;gap:12px;min-height:44px;padding:11px 13px;border-radius:9px;color:var(--gris);font-size:14px;font-weight:600;cursor:pointer;border:1px solid transparent;transition:.14s;text-align:left;background:none;width:100%;font-family:inherit;touch-action:manipulation;-webkit-appearance:none;appearance:none}
   .nav-item:hover{color:var(--texto);background:var(--panel)}
-  .nav-item.active{background:var(--panel);color:var(--texto);border-color:var(--linea)}
+  .nav-item.active{background:var(--panel);color:var(--texto);border-color:var(--linea);box-shadow:inset 3px 0 0 var(--rojo);font-weight:800}
   .nav-item.active .ic{color:var(--rojo)}
   .nav-item .ic{width:18px;text-align:center;font-size:16px}
   .nav-item[hidden]{display:none}
   .side-foot{margin-top:auto;padding:12px 8px;border-top:1px solid var(--linea)}
   .side-foot .who{display:flex;align-items:center;gap:10px}
   .avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--rojo),var(--rojo-osc));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0}
-  .who small{display:block;font-size:11px;color:var(--gris-2)}
+  .who small{display:block;font-size:11px;color:var(--gris)}
   .who b{font-size:13px}
 
   main{flex:1;min-width:0;padding:30px 38px 60px}
@@ -64,13 +64,14 @@
   .view.show{display:block}
   @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-  .btn{border:none;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;padding:11px 18px;border-radius:9px;display:inline-flex;align-items:center;gap:8px;transition:.14s;touch-action:manipulation;-webkit-appearance:none;appearance:none}
+  .btn{border:none;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;padding:11px 18px;min-height:44px;border-radius:9px;display:inline-flex;align-items:center;gap:8px;transition:.14s;touch-action:manipulation;-webkit-appearance:none;appearance:none}
   .btn-prim{background:var(--rojo);color:#fff;box-shadow:0 0 0 0 var(--rojo-glow)}
   .btn-prim:hover{background:var(--rojo-osc);box-shadow:0 6px 22px var(--rojo-glow)}
   .btn-ghost{background:var(--panel);color:var(--texto);border:1px solid var(--linea)}
   .btn-ghost:hover{border-color:var(--gris-2)}
-  .btn-sm{padding:7px 12px;font-size:12.5px;border-radius:7px}
+  .btn-sm{padding:7px 12px;font-size:12.5px;border-radius:7px;min-height:36px}
   .btn[disabled]{opacity:.45;cursor:not-allowed;box-shadow:none}
+  .btn[hidden]{display:none}
 
   .grid{display:grid;gap:16px}
   .g-3{grid-template-columns:repeat(3,1fr)}
@@ -93,9 +94,9 @@
   .item .lead{flex:1;min-width:0}
   .item .lead b{font-size:15px;display:block;margin-bottom:2px}
   .item .lead span{font-size:12.5px;color:var(--gris)}
-  .item .date-badge{text-align:center;min-width:48px;background:var(--carbon);border:1px solid var(--linea);border-radius:9px;padding:6px 0}
-  .item .date-badge b{font-family:"Arial Black",sans-serif;font-size:18px;display:block;line-height:1}
-  .item .date-badge span{font-size:10px;color:var(--gris-2);text-transform:uppercase}
+  .date-badge{text-align:center;min-width:48px;background:var(--carbon);border:1px solid var(--linea);border-radius:9px;padding:6px 0}
+  .date-badge b{font-family:"Arial Black",sans-serif;font-size:18px;display:block;line-height:1}
+  .date-badge span{font-size:10px;color:var(--gris);text-transform:uppercase}
 
   .chip{font-size:11px;font-weight:700;padding:4px 10px;border-radius:30px;white-space:nowrap}
   .chip-ok{background:rgba(54,194,107,.14);color:var(--ok)}
@@ -134,7 +135,7 @@
   .field input,.field select,.field textarea{width:100%;background:var(--panel);border:1px solid var(--linea);border-radius:9px;padding:11px 13px;color:var(--texto);font-family:inherit;font-size:14px;transition:.14s}
   .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--rojo);box-shadow:0 0 0 3px var(--rojo-glow)}
   .field textarea{resize:vertical;min-height:64px}
-  .field .hint{font-size:11.5px;color:var(--gris-2);margin-top:6px}
+  .field .hint{font-size:12px;color:var(--gris);margin-top:6px}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 
   .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--panel);border:1px solid var(--linea);border-left:3px solid var(--rojo);padding:13px 20px;border-radius:10px;font-size:14px;font-weight:600;z-index:200;opacity:0;transition:.3s;box-shadow:0 12px 40px rgba(0,0,0,.5)}
@@ -142,7 +143,7 @@
 
   .back{background:none;border:none;color:var(--gris);font-size:13px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:7px;margin-bottom:18px;font-family:inherit}
   .back:hover{color:var(--rojo)}
-  .sectitle{font-size:12px;font-weight:700;color:var(--gris-2);text-transform:uppercase;letter-spacing:1.4px;margin:26px 0 12px}
+  .sectitle{font-size:12px;font-weight:700;color:var(--gris);text-transform:uppercase;letter-spacing:1.4px;margin:26px 0 12px}
 
   .pill-role{white-space:nowrap;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:20px;background:var(--panel-2);color:var(--gris)}
   .banner{background:rgba(225,18,28,.08);border:1px solid rgba(225,18,28,.25);border-radius:12px;padding:14px 16px;font-size:13px;color:var(--texto);margin-bottom:18px;display:flex;gap:10px;align-items:flex-start}
@@ -211,19 +212,9 @@
   .acct p{font-size:13px;color:var(--gris);line-height:1.55}
   .acct .enter{margin-top:18px;font-size:13px;font-weight:800;color:var(--rojo);display:inline-flex;align-items:center;gap:7px;transition:gap .18s}
   .acct:hover .enter{gap:12px}
-  .gate .note{margin-top:30px;font-size:12px;color:var(--gris-2)}
+  .gate .note{margin-top:30px;font-size:12px;color:var(--gris)}
 
-  /* ----- botón de ayuda flotante + guía por página ----- */
-  .help-fab{position:fixed;top:18px;right:18px;z-index:120;width:42px;height:42px;border-radius:50%;
-    background:var(--rojo);border:none;color:#fff;font-size:20px;font-weight:800;cursor:pointer;
-    display:none;align-items:center;justify-content:center;box-shadow:0 6px 20px var(--rojo-glow);
-    touch-action:manipulation;-webkit-appearance:none;appearance:none;font-family:inherit;
-    -webkit-transition:.16s;transition:.16s}
-  .help-fab.show{display:inline-flex}
-  .help-fab:hover{-webkit-transform:scale(1.08);transform:scale(1.08);background:var(--rojo-osc)}
-  .mob-help-btn{background:none;border:1px solid var(--linea);border-radius:8px;color:var(--rojo);
-    cursor:pointer;font-size:15px;font-weight:800;padding:6px 11px;touch-action:manipulation;
-    -webkit-appearance:none;appearance:none;font-family:inherit;line-height:1}
+  /* ----- ayuda por sección (botón ? junto al título) ----- */
   .help-ov{position:fixed;top:0;left:0;right:0;bottom:0;z-index:430;background:rgba(0,0,0,.7);
     -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);display:none;align-items:center;
     justify-content:center;padding:20px;overflow-y:auto;-webkit-overflow-scrolling:touch}
@@ -296,7 +287,7 @@
   .ac-group .field input,.ac-group .field select{background:var(--carbon)}
   .ac-group-h{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--texto);margin-bottom:12px}
   .field.miss input,.field.miss select{border-color:var(--warn)}
-  .steps{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:4px 0 18px;font-size:12px;font-weight:700;color:var(--gris-2)}
+  .steps{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:4px 0 18px;font-size:12px;font-weight:700;color:var(--gris)}
   .steps .st{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:20px;border:1px solid var(--linea)}
   .steps .st.done{color:var(--ok);border-color:rgba(54,194,107,.4)}
   .steps .st.now{color:var(--texto);border-color:var(--rojo);background:var(--panel)}
@@ -316,7 +307,7 @@
   .llevar.ok b{color:var(--ok)}
   .facts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
   .fact{background:var(--carbon);border:1px solid var(--linea);border-radius:10px;padding:9px 11px;font-size:12.5px;line-height:1.4}
-  .fact small{display:block;font-size:10.5px;color:var(--gris-2);text-transform:uppercase;letter-spacing:.6px;font-weight:700;margin-bottom:2px}
+  .fact small{display:block;font-size:10.5px;color:var(--gris);text-transform:uppercase;letter-spacing:.6px;font-weight:700;margin-bottom:2px}
 
   /* ---- modo validación (?test=1) ---- */
   .vt-panel{position:fixed;right:18px;bottom:18px;z-index:450;width:360px;max-width:calc(100% - 24px);max-height:80vh;overflow-y:auto;-webkit-overflow-scrolling:touch;background:var(--carbon);border:2px solid var(--rojo);border-radius:16px;box-shadow:0 18px 60px rgba(0,0,0,.55);padding:16px 18px;font-size:14px;line-height:1.5}
@@ -341,12 +332,113 @@
   .likert{display:flex;gap:6px;margin:4px 0 14px}
   .likert button{flex:1;padding:10px 0;border-radius:8px;border:1px solid var(--linea);background:var(--panel);color:var(--texto);font-weight:800;font-size:15px;cursor:pointer;touch-action:manipulation;-webkit-appearance:none;appearance:none;font-family:inherit}
   .likert button.on{background:var(--rojo);border-color:var(--rojo);color:#fff}
-  .likert-ends{display:flex;justify-content:space-between;font-size:11px;color:var(--gris-2);margin-top:-10px;margin-bottom:12px}
+  .likert-ends{display:flex;justify-content:space-between;font-size:11px;color:var(--gris);margin-top:-10px;margin-bottom:12px}
   .vt-sum{width:100%;border-collapse:collapse;font-size:13px;margin:6px 0 12px}
   .vt-sum td{padding:6px 4px;border-bottom:1px solid var(--linea)}
 
+  /* ---- Hito 2: orientación, menú corto y acuerdo por pasos ---- */
+  .ttl{display:flex;align-items:center;gap:10px}
+  .q-btn{position:relative;flex-shrink:0;width:30px;height:30px;border-radius:50%;border:1px solid var(--linea);background:var(--panel);color:var(--gris);font-family:inherit;font-size:14px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;touch-action:manipulation;-webkit-appearance:none;appearance:none;-webkit-transition:.14s;transition:.14s}
+  .q-btn::after{content:"";position:absolute;top:-7px;left:-7px;right:-7px;bottom:-7px}
+  .q-btn:hover{color:var(--texto);border-color:var(--gris-2)}
+  .nav-more-btn .caret{margin-left:auto;font-size:11px;-webkit-transition:.2s;transition:.2s}
+  .nav-more-btn[aria-expanded="true"] .caret{-webkit-transform:rotate(180deg);transform:rotate(180deg)}
+  .more-list{display:flex;flex-direction:column;gap:2px;margin:2px 0 4px 12px;padding-left:8px;border-left:1px solid var(--linea)}
+  .more-list[hidden]{display:none}
+  .nav-item.nav-sub{flex-direction:column;align-items:flex-start;gap:2px;padding:8px 12px;font-size:13.5px}
+  .nav-sub small{font-size:11.5px;font-weight:500;color:var(--gris);line-height:1.3}
+  .nav-item.nav-sub[hidden]{display:none}
+
+  .acc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .acc{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;min-height:44px;text-align:left;background:var(--panel);border:1px solid var(--linea);border-radius:14px;padding:18px 20px;cursor:pointer;color:var(--texto);font-family:inherit;touch-action:manipulation;-webkit-appearance:none;appearance:none;-webkit-transition:.14s;transition:.14s}
+  .acc:hover{border-color:var(--gris-2)}
+  .acc b{font-size:18px;font-weight:800;line-height:1.2}
+  .acc span{font-size:13px;color:var(--gris);line-height:1.45}
+  .acc .go{margin-top:auto;padding-top:4px;font-size:13px;font-weight:800;color:var(--texto)}
+  .acc.main{background:var(--rojo);border-color:var(--rojo);color:#fff}
+  .acc.main span,.acc.main .go{color:#fff}
+  .acc.main:hover{background:var(--rojo-osc);border-color:var(--rojo-osc)}
+  .acc .cnt{display:inline-block;min-width:22px;padding:1px 7px;margin-left:6px;border-radius:20px;background:var(--rojo);color:#fff;font-size:12px;font-weight:800;text-align:center;vertical-align:middle}
+  .guia{background:var(--panel);border:1px solid var(--linea);border-radius:14px;padding:12px 14px 14px;margin-top:16px}
+  .guia-h{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+  .guia-h b{font-size:14px;font-weight:800}
+  .guia-x{background:none;border:none;color:var(--gris);font-size:22px;line-height:1;width:44px;height:44px;margin:-10px -10px -10px 0;cursor:pointer;touch-action:manipulation;-webkit-appearance:none;appearance:none;font-family:inherit}
+  .guia-x:hover{color:var(--texto)}
+  .guia ol{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .guia li button{width:100%;min-height:44px;display:flex;align-items:center;gap:10px;text-align:left;background:var(--carbon);border:1px solid var(--linea);border-radius:10px;padding:9px 12px;color:var(--texto);font-family:inherit;font-size:13.5px;font-weight:600;line-height:1.35;cursor:pointer;touch-action:manipulation;-webkit-appearance:none;appearance:none}
+  .guia li button:hover{border-color:var(--gris-2)}
+  .guia .n{flex-shrink:0;width:24px;height:24px;border-radius:50%;background:var(--panel-2);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .empty.sm{padding:18px 20px;font-size:14px}
+  .empty.sm b{font-size:14px;margin:0;font-weight:600;color:var(--gris)}
+  .item.nuevo{box-shadow:inset 3px 0 0 var(--rojo);background:var(--panel-2)}
+  .item .next{display:block;font-size:12.5px;color:var(--texto);font-weight:600;margin-top:3px}
+
+  .modal.wiz{display:flex;flex-direction:column;overflow:hidden}
+  .modal.wiz .modal-body{-webkit-box-flex:1;flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .modal.wiz .modal-head{align-items:flex-start;padding-bottom:14px}
+  .wiz-kick{font-size:12px;font-weight:800;color:var(--gris);letter-spacing:.3px;margin-bottom:3px}
+  .wiz-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:12px}
+  .wiz-bar button{background:none;border:none;border-top:3px solid var(--linea);padding:6px 0 0;min-height:30px;color:var(--gris);font-family:inherit;font-size:12px;font-weight:700;text-align:left;cursor:pointer;touch-action:manipulation;-webkit-appearance:none;appearance:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .wiz-bar button.done{border-top-color:var(--ok);color:var(--texto)}
+  .wiz-bar button.now{border-top-color:var(--rojo);color:var(--texto);font-weight:800}
+  .wiz-step[hidden]{display:none}
+  .q-lbl{font-size:15px;font-weight:800;margin:0 0 10px}
+  .q-lbl small{display:block;font-size:13px;font-weight:500;color:var(--gris);margin-top:3px}
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:6px}
+  .opts.one{grid-template-columns:1fr}
+  .opt{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;padding:10px 14px;border:1px solid var(--linea);border-radius:10px;background:var(--panel);color:var(--texto);font-family:inherit;font-size:15px;font-weight:600;text-align:left;line-height:1.3;cursor:pointer;touch-action:manipulation;-webkit-appearance:none;appearance:none}
+  .opt::before{content:"";flex-shrink:0;width:14px;height:14px;border-radius:50%;border:2px solid var(--gris)}
+  .opt:hover{border-color:var(--gris-2)}
+  .opt.on{border-color:var(--rojo);box-shadow:inset 0 0 0 1px var(--rojo)}
+  .opt.on::before{border-color:var(--rojo);background:var(--rojo);box-shadow:inset 0 0 0 2px var(--panel)}
+  .opt small{display:block;font-size:12.5px;font-weight:500;color:var(--gris)}
+  .field.miss .opt{border-color:var(--warn)}
+  .calc{font-size:14px;line-height:1.5;padding:10px 12px;border-radius:10px;background:var(--panel);border:1px solid var(--linea)}
+  .calc b{color:var(--ok)}
+  .rev{border:1px solid var(--linea);border-radius:12px;overflow:hidden;margin-bottom:12px}
+  .rev-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:6px 6px 6px 14px;border-bottom:1px solid var(--linea);font-size:14px}
+  .rev-row:last-child{border-bottom:none}
+  .rev-row .k{display:block;font-size:12px;color:var(--gris);font-weight:700}
+  .rev-row .v{display:block;font-weight:700;line-height:1.4}
+  .rev-row .falta{color:var(--warn)}
+  .lnk{background:none;border:none;color:var(--texto);text-decoration:underline;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;padding:8px;min-height:44px;flex-shrink:0;touch-action:manipulation;-webkit-appearance:none;appearance:none}
+  .faltan{border:1px solid rgba(230,167,38,.45);background:rgba(230,167,38,.08);border-radius:12px;padding:10px 14px;margin-bottom:12px;font-size:14px}
+  .faltan ul{list-style:none;margin-top:4px}
+  .faltan li{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .monto{border-left:3px solid var(--rojo);background:var(--panel);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13.5px;color:var(--gris);line-height:1.5}
+  .monto b{display:block;font-family:"Arial Black",Impact,sans-serif;font-size:26px;letter-spacing:-.5px;color:var(--ok);line-height:1.15}
+  details.det{border:1px solid var(--linea);border-radius:12px;padding:0 14px}
+  details.det summary{min-height:44px;display:flex;align-items:center;cursor:pointer;font-size:14px;font-weight:700;list-style:none}
+  details.det summary::-webkit-details-marker{display:none}
+  details.det summary::before{content:"+";width:20px;color:var(--gris);font-weight:800}
+  details.det[open] summary::before{content:"–"}
+  details.det[open]{padding-bottom:4px}
+  .wiz-foot{-webkit-flex-shrink:0;flex-shrink:0;flex-direction:column;align-items:stretch;gap:10px;background:var(--carbon)}
+  .wiz-status{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--gris);line-height:1.35}
+  .wiz-btns{display:flex;gap:8px;align-items:center}
+  .wiz-btns .btn{white-space:nowrap}
+  .wiz-btns .btn-prim{-webkit-box-flex:1;flex:1;justify-content:center}
+  .wiz-btns .btn-ghost{padding:11px 14px}
+  .btn-text{background:none;color:var(--texto);text-decoration:underline;padding:11px 8px;font-weight:700}
+  .btn-text:hover{color:var(--rojo)}
+  [data-theme="light"] .chip-ok,[data-theme="light"] .chip-warn,[data-theme="light"] .chip-red{color:var(--texto)}
+  [data-theme="light"] .chip-ok{box-shadow:inset 0 0 0 1px rgba(34,138,73,.5)}
+  [data-theme="light"] .chip-warn{box-shadow:inset 0 0 0 1px rgba(181,114,15,.55)}
+  [data-theme="light"] .chip-red{box-shadow:inset 0 0 0 1px rgba(209,16,26,.45)}
+
   .burger{display:none}
   @media(max-width:780px){
+    .acc-grid{grid-template-columns:1fr;gap:10px}
+    .acc{padding:14px 16px;gap:3px}
+    .acc b{font-size:17px}
+    .acc .go{display:none}
+    .guia ol{grid-template-columns:1fr;gap:6px}
+    .wiz-btns .btn-text{font-size:13px;padding:11px 4px}
+    .atr-t{display:none}
+    .item.ac-row{-webkit-flex-wrap:wrap;flex-wrap:wrap;gap:6px 14px}
+    .item.ac-row .lead{-webkit-flex-basis:100%;flex-basis:100%}
+    .btn-sm{min-height:44px}
+    .q-btn{width:32px;height:32px}
     .vt-panel{left:12px;right:12px;bottom:12px;width:auto;max-width:none;max-height:58vh;padding:14px 16px}
     .vt-panel.full{left:12px;right:12px;top:auto;bottom:12px;width:auto;max-height:90vh;-webkit-transform:none;transform:none}
     .vt-panel.min{left:auto;right:0;top:50%;bottom:auto;border-radius:12px 0 0 12px;border-right:none;padding:10px 10px 10px 12px}
@@ -355,7 +447,6 @@
     .gear-ed{flex-wrap:wrap}
     .gear-ed input{flex-basis:100%}
     .mobile-bar{display:flex}
-    .help-fab.show{display:none}
     aside{position:fixed;left:0;top:0;z-index:90;-webkit-transform:translateX(-100%);transform:translateX(-100%);-webkit-transition:.25s;transition:.25s;box-shadow:0 0 50px rgba(0,0,0,.6);overflow-y:auto;-webkit-overflow-scrolling:touch}
     aside.open{-webkit-transform:translateX(0);transform:translateX(0)}
     main{padding:20px 18px 60px}
@@ -392,13 +483,13 @@
       <button class="acct" onclick="enter('musico')">
         <span class="emoji">🎸</span>
         <h3>Soy músico</h3>
-        <p>Lleva tus acuerdos, tu agenda de fechas y consulta el backline de cada local antes de tocar.</p>
+        <p>Cierra tus fechas por escrito y revisa el equipo de cada local.</p>
         <span class="enter">Entrar como músico →</span>
       </button>
       <button class="acct" onclick="enter('local')">
         <span class="emoji">🏠</span>
         <h3>Soy un local</h3>
-        <p>Publica y mantén la ficha técnica de tus equipos para que los músicos sepan qué hay y qué llevar.</p>
+        <p>Publica tu ficha y recibe acuerdos claros de las bandas.</p>
         <span class="enter">Entrar como local →</span>
       </button>
     </div>
@@ -414,17 +505,20 @@
   <aside id="aside">
     <div class="brand">Erre<b>Be</b><span class="eq">Equipo 10 · FCFM</span></div>
 
-    <nav class="side">
+    <nav class="side" aria-label="Menú principal">
       <button class="nav-item active" data-v="inicio"><span class="ic">◎</span> Inicio</button>
       <button class="nav-item" data-v="acuerdos"><span class="ic">▤</span> Acuerdos</button>
-      <button class="nav-item" data-v="fichas"><span class="ic">♪</span> Fichas técnicas</button>
-      <button class="nav-item" data-v="agenda" data-role="musico"><span class="ic">▦</span> Agenda</button>
-      <button class="nav-item" data-v="simulador" data-role="musico"><span class="ic">💰</span> Simulador</button>
-      <button class="nav-item" data-v="tareas" data-role="musico"><span class="ic">✓</span> Tareas</button>
-      <button class="nav-item" data-v="alertas"><span class="ic">⚠</span> Alertas legales</button>
-      <button class="nav-item" data-v="qr" data-role="musico"><span class="ic">◈</span> QR & Público</button>
-      <button class="nav-item" data-v="buscador"><span class="ic">🔍</span> Buscador</button>
-      <button class="nav-item" data-v="stats"><span class="ic">📊</span> Estadísticas</button>
+      <button class="nav-item" data-v="fichas"><span class="ic">♪</span> <span id="nav-fichas">Locales y fichas</span></button>
+      <button class="nav-item" data-v="agenda"><span class="ic">▦</span> <span id="nav-agenda">Agenda</span></button>
+      <button class="nav-item nav-more-btn" id="more-btn" aria-expanded="false" aria-controls="more-list" onclick="toggleMore()"><span class="ic">+</span> Más herramientas <span class="caret">▾</span></button>
+      <div class="more-list" id="more-list" hidden>
+        <button class="nav-item nav-sub" data-v="simulador" data-role="musico">Simulador<small>Calcula lo que te queda de un show</small></button>
+        <button class="nav-item nav-sub" data-v="tareas" data-role="musico">Tareas<small>Quién hace qué antes de la fecha</small></button>
+        <button class="nav-item nav-sub" data-v="alertas">Alertas legales<small>Permisos y ruidos molestos de cada local</small></button>
+        <button class="nav-item nav-sub" data-v="qr" data-role="musico">QR &amp; Público<small>Tus redes en un QR para mostrar en la tocata</small></button>
+        <button class="nav-item nav-sub" data-v="buscador">Buscador<small>Encuentra locales por estilo y trato</small></button>
+        <button class="nav-item nav-sub" data-v="stats">Estadísticas<small id="nav-stats-sub">Lo que te pagaron y lo que te deben</small></button>
+      </div>
     </nav>
 
     <div class="side-foot">
@@ -442,9 +536,8 @@
   <main id="main">
     <!-- BARRA MÓVIL PERSISTENTE -->
     <div class="mobile-bar" id="mobile-bar">
-      <button class="btn btn-ghost btn-sm" id="burger" style="padding:8px 12px">☰</button>
+      <button class="btn btn-ghost btn-sm" id="burger" style="padding:8px 12px" aria-label="Abrir menú">☰</button>
       <span class="mb-title" id="mb-title">Inicio</span>
-      <button class="mob-help-btn" onclick="openHelp()" id="mob-help-btn" title="Ayuda de esta página" aria-label="Ayuda">?</button>
       <button class="theme-btn" onclick="toggleTheme()" id="mob-theme-btn">☀️</button>
     </div>
 
@@ -452,10 +545,9 @@
     <section class="view show" data-view="inicio">
       <div class="topline">
         <div>
-          <h1 id="home-title">Hola de nuevo 🎸</h1>
-          <div class="sub" id="home-sub">Todo lo de tus shows, en un solo lugar.</div>
+          <div class="ttl"><h1 id="home-title">Inicio</h1><button class="q-btn" onclick="openHelp()" aria-label="Ayuda de esta sección" title="Ayuda de esta sección">?</button></div>
+          <div class="sub" id="home-sub"></div>
         </div>
-        <div id="home-cta"></div>
       </div>
       <div id="home-content"></div>
     </section>
@@ -463,9 +555,10 @@
     <!-- ACUERDOS (músico) -->
     <section class="view" data-view="acuerdos">
       <div class="topline">
-        <div><h1>Acuerdos</h1><div class="sub" id="acuerdos-sub">Lo conversado con cada local, por escrito y sin letra chica.</div></div>
-        <div id="acuerdos-cta"><button class="btn btn-prim" onclick="openAcuerdo()">+ Nuevo acuerdo</button></div>
+        <div><div class="ttl"><h1>Acuerdos</h1><button class="q-btn" onclick="openHelp()" aria-label="Ayuda de esta sección" title="Ayuda de esta sección">?</button></div><div class="sub" id="acuerdos-sub"></div></div>
+        <div id="acuerdos-cta"></div>
       </div>
+      <div id="acuerdos-aviso"></div>
       <div id="acuerdos-pasos"></div>
       <div class="listcard" id="list-acuerdos"></div>
     </section>
@@ -479,7 +572,7 @@
     <!-- FICHAS -->
     <section class="view" data-view="fichas">
       <div class="topline">
-        <div><h1>Fichas técnicas</h1><div class="sub" id="fichas-sub"></div></div>
+        <div><div class="ttl"><h1 id="fichas-title">Locales y sus fichas</h1><button class="q-btn" onclick="openHelp()" aria-label="Ayuda de esta sección" title="Ayuda de esta sección">?</button></div><div class="sub" id="fichas-sub"></div></div>
         <div id="fichas-cta"></div>
       </div>
       <div id="fichas-banner"></div>
@@ -489,8 +582,8 @@
     <!-- AGENDA (músico) -->
     <section class="view" data-view="agenda">
       <div class="topline">
-        <div><h1>Agenda</h1><div class="sub">Fechas, horarios y pendientes operativos, juntos.</div></div>
-        <button class="btn btn-prim" onclick="openEvento()">+ Nueva fecha</button>
+        <div><div class="ttl"><h1 id="agenda-title">Agenda</h1><button class="q-btn" onclick="openHelp()" aria-label="Ayuda de esta sección" title="Ayuda de esta sección">?</button></div><div class="sub" id="agenda-sub"></div></div>
+        <div id="agenda-cta"></div>
       </div>
       <div class="listcard" id="list-agenda"></div>
     </section>
@@ -498,7 +591,7 @@
     <!-- SIMULADOR DE RENTABILIDAD -->
     <section class="view" data-view="simulador">
       <div class="topline">
-        <div><h1>Simulador de rentabilidad</h1><div class="sub">Proyecta si un show vale la pena antes de aceptarlo.</div></div>
+        <div><div class="ttl"><h1>Simulador</h1><button class="q-btn" onclick="openHelp()" aria-label="Ayuda de esta sección" title="Ayuda de esta sección">?</button></div><div class="sub">Calcula cuánto te queda de un show antes de aceptarlo.</div></div>
       </div>
       <div class="grid g-2" style="margin-bottom:16px">
         <div class="card">
@@ -526,8 +619,8 @@
     <!-- TAREAS DEL EQUIPO -->
     <section class="view" data-view="tareas">
       <div class="topline">
-        <div><h1>Tareas del equipo</h1><div class="sub">Reparte la carga: que nadie lo coordine todo solo.</div></div>
-        <button class="btn btn-prim" onclick="openTarea()">+ Nueva tarea</button>
+        <div><div class="ttl"><h1>Tareas de la banda</h1><button class="q-btn" onclick="openHelp()" aria-label="Ayuda de esta sección" title="Ayuda de esta sección">?</button></div><div class="sub">Reparte quién hace qué antes de la fecha, para que nadie lo coordine todo solo.</div></div>
+        <button class="btn btn-prim" onclick="openTarea()">Agregar tarea</button>
       </div>
       <div class="listcard" id="list-tareas"></div>
     </section>
@@ -535,7 +628,7 @@
     <!-- ALERTAS LEGALES -->
     <section class="view" data-view="alertas">
       <div class="topline">
-        <div><h1>Alertas legales</h1><div class="sub">Ruidos molestos, patentes y restricciones por local.</div></div>
+        <div><div class="ttl"><h1>Alertas legales</h1><button class="q-btn" onclick="openHelp()" aria-label="Ayuda de esta sección" title="Ayuda de esta sección">?</button></div><div class="sub">Sirve para revisar, antes de tocar, si el local tiene permisos, problemas de ruido o edad mínima.</div></div>
       </div>
       <div id="alertas-content"></div>
     </section>
@@ -543,7 +636,7 @@
     <!-- QR & CONECTIVIDAD -->
     <section class="view" data-view="qr">
       <div class="topline">
-        <div><h1>QR & Público nuevo</h1><div class="sub">Rompe el círculo de amigos y familia. Que el público nuevo te siga desde el escenario.</div></div>
+        <div><div class="ttl"><h1>QR &amp; Público</h1><button class="q-btn" onclick="openHelp()" aria-label="Ayuda de esta sección" title="Ayuda de esta sección">?</button></div><div class="sub">Sirve para que la gente nueva de la tocata te siga: muestra tus redes en un QR.</div></div>
       </div>
       <div id="qr-content"></div>
     </section>
@@ -551,7 +644,7 @@
     <!-- BUSCADOR DE LOCALES -->
     <section class="view" data-view="buscador">
       <div class="topline">
-        <div><h1>Buscador de locales</h1><div class="sub" id="buscador-sub">Filtra por género, tamaño y calidad del trato.</div></div>
+        <div><div class="ttl"><h1>Buscador de locales</h1><button class="q-btn" onclick="openHelp()" aria-label="Ayuda de esta sección" title="Ayuda de esta sección">?</button></div><div class="sub" id="buscador-sub">Encuentra locales por estilo musical y por cómo tratan a las bandas.</div></div>
       </div>
       <div class="filter-bar" id="buscador-filtros"></div>
       <div id="buscador-list"></div>
@@ -560,7 +653,7 @@
     <!-- ESTADÍSTICAS (ambos roles) -->
     <section class="view" data-view="stats">
       <div class="topline">
-        <div><h1 id="stats-title">Mis estadísticas</h1><div class="sub" id="stats-sub"></div></div>
+        <div><div class="ttl"><h1 id="stats-title">Estadísticas</h1><button class="q-btn" onclick="openHelp()" aria-label="Ayuda de esta sección" title="Ayuda de esta sección">?</button></div><div class="sub" id="stats-sub"></div></div>
         <div class="seg" id="stats-filter">
           <button class="seg-btn active" data-d="30">30 días</button>
           <button class="seg-btn" data-d="90">90 días</button>
@@ -571,40 +664,62 @@
   </main>
 </div>
 
-<!-- MODAL ACUERDO -->
+<!-- MODAL ACUERDO: 4 pasos cortos con el botón de avanzar/enviar fijo al pie -->
 <div class="overlay" id="ov-acuerdo">
-  <div class="modal">
-    <div class="modal-head"><h3 id="ac-title">Nuevo acuerdo</h3><button class="x" onclick="close_('ov-acuerdo')">×</button></div>
-    <div class="modal-body">
-      <div id="ac-obs-box"></div>
-      <div class="field"><label>Local / Espacio</label><input id="ac-local" list="ac-locales" placeholder="Escribe o elige un local" autocomplete="off"><datalist id="ac-locales"></datalist></div>
-      <div class="ac-group">
-        <div class="ac-group-h">Lo que necesitas para enviarlo <span id="ac-count" class="chip chip-mut">0 de 4</span></div>
-        <div class="two">
-          <div class="field"><label>Reparto (% para la banda)</label><input id="ac-reparto" type="number" inputmode="numeric" min="0" max="100" placeholder="60" oninput="acCount()"><div class="hint">El resto queda para el local</div></div>
-          <div class="field"><label>Asistencia mínima</label><input id="ac-cuota" type="number" inputmode="numeric" min="0" placeholder="35" oninput="acCount()"><div class="hint">Personas que pide el local. Pon 0 si no pide.</div></div>
-        </div>
-        <div class="two">
-          <div class="field"><label>Método de pago</label>
-            <select id="ac-metodo" onchange="acCount()"><option value="">Elige…</option><option>Transferencia</option><option>Efectivo</option><option>Por puerta (entradas)</option></select>
-          </div>
-          <div class="field"><label>Plazo de pago</label>
-            <select id="ac-plazo" onchange="acCount()"><option value="">Elige…</option><option>Al cierre del show</option><option>Mismo día</option><option>48 horas</option><option>7 días</option></select>
-          </div>
+  <div class="modal wiz" role="dialog" aria-modal="true" aria-labelledby="ac-title">
+    <div class="modal-head">
+      <div style="flex:1;min-width:0">
+        <div class="wiz-kick" id="ac-kick">Nueva fecha · Paso 1 de 4</div>
+        <h3 id="ac-title">¿Con qué local es la fecha?</h3>
+        <div class="wiz-bar" id="ac-bar">
+          <button type="button" onclick="acIr(1,true)">1 Local</button>
+          <button type="button" onclick="acIr(2,true)">2 Reparto</button>
+          <button type="button" onclick="acIr(3,true)">3 Pago</button>
+          <button type="button" onclick="acIr(4,true)">4 Enviar</button>
         </div>
       </div>
-      <div class="sectitle" style="margin-top:18px">Detalles opcionales</div>
-      <div class="two">
-        <div class="field"><label>Precio entrada (CLP)</label><input id="ac-precio-ent" type="number" inputmode="numeric" min="0" placeholder="5000"><div class="hint">Para calcular cuánto recibe la banda</div></div>
-        <div class="field"><label>Seguro de sala (CLP)</label><input id="ac-seguro" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">Lo que pagas si no se llega a la asistencia mínima</div></div>
-      </div>
-      <div class="two">
-        <div class="field"><label>Hora carga / llegada</label><input id="ac-carga" type="time"><div class="hint">Hora de acceso al recinto</div></div>
-        <div class="field"><label>Contacto sonidista</label><input id="ac-sonidista" placeholder="Juan · +56 9 1234 5678"></div>
-      </div>
-      <div class="field"><label>Condiciones acordadas</label><textarea id="ac-cond" placeholder="Ej: si se suspende por el local, no hay costo para la banda. La asistencia se mide con lista de entrada."></textarea><div class="hint">Escríbelo claro: esto es lo que verá el local antes de confirmar.</div></div>
+      <button class="x" onclick="close_('ov-acuerdo')" aria-label="Cerrar">×</button>
     </div>
-    <div class="modal-foot"><button class="btn btn-ghost" onclick="saveAcuerdo(false)">Guardar borrador</button><button class="btn btn-prim" onclick="saveAcuerdo(true)">Enviar al local</button></div>
+    <div class="modal-body" id="ac-body">
+      <div id="ac-obs-box"></div>
+      <input type="hidden" id="ac-local">
+      <div class="wiz-step" data-step="1">
+        <div class="field" style="margin-bottom:12px"><div class="opts one" id="ac-locales-op"></div></div>
+        <div class="field"><label for="ac-local-otro">¿Otro local? Escríbelo</label><input id="ac-local-otro" placeholder="Nombre del local" autocomplete="off" enterkeyhint="next" oninput="acOtroLocal()"></div>
+      </div>
+      <div class="wiz-step" data-step="2" hidden>
+        <div class="two">
+          <div class="field"><label for="ac-reparto">Reparto (% para la banda)</label><input id="ac-reparto" type="number" inputmode="numeric" min="0" max="100" placeholder="Ej: 60" enterkeyhint="next" oninput="acCount()"><div class="hint">El resto queda para el local.</div></div>
+          <div class="field"><label for="ac-cuota">Asistencia mínima</label><input id="ac-cuota" type="number" inputmode="numeric" min="0" placeholder="Ej: 30" enterkeyhint="next" oninput="acCount()"><div class="hint">Personas que pide el local. Pon 0 si no pide.</div></div>
+        </div>
+        <div class="field"><label for="ac-precio-ent">Precio de la entrada (para calcular tu ganancia)</label><input id="ac-precio-ent" type="number" inputmode="numeric" min="0" placeholder="Ej: 5000" enterkeyhint="next" oninput="acCount()"></div>
+        <div class="calc" id="ac-calc"></div>
+      </div>
+      <div class="wiz-step" data-step="3" hidden>
+        <div class="field"><div class="q-lbl">Método de pago</div><input type="hidden" id="ac-metodo"><div class="opts" id="ac-metodo-op"></div></div>
+        <div class="field"><div class="q-lbl">Plazo de pago</div><input type="hidden" id="ac-plazo"><div class="opts" id="ac-plazo-op"></div></div>
+      </div>
+      <div class="wiz-step" data-step="4" hidden>
+        <div id="ac-rev"></div>
+        <details class="det" id="ac-det">
+          <summary>Agregar detalles (opcional)</summary>
+          <div class="two">
+            <div class="field"><label for="ac-seguro">Seguro de sala (CLP)</label><input id="ac-seguro" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">Lo que pagas si no se llega a la asistencia mínima.</div></div>
+            <div class="field"><label for="ac-carga">Hora de carga o llegada</label><input id="ac-carga" type="time"></div>
+          </div>
+          <div class="field"><label for="ac-sonidista">Contacto del sonidista</label><input id="ac-sonidista" placeholder="Juan · +56 9 1234 5678"></div>
+          <div class="field"><label for="ac-cond">Otras condiciones</label><textarea id="ac-cond" placeholder="Ej: si el local suspende, la banda no paga nada."></textarea><div class="hint">Esto también lo verá el local antes de confirmar.</div></div>
+        </details>
+      </div>
+    </div>
+    <div class="modal-foot wiz-foot">
+      <div class="wiz-status"><span id="ac-count" class="chip chip-mut">0 de 4</span><span id="ac-falta"></span></div>
+      <div class="wiz-btns">
+        <button type="button" class="btn btn-ghost" id="ac-atras" onclick="acAtras()" aria-label="Volver al paso anterior">←<span class="atr-t"> Atrás</span></button>
+        <button type="button" class="btn btn-text" id="ac-borrador" onclick="saveAcuerdo(false)">Guardar borrador</button>
+        <button type="button" class="btn btn-prim" id="ac-sig" onclick="acSig()">Siguiente →</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -672,7 +787,7 @@
     <div class="modal-head"><h3>Nueva fecha</h3><button class="x" onclick="close_('ov-evento')">×</button></div>
     <div class="modal-body">
       <div class="field"><label>Nombre del show</label><input id="ev-nombre" placeholder="Feria de Barrio Yungay"></div>
-      <div class="field"><label>Local</label><select id="ev-localsel"></select><div class="hint">Si el local tiene ficha publicada, verás su backline en la fecha.</div></div>
+      <div class="field"><label>Local</label><select id="ev-localsel"></select><div class="hint">Si el local tiene ficha publicada, verás su equipo en la fecha.</div></div>
       <div class="two">
         <div class="field"><label>Fecha</label><input id="ev-fecha" type="date"></div>
         <div class="field"><label>Prueba de sonido</label><input id="ev-prueba" type="time"></div>
@@ -714,16 +829,13 @@
   </div>
 </div>
 
-<!-- BOTÓN DE AYUDA FLOTANTE (escritorio) -->
-<button class="help-fab" id="help-fab" onclick="openHelp()" title="Ayuda de esta página" aria-label="Ayuda">?</button>
-
 <!-- GUÍA POR PÁGINA -->
 <div class="help-ov" id="help-ov" onclick="if(event.target===this)closeHelp()">
   <div class="help-box">
     <div class="help-head">
       <span class="help-ico" id="help-ico">💡</span>
       <div>
-        <div class="help-kicker">Guía de la página</div>
+        <div class="help-kicker">Ayuda de esta sección</div>
         <h3 id="help-title">Ayuda</h3>
       </div>
       <button class="help-x" onclick="closeHelp()" aria-label="Cerrar">✕</button>
@@ -760,7 +872,7 @@ let DB={
   ],
   fichas:[
     {id:1,local:"Bar Estación",gear:[{n:"Batería",st:"ok"},{n:"Amplificador de bajo",st:"ok"},{n:"2 monitores",st:"desgaste"},{n:"3 micrófonos vocales",st:"ok"}],consola:"Yamaha MG16 — 16 canales",mant:"bueno",cap:80,edad:18,patente:"si",acustico:"parcial",traer:"Cables, pedalera",prueba:"si",prueba_hora:"20:00",prueba_dur:30,updated:daysAgo(9)},
-    {id:2,local:"Peña El Trauco",gear:[{n:"PA básico",st:"ok"},{n:"1 micrófono",st:"desgaste"}],consola:"Behringer Xenyx 802",mant:"regular",cap:60,edad:18,patente:"si",acustico:"si",traer:"Todo el backline",prueba:"no",updated:daysAgo(48)},
+    {id:2,local:"Peña El Trauco",gear:[{n:"PA básico",st:"ok"},{n:"1 micrófono",st:"desgaste"}],consola:"Behringer Xenyx 802",mant:"regular",cap:60,edad:18,patente:"si",acustico:"si",traer:"Todo el equipo de la banda",prueba:"no",updated:daysAgo(48)},
   ],
   tareas:[
     {id:201,desc:"Reservar flete para el show del sábado",quien:"Rodrigo",cat:"Logística",fecha:nextDate(4),done:false},
@@ -771,7 +883,7 @@ let DB={
   social:{instagram:"@mibanda",youtube:"Mi Banda Oficial",spotify:"Mi Banda",web:""},
   localesCatalogo:[
     {id:1,nombre:"Bar Estación",comuna:"Santiago Centro",cap:80,generos:["Rock","Cumbia","Jazz"],trato:4,tecnico:4,desc:"Local consolidado con equipo propio. Reparto 50/50. Exige cuota de 40 personas mínimo.",patente:"si",acustico:"parcial"},
-    {id:2,nombre:"Peña El Trauco",comuna:"Barrio Italia",cap:60,generos:["Folklore","Rock","Fusión"],trato:5,tecnico:3,desc:"Trato directo con el dueño. Sin cuota mínima. Backline limitado: llevar casi todo.",patente:"si",acustico:"si"},
+    {id:2,nombre:"Peña El Trauco",comuna:"Barrio Italia",cap:60,generos:["Folklore","Rock","Fusión"],trato:5,tecnico:3,desc:"Trato directo con el dueño. Sin cuota mínima. Poco equipo: llevar casi todo.",patente:"si",acustico:"si"},
     {id:3,nombre:"Club Mística",comuna:"Ñuñoa",cap:120,generos:["Electronic","Hip-Hop","R&B"],trato:3,tecnico:5,desc:"Excelente sonido y luces. Trato comercial duro: 40% para la banda en semana, 50% fines de semana.",patente:"si",acustico:"si"},
     {id:4,nombre:"La Sala del Fondo",comuna:"Providencia",cap:50,generos:["Rock","Indie","Folk"],trato:4,tecnico:3,desc:"Espacio cultural independiente. Flexibles en horarios. Pago en efectivo el mismo día.",patente:"tramite",acustico:"parcial"},
     {id:5,nombre:"Galpón Sur",comuna:"San Miguel",cap:200,generos:["Cumbia","Rock","Metal"],trato:3,tecnico:4,desc:"Local grande para bandas con convocatoria. Cuota mínima exigente (80 personas). Buen equipo.",patente:"si",acustico:"si"},
@@ -838,12 +950,10 @@ function normFicha(f){
 function enter(r){
   document.getElementById('gate').classList.add('hide');
   setRole(r);
-  const fab=document.getElementById('help-fab');if(fab)fab.classList.add('show');
 }
 function backToGate(){
   document.getElementById('aside').classList.remove('open');
   document.getElementById('gate').classList.remove('hide');
-  const fab=document.getElementById('help-fab');if(fab)fab.classList.remove('show');
   closeHelp();
   window.scrollTo(0,0);
 }
@@ -853,27 +963,53 @@ function setRole(r){
   ROLE=r;
   document.getElementById('av').textContent = r==='musico'?'RB':'BE';
   document.getElementById('who-name').textContent = r==='musico'?'Mi banda':DB.miLocal;
-  document.getElementById('who-role').textContent = r==='musico'?'Solista · Segmento B':'Local · Administrador';
+  document.getElementById('who-role').textContent = r==='musico'?'Banda · Segmento B':'Local · Administrador';
   applyRole();
+  setMore(false);
   go('inicio');
 }
 function applyRole(){
   document.querySelectorAll('.nav-item[data-role]').forEach(n=>{
     n.hidden = (n.dataset.role!==ROLE);
   });
+  const t=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
+  t('nav-fichas',ROLE==='local'?'Mi ficha técnica':'Locales y fichas');
+  t('nav-agenda',ROLE==='local'?'Mis fechas':'Agenda');
+  t('nav-stats-sub',ROLE==='local'?'Ingresos y ocupación de tu local':'Lo que te pagaron y lo que te deben');
 }
 
-const VIEW_TITLES={inicio:'Inicio',acuerdos:'Acuerdos','acuerdo-det':'Acuerdo',fichas:'Fichas técnicas',agenda:'Agenda',simulador:'Simulador',tareas:'Tareas',alertas:'Alertas legales',qr:'QR & Público',buscador:'Buscador',stats:'Estadísticas'};
+/* Menú corto: 4 secciones del flujo principal; el resto, plegado en "Más herramientas" */
+const MAS_HERRAMIENTAS=['simulador','tareas','alertas','qr','buscador','stats'];
+function setMore(open){
+  const b=document.getElementById('more-btn'),l=document.getElementById('more-list');if(!b||!l)return;
+  l.hidden=!open;b.setAttribute('aria-expanded',open?'true':'false');
+}
+function toggleMore(){const l=document.getElementById('more-list');if(l)setMore(l.hidden)}
+
+const VIEW_TITLES={inicio:'Inicio',acuerdos:'Acuerdos','acuerdo-det':'Acuerdo',fichas:'Locales y fichas',agenda:'Agenda',simulador:'Simulador',tareas:'Tareas',alertas:'Alertas legales',qr:'QR & Público',buscador:'Buscador',stats:'Estadísticas'};
+function viewTitle(v){
+  if(ROLE==='local'&&v==='fichas')return 'Mi ficha técnica';
+  if(ROLE==='local'&&v==='agenda')return 'Mis fechas';
+  return VIEW_TITLES[v]||v;
+}
 function go(v){
+  const sec=document.querySelector('.view[data-view="'+v+'"]');if(!sec)return;
+  if(v!=='acuerdos')acAviso=null;
   document.querySelectorAll('.view').forEach(s=>s.classList.remove('show'));
-  document.querySelector('.view[data-view="'+v+'"]').classList.add('show');
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.v===v));
+  sec.classList.add('show');
+  const navV=v==='acuerdo-det'?'acuerdos':v;
+  document.querySelectorAll('.nav-item[data-v]').forEach(n=>{
+    const on=n.dataset.v===navV;n.classList.toggle('active',on);
+    if(on)n.setAttribute('aria-current','page');else n.removeAttribute('aria-current');
+  });
+  if(MAS_HERRAMIENTAS.indexOf(v)>=0)setMore(true);
   document.getElementById('aside').classList.remove('open');
-  const mb=document.getElementById('mb-title');if(mb)mb.textContent=VIEW_TITLES[v]||v;
+  const mb=document.getElementById('mb-title');if(mb)mb.textContent=viewTitle(v);
   window.scrollTo(0,0);
   renderAll();
+  vtMarca(v);
 }
-document.querySelectorAll('.nav-item').forEach(n=>n.addEventListener('click',()=>go(n.dataset.v)));
+document.querySelectorAll('.nav-item[data-v]').forEach(n=>n.addEventListener('click',()=>go(n.dataset.v)));
 document.getElementById('burger').addEventListener('click',()=>document.getElementById('aside').classList.toggle('open'));
 
 const MESES=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
@@ -890,51 +1026,64 @@ function repartoDe(local){const a=acuerdoDe(local);return a&&hasNum(a.reparto)?+
 function renderAll(){renderInicio();renderAcuerdos();renderFichas();renderAgenda();renderStats();renderTareas();renderAlertas();renderQR();renderBuscador();calcSim();}
 
 /* ----- INICIO ----- */
+/* Primera visita: bloque "Así funciona ErreBe". Se cierra y no vuelve (en ?test=1 solo dura la sesión). */
+const GUIA_CERRADA={};
+function guiaVisible(){
+  if(GUIA_CERRADA[ROLE])return false;
+  if(TEST_MODE)return true;
+  return lsGet('errebe:guia:'+ROLE,'')!=='cerrada';
+}
+function cerrarGuia(){GUIA_CERRADA[ROLE]=true;if(!TEST_MODE)lsSet('errebe:guia:'+ROLE,'cerrada');renderInicio()}
+function guiaHTML(pasos){
+  if(!guiaVisible())return '';
+  return `<div class="guia" id="guia"><div class="guia-h"><b>Así funciona ErreBe</b><button class="guia-x" onclick="cerrarGuia()" aria-label="Cerrar y no volver a mostrar">×</button></div>
+    <ol>${pasos.map((p,i)=>`<li><button onclick="${p[1]}"><span class="n">${i+1}</span>${p[0]}</button></li>`).join('')}</ol></div>`;
+}
+function accHTML(items){
+  return '<div class="acc-grid">'+items.map((it,i)=>`<button class="acc${i===0?' main':''}" onclick="${it.fn}"><b>${it.t}${it.cnt?`<span class="cnt">${it.cnt}</span>`:''}</b><span>${it.d}</span><span class="go">${it.go} →</span></button>`).join('')+'</div>';
+}
 function renderInicio(){
-  const t=document.getElementById('home-title'), s=document.getElementById('home-sub'),
-        cta=document.getElementById('home-cta'), c=document.getElementById('home-content');
+  const t=document.getElementById('home-title'), s=document.getElementById('home-sub'), c=document.getElementById('home-content');
+  if(!t||!c)return;
+  t.textContent='Inicio';
   if(ROLE==='musico'){
-    t.innerHTML='Hola de nuevo 🎸'; s.textContent='Todo lo de tus shows, en un solo lugar.';
-    cta.innerHTML='<button class="btn btn-prim" onclick="openAcuerdo()">+ Nuevo acuerdo</button>';
-    const prox=DB.eventos.filter(e=>diffDays(e.fecha)>=0).sort((a,b)=>a.fecha.localeCompare(b.fecha));
-    c.innerHTML=`
-      <div class="grid g-3" style="margin-bottom:8px">
-        <div class="card accent stat"><b>${DB.acuerdos.filter(a=>a.estado==='confirmado').length}/${DB.acuerdos.length}</b><span>Acuerdos confirmados</span></div>
-        <div class="card stat"><b>${prox.filter(e=>e.estado==='confirmado').length}</b><span>Fechas confirmadas</span></div>
-        <div class="card stat"><b>${prox.filter(e=>e.estado==='propuesta').length}</b><span>Por confirmar</span></div>
-      </div>
-      <div class="sectitle">Tu próxima fecha</div>${nextEventCard()}
-      <div class="sectitle">Acuerdos recientes</div>
-      <div class="listcard">${DB.acuerdos.slice(0,3).map(rowAcuerdo).join('')||emptyRow('Aún no hay acuerdos. Crea uno con “+ Nuevo acuerdo”.')}</div>`;
+    s.textContent='Cierra tus fechas por escrito y revisa el equipo de cada local.';
+    const pend=acuerdosOrdenados(DB.acuerdos).filter(a=>a.estado!=='confirmado');
+    c.innerHTML=accHTML([
+        {t:'Cerrar una fecha nueva',d:'Anota reparto, asistencia mínima y pago, y envíaselo al local.',go:'Empezar',fn:'openAcuerdo()'},
+        {t:'Ver mis acuerdos',cnt:pend.length,d:pend.length?pend.length+(pend.length>1?' pendientes':' pendiente')+' de confirmar o corregir.':'Todos tus acuerdos están confirmados.',go:'Acuerdos',fn:"go('acuerdos')"},
+        {t:'Ver locales y sus fichas',d:'Qué equipo tiene cada local, en qué estado y qué llevar.',go:'Locales',fn:"go('fichas')"},
+      ])+guiaHTML([['Revisa la ficha del local',"go('fichas')"],['Cierra el acuerdo',"openAcuerdo()"],['La fecha queda en tu agenda',"go('agenda')"]])+
+      `<div class="sectitle">Tu próxima fecha</div>${nextEventCard()}
+      <div class="sectitle">Acuerdos pendientes</div>
+      <div class="listcard">${pend.slice(0,3).map(rowAcuerdo).join('')||'<div class="empty sm"><b>No tienes acuerdos pendientes.</b></div>'}</div>`;
   } else {
-    t.innerHTML='Panel del local 🏠'; s.textContent='Mantén tu ficha técnica al día para que los músicos sepan qué llevar.';
-    cta.innerHTML='<button class="btn btn-prim" onclick="openFicha()">Editar mi ficha</button>';
+    s.textContent='Revisa los acuerdos que te envían las bandas y mantén tu ficha al día.';
     const f=fichaDe(DB.miLocal);
     const dias=f?diffDays(f.updated)*-1:null;
     const stale=f&&dias>30;
-    const porRev=DB.acuerdos.filter(a=>a.local===DB.miLocal&&a.estado==='enviado').length;
-    c.innerHTML=`
-      <div class="grid g-3" style="margin-bottom:8px">
-        <div class="card accent stat"><b>${f?f.gear.length:0}</b><span>Equipos publicados</span></div>
-        <div class="card stat"><b>${f?dias:'—'}</b><span>Días desde actualización</span></div>
-        <div class="card stat"><b>${DB.eventos.filter(e=>e.local===DB.miLocal).length}</b><span>Shows agendados aquí</span></div>
-      </div>
-      ${porRev?`<div class="banner" style="cursor:pointer" onclick="go('acuerdos')">📨 <div><b>${porRev} acuerdo${porRev>1?'s':''} por revisar.</b> Una banda te envió sus condiciones: confírmalas u obsérvalas antes de la fecha. <u>Ver acuerdos</u></div></div>`:''}
-      ${stale?'<div class="banner">⚠ <div><b>Tu ficha está desactualizada.</b> Los músicos confían en que el backline sea real. Actualízala para que sepan con qué cuentan.</div></div>':''}
-      <div class="sectitle">Mi ficha técnica</div>
-      ${f?fichaCard(f,true):'<div class="card empty"><b>Aún no publicas tu ficha</b>Sube el backline real de tu local.</div>'}`;
+    const porRev=acuerdosVisibles().filter(a=>a.estado==='enviado');
+    const prox=DB.eventos.filter(e=>e.local===DB.miLocal&&diffDays(e.fecha)>=0);
+    c.innerHTML=accHTML([
+        {t:'Revisar acuerdos que te enviaron',cnt:porRev.length,d:porRev.length?porRev.length+(porRev.length>1?' acuerdos esperan':' acuerdo espera')+' que lo confirmes u observes.':'No tienes acuerdos por revisar.',go:'Acuerdos',fn:"go('acuerdos')"},
+        {t:'Mi ficha técnica',d:f?(stale?'Desactualizada: hace '+dias+' días. Revísala.':'Actualizada '+(dias===0?'hoy':'hace '+dias+' días')+'. Es lo que ven las bandas.'):'Aún no la publicas.',go:'Ficha',fn:"go('fichas')"},
+        {t:'Mis fechas',d:prox.length?prox.length+(prox.length>1?' fechas próximas':' fecha próxima')+' en tu local.':'No hay fechas próximas en tu local.',go:'Fechas',fn:"go('agenda')"},
+      ])+guiaHTML([['Publica tu ficha técnica',"go('fichas')"],['Revisa los acuerdos que te envían',"go('acuerdos')"],['La fecha queda en tus fechas',"go('agenda')"]])+
+      (stale?'<div class="banner" style="margin-top:16px">⚠ <div><b>Tu ficha está desactualizada.</b> Las bandas deciden qué llevar con ella. <button class="lnk" style="padding:0 4px;min-height:0" onclick="openFicha()">Actualizarla</button></div></div>':'')+
+      `<div class="sectitle">Acuerdos por revisar</div>
+      <div class="listcard">${porRev.slice(0,3).map(rowAcuerdo).join('')||'<div class="empty sm"><b>Cuando una banda te envíe un acuerdo, aparecerá aquí.</b></div>'}</div>`;
   }
 }
 function nextEventCard(){
   const prox=DB.eventos.filter(e=>diffDays(e.fecha)>=0).sort((a,b)=>a.fecha.localeCompare(b.fecha));
-  if(!prox.length)return `<div class="card empty"><b>No tienes fechas próximas</b>Agrega tu siguiente show.</div>`;
+  if(!prox.length)return `<div class="card empty"><b>No tienes fechas próximas</b>Cuando cierres una fecha, agrégala a tu agenda.<div style="margin-top:12px"><button class="btn btn-ghost" onclick="go('agenda');openEvento()">Agregar una fecha</button></div></div>`;
   const e=prox[0],f=fmtDay(e.fecha),dd=diffDays(e.fecha);
   const est=e.estado==='confirmado'?'<span class="chip chip-ok">Confirmada</span>':'<span class="chip chip-warn">Por confirmar</span>';
-  return `<div class="card accent clk" style="display:flex;align-items:center;gap:18px;cursor:pointer" onclick="verEvento(${e.id})">
+  return `<div class="card accent clk" style="display:flex;align-items:center;gap:18px;cursor:pointer;padding:14px 18px" onclick="verEvento(${e.id})">
     <div class="date-badge" style="min-width:60px"><b>${f.n}</b><span>${f.m}</span></div>
-    <div style="flex:1"><b style="font-size:17px">${esc(e.nombre)}</b>
+    <div style="flex:1;min-width:0"><b style="font-size:17px">${esc(e.nombre)}</b>
       <div style="color:var(--gris);font-size:13px;margin-top:3px">${e.prueba?'Prueba '+e.prueba+' · ':''}Show ${e.show||'—'}${e.local?' · '+esc(e.local):''}</div></div>
-    <div style="text-align:right">${est}<div style="color:var(--gris-2);font-size:12px;margin-top:6px">${dd===0?'Hoy':'En '+dd+' días'}</div></div></div>`;
+    <div style="text-align:right">${est}<div style="color:var(--gris);font-size:12px;margin-top:6px">${dd===0?'Hoy':'En '+dd+' días'}</div></div></div>`;
 }
 
 /* ----- ACUERDOS ----- */
@@ -946,34 +1095,51 @@ function pagoTxt(a){return a.metodo?(a.metodo+(a.plazo?' · '+a.plazo.toLowerCas
 function acuerdosVisibles(){
   return ROLE==='local'?DB.acuerdos.filter(a=>a.local===DB.miLocal&&a.estado!=='borrador'):DB.acuerdos;
 }
+// Lo pendiente va arriba; el último que guardaste, primero de todo
+let acUltimo=null, acAviso=null;
+const AC_ORDEN={musico:{observado:0,borrador:1,enviado:2,confirmado:3},local:{enviado:0,observado:1,confirmado:2}};
+function acuerdosOrdenados(list){
+  const o=AC_ORDEN[ROLE]||AC_ORDEN.musico;
+  return list.map((a,i)=>({a,i})).sort((x,y)=>{
+    if(x.a.id===acUltimo)return -1; if(y.a.id===acUltimo)return 1;
+    return ((o[x.a.estado]!==undefined?o[x.a.estado]:9)-(o[y.a.estado]!==undefined?o[y.a.estado]:9))||(x.i-y.i);
+  }).map(x=>x.a);
+}
+// Estado con texto (no solo color)
 function chipAcuerdo(a){
   if(a.estado==='confirmado')return '<span class="chip chip-ok">Confirmado por ambos</span>';
-  if(a.estado==='observado')return ROLE==='local'?'<span class="chip chip-warn">Esperando a la banda</span>':'<span class="chip chip-red">El local lo observó</span>';
-  if(a.estado==='enviado')return ROLE==='local'?'<span class="chip chip-red">Por revisar</span>':'<span class="chip chip-warn">Esperando al local</span>';
+  if(a.estado==='observado')return ROLE==='local'?'<span class="chip chip-warn">Esperando que la banda corrija</span>':'<span class="chip chip-red">El local hizo una observación</span>';
+  if(a.estado==='enviado')return ROLE==='local'?'<span class="chip chip-red">Te toca revisarlo</span>':'<span class="chip chip-warn">Falta que el local confirme</span>';
   return '<span class="chip chip-mut">Borrador · '+acCampos(a).filter(Boolean).length+' de 4</span>';
 }
 function rowAcuerdo(a){
   const quien=ROLE==='local'?a.banda:a.local;
   const det=[hasNum(a.reparto)?a.reparto+'% banda':'reparto sin definir',hasNum(a.cuota)?(+a.cuota?'mín. '+a.cuota+' pers.':'sin asistencia mínima'):'asistencia mín. sin definir',pagoTxt(a)||'pago sin definir'].join(' · ');
-  return `<div class="item clk" onclick="verAcuerdo(${a.id})"><div class="lead"><b>${esc(quien)}</b><span>${esc(det)}</span></div>${chipAcuerdo(a)}</div>`;
+  let next='';
+  if(ROLE==='musico'&&a.estado==='observado')next='Revisa la observación y corrígelo';
+  else if(ROLE==='musico'&&a.estado==='borrador')next=acCompleto(a)?'Está completo: envíalo al local':'Complétalo para enviarlo';
+  else if(ROLE==='local'&&a.estado==='enviado')next='Confírmalo o deja una observación';
+  return `<div class="item clk ac-row${a.id===acUltimo?' nuevo':''}" onclick="verAcuerdo(${a.id})"><div class="lead"><b>${esc(quien)}</b><span>${esc(det)}</span>${next?`<span class="next">${next} →</span>`:''}</div>${chipAcuerdo(a)}</div>`;
 }
 function renderAcuerdos(){
   const el=document.getElementById('list-acuerdos');if(!el)return;
-  const sub=document.getElementById('acuerdos-sub'),cta=document.getElementById('acuerdos-cta'),pasos=document.getElementById('acuerdos-pasos');
-  const list=acuerdosVisibles();
+  const sub=document.getElementById('acuerdos-sub'),cta=document.getElementById('acuerdos-cta'),pasos=document.getElementById('acuerdos-pasos'),av=document.getElementById('acuerdos-aviso');
+  const list=acuerdosOrdenados(acuerdosVisibles());
+  if(av)av.innerHTML=acAviso?`<div class="alert ${acAviso.ok?'green':'amber'}" role="status">${acAviso.ok?'✓':'✎'} <div>${acAviso.html}</div></div>`:'';
   if(ROLE==='local'){
-    if(sub)sub.textContent='Lo que te proponen las bandas. Confírmalo o deja una observación antes de la fecha.';
+    if(sub)sub.textContent='Las condiciones que te envían las bandas. Confírmalas o deja una observación antes de la fecha.';
     if(cta)cta.innerHTML='';
     if(pasos)pasos.innerHTML='';
     const pend=list.filter(a=>a.estado==='enviado').length;
     el.innerHTML=`<div class="lc-head"><h3>${list.length} acuerdos${pend?' · '+pend+' por revisar':''}</h3></div>`+
-      (list.map(rowAcuerdo).join('')||`<div class="empty"><b>Aún no te envían acuerdos</b>Cuando una banda te envíe uno, aparecerá aquí para que lo confirmes u observes.</div>`);
+      (list.map(rowAcuerdo).join('')||`<div class="empty"><b>Aún no te envían acuerdos</b>Cuando una banda te envíe uno, aparecerá aquí para que lo confirmes u observes.<div style="margin-top:14px"><button class="btn btn-ghost" onclick="go('fichas')">Revisar mi ficha técnica</button></div></div>`);
   } else {
-    if(sub)sub.textContent='Lo conversado con cada local, por escrito y sin letra chica.';
-    if(cta)cta.innerHTML='<button class="btn btn-prim" onclick="openAcuerdo()">+ Nuevo acuerdo</button>';
+    if(sub)sub.textContent='Las condiciones de cada fecha, por escrito. Tú las envías y el local las confirma.';
+    if(cta)cta.innerHTML='<button class="btn btn-prim" onclick="openAcuerdo()">Cerrar una fecha nueva</button>';
     if(pasos)pasos.innerHTML='<div class="steps"><span class="st">1 · Lo escribes</span><span class="sep">→</span><span class="st">2 · Lo envías al local</span><span class="sep">→</span><span class="st">3 · El local lo confirma u observa</span></div>';
-    el.innerHTML=`<div class="lc-head"><h3>${list.length} acuerdos</h3></div>`+
-      (list.map(rowAcuerdo).join('')||`<div class="empty"><b>Aún no tienes acuerdos</b>Anota reparto, asistencia mínima, método y plazo de pago antes de cerrar la fecha.<div style="margin-top:14px"><button class="btn btn-prim" onclick="openAcuerdo()">+ Nuevo acuerdo</button></div></div>`);
+    const pend=list.filter(a=>a.estado!=='confirmado').length;
+    el.innerHTML=`<div class="lc-head"><h3>${list.length} acuerdo${list.length===1?'':'s'}${pend?' · '+pend+(pend===1?' pendiente':' pendientes'):''}</h3></div>`+
+      (list.map(rowAcuerdo).join('')||`<div class="empty"><b>Aún no tienes acuerdos</b>Anota reparto, asistencia mínima, método y plazo de pago antes de tocar.<div style="margin-top:14px"><button class="btn btn-prim" onclick="openAcuerdo()">Cerrar una fecha nueva</button></div></div>`);
   }
 }
 function pasosAcuerdo(a){
@@ -1017,7 +1183,7 @@ function verAcuerdo(id){
   }
   const hist=(a.historial||[]).map(h=>`<div>${fmtFechaHora(h.f)} — <b>${HIST_TXT[h.e]||h.e}</b>${h.txt?': “'+esc(h.txt)+'”':''}</div>`).join('');
   body.innerHTML=`
-    <div class="topline"><div><h1>${esc(ROLE==='local'?a.banda:a.local)}</h1><div class="sub">${ROLE==='local'?'Banda que propone el acuerdo':'Registro del acuerdo'}</div></div>${chipAcuerdo(a)}</div>
+    <div class="topline"><div><div class="ttl"><h1>${esc(ROLE==='local'?a.banda:a.local)}</h1><button class="q-btn" onclick="openHelp()" aria-label="Ayuda de esta sección" title="Ayuda de esta sección">?</button></div><div class="sub">${ROLE==='local'?'Acuerdo que te propone esta banda':'Lo que quedó por escrito con este local'}</div></div>${chipAcuerdo(a)}</div>
     ${pasosAcuerdo(a)}
     ${aviso}
     <div class="card" style="max-width:620px">
@@ -1099,22 +1265,24 @@ function fichaCard(f,owner){
     <div class="sectitle" style="margin:16px 0 4px">Equipos del local</div>
     <div>${(f.gear||[]).map(g=>{const st=GEAR_ST[g.st]||GEAR_ST.ok;return `<div class="gear-row"><span>${esc(g.n)}</span><span class="chip ${st[1]}">${st[0]}</span></div>`}).join('')||'<div style="font-size:13px;color:var(--gris);padding:10px 0">El local no ha listado equipos.</div>'}</div>
     ${llevar.length?`<div class="llevar">🎒 <b>La banda debe llevar:</b> ${llevar.map(esc).join(' · ')}</div>`:`<div class="llevar ok">✓ <b>El local cubre todo lo listado.</b></div>`}
-    ${owner?`<div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-ghost btn-sm" onclick="refreshFicha(${f.id})">Marcar como vigente hoy</button></div>`:''}
+    ${owner?`<div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-ghost btn-sm" onclick="refreshFicha(${f.id})">Marcar como vigente hoy</button></div>`:`<div style="margin-top:14px"><button class="btn btn-ghost btn-sm" onclick="openAcuerdo(null,'${esc(f.local).replace(/'/g,"\\'")}')">Cerrar una fecha con este local</button></div>`}
   </div>`;
 }
 function renderFichas(){
   const sub=document.getElementById('fichas-sub'),cta=document.getElementById('fichas-cta'),
-        ban=document.getElementById('fichas-banner'),list=document.getElementById('list-fichas');
+        ban=document.getElementById('fichas-banner'),list=document.getElementById('list-fichas'),ttl=document.getElementById('fichas-title');
+  if(!list)return;
+  if(ban)ban.innerHTML='';
   if(ROLE==='local'){
-    sub.textContent='Tu ficha es la fuente oficial del backline. Solo tú la editas.';
+    if(ttl)ttl.textContent='Mi ficha técnica';
+    sub.textContent='El equipo de tu local y su estado real. Es lo que ven las bandas para saber qué llevar. Solo tú la editas.';
     cta.innerHTML='<button class="btn btn-prim" onclick="openFicha()">Editar mi ficha</button>';
-    ban.innerHTML='<div class="banner">♪ <div>Como local, esta es <b>tu</b> ficha. Lo que publiques aquí es lo que verán los músicos al agendar contigo.</div></div>';
     const f=fichaDe(DB.miLocal);
-    list.innerHTML=f?fichaCard(f,true):'<div class="card empty"><b>Aún no publicas tu ficha</b>Sube el backline real de tu local.</div>';
+    list.innerHTML=f?fichaCard(f,true):'<div class="card empty"><b>Aún no publicas tu ficha</b>Anota el equipo real de tu local y su estado.<div style="margin-top:14px"><button class="btn btn-prim" onclick="openFicha()">Publicar mi ficha</button></div></div>';
   } else {
-    sub.textContent='El backline real que publican los locales. No editable: lo mantiene cada local.';
+    if(ttl)ttl.textContent='Locales y sus fichas';
+    sub.textContent='Qué equipo tiene cada local, en qué estado y qué debe llevar tu banda. Las publica cada local.';
     cta.innerHTML='';
-    ban.innerHTML='<div class="banner">♪ <div>Estas fichas las publican <b>los locales</b>. Tú solo las consultas para saber qué hay y qué llevar.</div></div>';
     list.innerHTML=DB.fichas.map(f=>fichaCard(f,false)).join('')||'<div class="card empty"><b>Sin fichas disponibles</b>Ningún local ha publicado todavía.</div>';
   }
 }
@@ -1122,18 +1290,27 @@ function refreshFicha(id){DB.fichas.find(x=>x.id===id).updated=new Date().toISOS
 
 /* ----- AGENDA ----- */
 function renderAgenda(){
-  const ev=[...DB.eventos].sort((a,b)=>a.fecha.localeCompare(b.fecha));
-  document.getElementById('list-agenda').innerHTML=`<div class="lc-head"><h3>${ev.length} fechas</h3></div>`+
+  const el=document.getElementById('list-agenda');if(!el)return;
+  const loc=ROLE==='local';
+  const t=document.getElementById('agenda-title'),sub=document.getElementById('agenda-sub'),cta=document.getElementById('agenda-cta');
+  if(t)t.textContent=loc?'Mis fechas':'Agenda';
+  if(sub)sub.textContent=loc?'Las fechas agendadas en tu local, con hora de prueba de sonido y de show.':'Tus fechas con hora de prueba de sonido, de show y lo que falta preparar.';
+  if(cta)cta.innerHTML=loc?'':'<button class="btn btn-ghost" onclick="openEvento()">Agregar una fecha</button>';
+  const ev=DB.eventos.filter(e=>!loc||e.local===DB.miLocal).sort((a,b)=>a.fecha.localeCompare(b.fecha));
+  el.innerHTML=`<div class="lc-head"><h3>${ev.length} fechas</h3></div>`+
    (ev.map(e=>{const f=fmtDay(e.fecha);
     const est=e.estado==='confirmado'?'<span class="chip chip-ok">Confirmada</span>':'<span class="chip chip-warn">Por confirmar</span>';
+    const ac=!loc&&e.local&&diffDays(e.fecha)>=0?acuerdoDe(e.local):null;
     return `<div class="item clk" onclick="verEvento(${e.id})">
       <div class="date-badge"><b>${f.n}</b><span>${f.m}</span></div>
-      <div class="lead"><b>${esc(e.nombre)}</b><span>${e.prueba?'Prueba '+e.prueba+' · ':''}${e.show?'Show '+e.show:''}${e.local?' · '+esc(e.local):''}${e.todo?' · '+esc(e.todo):''}</span></div>
+      <div class="lead"><b>${esc(loc?e.banda:e.nombre)}</b><span>${e.prueba?'Prueba '+e.prueba+' · ':''}${e.show?'Show '+e.show:''}${e.local&&!loc?' · '+esc(e.local):''}${e.todo?' · '+esc(e.todo):''}</span>${ac?`<span class="next">Acuerdo: ${chipTexto(ac)}</span>`:''}</div>
       ${est}</div>`;
-   }).join('')||emptyRow('Agrega tu primera fecha'));
+   }).join('')||(loc?emptyRow('Aún no hay fechas en tu local. Cuando una banda agende contigo, aparecerá aquí.'):`<div class="empty"><b>Aún no tienes fechas</b>Agrega tu próxima tocata para tener a mano la hora de prueba y de show.<div style="margin-top:14px"><button class="btn btn-prim" onclick="openEvento()">Agregar una fecha</button></div></div>`));
 }
+function chipTexto(a){const d=document.createElement('div');d.innerHTML=chipAcuerdo(a);return d.textContent}
 function verEvento(id){
   const e=DB.eventos.find(x=>x.id===id);if(!e)return;
+  vtMarca('fecha-detalle');
   const f=fichaDe(e.local);
   document.getElementById('evd-title').textContent=e.nombre;
   const est=e.estado==='confirmado'?'<span class="chip chip-ok">Confirmada</span>':'<span class="chip chip-warn">Por confirmar</span>';
@@ -1170,32 +1347,126 @@ function reabrirEvento(id){DB.eventos.find(x=>x.id===id).estado='propuesta';pers
 function delEvento(id){DB.eventos=DB.eventos.filter(x=>x.id!==id);persist();close_('ov-evdet');renderAll();toast('Fecha eliminada')}
 
 /* ----- modales ----- */
-let acEditId=null;
+/* Acuerdo por pasos: 1 local · 2 reparto y asistencia · 3 método y plazo · 4 revisar y enviar.
+   Los 4 campos obligatorios para enviar siguen siendo reparto, asistencia mínima, método y plazo (D4). */
+let acEditId=null, acStep=1;
 const AC_REQ=['ac-reparto','ac-cuota','ac-metodo','ac-plazo'];
-function openAcuerdo(id){
+const AC_REQ_TXT=['reparto','asistencia mínima','método de pago','plazo de pago'];
+const AC_REQ_PASO=[2,2,3,3];
+const AC_TITULOS=['¿Con qué local es la fecha?','Reparto y asistencia mínima','Método y plazo de pago','Revisa y envía al local'];
+const AC_METODOS=['Transferencia','Efectivo','Por puerta (entradas)'];
+const AC_PLAZOS=['Al cierre del show','Mismo día','48 horas','7 días'];
+function acLocalesLista(){
+  const out=[];
+  DB.fichas.forEach(f=>{if(out.indexOf(f.local)<0)out.push(f.local)});
+  DB.localesCatalogo.forEach(l=>{if(out.indexOf(l.nombre)<0)out.push(l.nombre)});
+  return out;
+}
+function acOpcionesRender(){
+  const loc=val('ac-local');
+  const lo=document.getElementById('ac-locales-op');
+  if(lo)lo.innerHTML=acLocalesLista().map(l=>{const f=fichaDe(l);
+    return `<button type="button" class="opt${l===loc?' on':''}" data-v="${esc(l)}" onclick="acElegirLocal(this)"><span>${esc(l)}<small>${f?'Ficha técnica publicada':'Sin ficha técnica'}</small></span></button>`}).join('');
+  const grupo=(id,ops)=>{const el=document.getElementById(id+'-op');if(!el)return;const v=val(id);
+    el.innerHTML=ops.map(o=>`<button type="button" class="opt${o===v?' on':''}" data-v="${esc(o)}" onclick="acOpt('${id}',this)">${esc(o)}</button>`).join('')};
+  grupo('ac-metodo',AC_METODOS);grupo('ac-plazo',AC_PLAZOS);
+}
+function openAcuerdo(id,local){
   const a=id?DB.acuerdos.find(x=>x.id===id):null;
   acEditId=a?a.id:null;
-  const dl=document.getElementById('ac-locales');
-  if(dl)dl.innerHTML=[...new Set([...DB.fichas.map(f=>f.local),...DB.localesCatalogo.map(l=>l.nombre)])].map(l=>`<option value="${esc(l)}">`).join('');
   const set=(k,v)=>{const el=document.getElementById(k);if(el)el.value=(v===null||v===undefined)?'':v};
-  set('ac-local',a?a.local:'');set('ac-reparto',a?a.reparto:'');set('ac-cuota',a?a.cuota:'');
+  const loc=a?a.local:(local||'');
+  set('ac-local',loc);set('ac-local-otro',loc&&acLocalesLista().indexOf(loc)<0?loc:'');
+  set('ac-reparto',a?a.reparto:'');set('ac-cuota',a?a.cuota:'');
   set('ac-metodo',a?a.metodo||'':'');set('ac-plazo',a?a.plazo||'':'');
   set('ac-seguro',a&&a.seguro?a.seguro:'');set('ac-precio-ent',a&&a.precio_ent?a.precio_ent:'');
   set('ac-carga',a?a.carga:'');set('ac-sonidista',a?a.sonidista:'');set('ac-cond',a?a.cond:'');
-  document.getElementById('ac-title').textContent=a?(a.estado==='observado'?'Corregir acuerdo':'Editar acuerdo'):'Nuevo acuerdo';
+  const det=document.getElementById('ac-det');if(det)det.open=!!(a&&(a.seguro||a.carga||a.sonidista||a.cond));
   document.getElementById('ac-obs-box').innerHTML=a&&a.estado==='observado'&&a.observacion?`<div class="alert amber">💬 <div><b>${esc(a.local)} observó:</b> ${esc(a.observacion)}</div></div>`:'';
   AC_REQ.forEach(k=>{const f=document.getElementById(k);if(f)f.parentNode.classList.remove('miss')});
-  acCount();
+  acOpcionesRender();
   document.getElementById('ov-acuerdo').classList.add('show');
+  vtMarca(a?'acuerdo-editar':'acuerdo-nuevo');
+  // Un acuerdo existente se abre en el resumen; uno nuevo desde una ficha parte en el paso 2
+  acIr(a?4:(local?2:1),!a&&!!local);
 }
+function acIr(n,foco){
+  acStep=n;
+  document.querySelectorAll('#ov-acuerdo .wiz-step').forEach(st=>{st.hidden=(+st.dataset.step!==n)});
+  const a=acEditId?DB.acuerdos.find(x=>x.id===acEditId):null;
+  document.getElementById('ac-kick').textContent=(a?(a.estado==='observado'?'Corregir acuerdo':'Editar acuerdo'):'Nueva fecha')+' · Paso '+n+' de 4';
+  document.getElementById('ac-title').textContent=AC_TITULOS[n-1];
+  const campos=acCamposForm(), hecho=[!!val('ac-local'),campos[0]&&campos[1],campos[2]&&campos[3],false];
+  document.querySelectorAll('#ac-bar button').forEach((b,i)=>{b.className=(i+1===n?'now':hecho[i]?'done':'');if(i+1===n)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current')});
+  if(n===4)acRevisar();
+  acCount();
+  const body=document.getElementById('ac-body');if(body)body.scrollTop=0;
+  if(VT.activa&&VT.pasos)VT.pasos.push(n);
+  if(foco&&n===2){const r=['ac-reparto','ac-cuota','ac-precio-ent'].map(k=>document.getElementById(k)).filter(el=>el&&el.value==='')[0];if(r)r.focus()}
+}
+function acSig(){
+  if(acStep===1&&!val('ac-local')){toast('Elige un local o escribe su nombre');return}
+  if(acStep<4)acIr(acStep+1,true);
+  else saveAcuerdo(true);
+}
+function acAtras(){if(acStep>1)acIr(acStep-1,false)}
+function acElegirLocal(b){
+  document.getElementById('ac-local').value=b.dataset.v;
+  document.getElementById('ac-local-otro').value='';
+  acOpcionesRender();
+  acIr(2,true); // elegir de la lista avanza solo
+}
+function acOtroLocal(){
+  document.getElementById('ac-local').value=val('ac-local-otro');
+  document.querySelectorAll('#ac-locales-op .opt').forEach(o=>o.classList.remove('on'));
+  acCount();
+}
+function acOpt(id,b){
+  document.getElementById(id).value=b.dataset.v;
+  b.parentNode.querySelectorAll('.opt').forEach(o=>o.classList.toggle('on',o===b));
+  acCount();
+  // con método y plazo elegidos pasa solo al resumen (desde ahí se puede volver a cambiar)
+  if(acStep===3&&val('ac-metodo')&&val('ac-plazo'))setTimeout(()=>{if(acStep===3)acIr(4,false)},350);
+}
+function acCamposForm(){return AC_REQ.map(k=>{const el=document.getElementById(k);return !!el&&el.value.trim()!==''})}
 // Cuenta las 4 condiciones que exige el envío; con mark=true resalta las que faltan
 function acCount(mark){
-  let n=0;
-  AC_REQ.forEach(k=>{const el=document.getElementById(k);if(!el)return;const ok=el.value.trim()!=='';if(ok)n++;
-    if(mark===true)el.parentNode.classList.toggle('miss',!ok);else if(ok)el.parentNode.classList.remove('miss');});
+  const campos=acCamposForm();let n=0;
+  AC_REQ.forEach((k,i)=>{const el=document.getElementById(k);if(!el)return;if(campos[i])n++;
+    if(mark===true)el.parentNode.classList.toggle('miss',!campos[i]);else if(campos[i])el.parentNode.classList.remove('miss');});
   const c=document.getElementById('ac-count');
   if(c){c.textContent=n+' de 4';c.className='chip '+(n===4?'chip-ok':'chip-mut');}
+  const faltan=AC_REQ_TXT.filter((x,i)=>!campos[i]);
+  const ft=document.getElementById('ac-falta');
+  if(ft)ft.textContent=faltan.length?'Para enviarlo falta: '+faltan.join(', '):'Listo para enviar';
+  // cálculo de lo que recibe la banda (D7), visible mientras se escribe
+  const calc=document.getElementById('ac-calc');
+  if(calc){const r=+val('ac-reparto'),q=+val('ac-cuota'),p=+val('ac-precio-ent');
+    calc.innerHTML=campos[0]&&q>0&&p>0?`Si llegan justo ${q} personas a ${fmtMoney(p)}, la banda recibe <b>${fmtMoney(Math.round(q*p*r/100))}</b>.`:'Con el reparto, la asistencia mínima y el precio de la entrada, aquí verás cuánto recibe la banda.';}
+  const sig=document.getElementById('ac-sig'),atr=document.getElementById('ac-atras'),bor=document.getElementById('ac-borrador');
+  if(sig)sig.textContent=acStep===4?'Enviar al local':'Siguiente →';
+  if(atr)atr.hidden=acStep===1;
+  if(bor)bor.hidden=acStep!==4;
+  if(acStep===4&&mark!==true){const rv=document.getElementById('ac-rev');if(rv&&rv.dataset.n!==String(n))acRevisar()}
   return n;
+}
+// Paso 4: resumen con lo que recibe la banda y lo que falta, con enlace a su paso
+function acRevisar(){
+  const rv=document.getElementById('ac-rev');if(!rv)return;
+  const campos=acCamposForm(), loc=val('ac-local');
+  const r=val('ac-reparto'),q=val('ac-cuota'),p=+val('ac-precio-ent'),m=val('ac-metodo'),pl=val('ac-plazo');
+  const falta=t=>`<span class="falta">Falta ${t}</span>`;
+  const faltan=AC_REQ_TXT.map((t,i)=>campos[i]?null:[t,AC_REQ_PASO[i]]).filter(Boolean);
+  const recibe=campos[0]&&+q>0&&p>0?Math.round(+q*p*+r/100):null;
+  rv.dataset.n=campos.filter(Boolean).length;
+  rv.innerHTML=
+    (faltan.length?`<div class="faltan"><b>Antes de enviar falta:</b><ul>${faltan.map(f=>`<li><span>${f[0]}</span><button type="button" class="lnk" onclick="acIr(${f[1]},true)">Completar en paso ${f[1]}</button></li>`).join('')}</ul></div>`:'')+
+    `<div class="rev">
+      <div class="rev-row"><div><span class="k">Local</span><span class="v">${loc?esc(loc):falta('el local')}</span></div><button type="button" class="lnk" onclick="acIr(1,false)">Cambiar</button></div>
+      <div class="rev-row"><div><span class="k">Reparto y asistencia mínima</span><span class="v">${campos[0]?r+' % para la banda':falta('reparto')} · ${campos[1]?(+q?'mín. '+q+' personas':'sin asistencia mínima'):falta('asistencia mínima')}${p?' · entrada '+fmtMoney(p):''}</span></div><button type="button" class="lnk" onclick="acIr(2,true)">Cambiar</button></div>
+      <div class="rev-row"><div><span class="k">Pago</span><span class="v">${campos[2]?esc(m):falta('método')} · ${campos[3]?esc(pl):falta('plazo')}</span></div><button type="button" class="lnk" onclick="acIr(3,false)">Cambiar</button></div>
+    </div>`+
+    (recibe!==null?`<div class="monto">La banda recibe<b>${fmtMoney(recibe)}</b>si llegan justo ${q} personas a ${fmtMoney(p)} (${r} % de ${fmtMoney(+q*p)}).</div>`:'');
 }
 function openFicha(){
   const f=fichaDe(DB.miLocal);
@@ -1224,8 +1495,8 @@ function openEvento(){
 function close_(id){document.getElementById(id).classList.remove('show')}
 
 function saveAcuerdo(enviar){
-  const local=val('ac-local');if(!local){toast('Falta el nombre del local');return}
-  if(enviar&&acCount(true)<4){toast('Para enviarlo completa las 4 condiciones');return}
+  const local=val('ac-local');if(!local){acIr(1,false);toast('Falta el local');return}
+  if(enviar&&acCount(true)<4){if(acStep!==4)acIr(4,false);acCount(true);toast('Para enviarlo completa las 4 condiciones');return}
   const num=k=>{const v=val(k);return v===''?null:+v};
   const data={local,reparto:num('ac-reparto'),cuota:num('ac-cuota'),metodo:val('ac-metodo'),plazo:val('ac-plazo'),seguro:+val('ac-seguro')||0,precio_ent:+val('ac-precio-ent')||0,carga:val('ac-carga'),sonidista:val('ac-sonidista'),cond:val('ac-cond')};
   let a=acEditId?DB.acuerdos.find(x=>x.id===acEditId):null;
@@ -1233,10 +1504,27 @@ function saveAcuerdo(enviar){
   else{a=Object.assign({id:++seq,banda:'Mi banda',estado:'borrador',historial:[],creado:new Date().toISOString()},data);DB.acuerdos.unshift(a);}
   if(enviar)logAcuerdo(a,'enviado');
   else if(a.estado!=='confirmado')logAcuerdo(a,'borrador');
-  clearForm(['ac-local','ac-reparto','ac-cuota','ac-metodo','ac-plazo','ac-seguro','ac-precio-ent','ac-carga','ac-sonidista','ac-cond']);
-  close_('ov-acuerdo');persist();verAcuerdo(a.id);
+  if(!enviar&&VT.activa)VT.borradores=(VT.borradores||0)+1;
+  clearForm(['ac-local','ac-local-otro','ac-reparto','ac-cuota','ac-metodo','ac-plazo','ac-seguro','ac-precio-ent','ac-carga','ac-sonidista','ac-cond']);
+  close_('ov-acuerdo');persist();
+  // Confirmación de estado y el acuerdo arriba de la lista
+  acUltimo=a.id;
+  const faltan=AC_REQ_TXT.filter((x,i)=>!acCampos(a)[i]);
+  acAviso=enviar
+    ?{ok:true,html:`<b>Enviado a ${esc(local)}</b> · esperando confirmación. Cuando el local lo confirme o lo observe, lo verás aquí.`}
+    :{ok:false,html:`<b>Borrador guardado</b> · todavía no se envía a ${esc(local)}. `+(faltan.length?'Para enviarlo falta: '+faltan.join(', ')+'.':'Está completo: ábrelo y envíalo cuando quieras.')};
+  go('acuerdos');
   toast(enviar?'Enviado a '+local+' ✓':'Borrador guardado');
 }
+// Teclado: Enter pasa al campo siguiente y, en el último, al paso siguiente
+['ac-local-otro','ac-reparto','ac-cuota','ac-precio-ent'].forEach((id,i,arr)=>{
+  const el=document.getElementById(id);if(!el)return;
+  el.addEventListener('keydown',e=>{
+    if(e.key!=='Enter')return;e.preventDefault();
+    const sig=id==='ac-local-otro'||id==='ac-precio-ent'?null:document.getElementById(arr[i+1]);
+    if(sig)sig.focus();else acSig();
+  });
+});
 function saveFicha(){
   const local=val('fi-local');if(!local){toast('Falta el nombre del local');return}
   const gear=gearRead();
@@ -1552,15 +1840,15 @@ function markPaid(id){
    se usa {musico:{...}, local:{...}}; si no, un objeto plano sirve para ambos. */
 const HELP={
   inicio:{
-    musico:{ico:'🏠',title:'Inicio',intro:'Tu resumen del día: próximos shows, pagos pendientes y accesos rápidos a todo.',items:[
-      ['Vista general','Aquí ves de un vistazo qué tienes pendiente y tus próximas fechas confirmadas.'],
-      ['Botón principal','El botón de arriba a la derecha crea un nuevo acuerdo al toque.'],
-      ['Menú lateral','Usa el menú (☰ en el teléfono) para saltar a Acuerdos, Fichas, Agenda y más.'],
+    musico:{ico:'🏠',title:'Inicio',intro:'Desde aquí partes: tres accesos para lo principal, tu próxima fecha y tus acuerdos pendientes.',items:[
+      ['Cerrar una fecha nueva','El botón rojo abre el acuerdo por pasos: local, reparto y asistencia, pago, y revisar antes de enviar.'],
+      ['Ver mis acuerdos','Lo que ya enviaste y en qué estado está: falta que el local confirme, confirmado u observado.'],
+      ['Ver locales y sus fichas','Qué equipo tiene cada local, la prueba de sonido y qué debe llevar tu banda.'],
     ]},
-    local:{ico:'🏠',title:'Inicio',intro:'El panel de tu local: el estado de tu ficha técnica y tus números principales.',items:[
-      ['Vista general','Revisa de un vistazo si tu información está al día y tus indicadores clave.'],
-      ['Mantén tu ficha','Desde aquí puedes ir a editar tu ficha técnica cuando cambie tu equipo.'],
-      ['Menú lateral','Usa el menú (☰ en el teléfono) para moverte entre secciones.'],
+    local:{ico:'🏠',title:'Inicio',intro:'Desde aquí partes: los acuerdos que te enviaron, tu ficha técnica y tus fechas.',items:[
+      ['Revisar acuerdos','Las bandas te envían sus condiciones. Confírmalas o deja una observación.'],
+      ['Mi ficha técnica','El equipo de tu local y su estado. Mantenla al día: es lo que ven las bandas.'],
+      ['Menú','En el teléfono, el menú se abre con ☰. Lo menos usado está en “Más herramientas”.'],
     ]},
   },
   acuerdos:{
@@ -1581,18 +1869,18 @@ const HELP={
     ['Historial','Abajo queda cada paso: cuándo se envió, si el local lo observó y cuándo se confirmó.'],
   ]},
   fichas:{
-    musico:{ico:'🎛️',title:'Fichas técnicas',intro:'El backline real que publica cada local. Tú solo las consultas antes de tocar.',items:[
+    musico:{ico:'🎛️',title:'Locales y sus fichas',intro:'El equipo real que publica cada local. Tú solo las consultas antes de tocar.',items:[
       ['Qué hay','Cada equipo con su estado real, la consola, la capacidad, la prueba de sonido y si admite menores.'],
       ['Qué llevar','El recuadro “La banda debe llevar” junta lo que falla, lo que no hay y lo que pide el local.'],
       ['Confiabilidad','Fíjate en cuándo se actualizó por última vez: mientras más reciente, más confiable.'],
     ]},
     local:{ico:'🎛️',title:'Tu ficha técnica',intro:'Aquí publicas el equipo real de tu local. Es tuya: solo tú la editas.',items:[
-      ['Lo que ven los músicos','Todo lo que cargues aquí es lo que verán las bandas al coordinar contigo.'],
+      ['Lo que ven las bandas','Todo lo que cargues aquí es lo que verán las bandas al coordinar contigo.'],
       ['Mantenla al día','Edita el equipo, la consola y el aforo cuando cambien. Una ficha vieja genera desconfianza.'],
       ['Detalles clave','Marca el estado de cada equipo, la prueba de sonido (hora y duración) y la edad mínima de ingreso.'],
     ]},
   },
-  agenda:{ico:'📅',title:'Agenda',intro:'Tus fechas con prueba de sonido, hora de show y pendientes.',items:[
+  agenda:{ico:'📅',title:'Agenda',intro:'Tus fechas con prueba de sonido, hora de show y lo que falta preparar.',items:[
     ['Tus fechas','Cada tarjeta muestra el local, la hora de prueba, la del show y su estado.'],
     ['Estados','Una fecha puede estar como propuesta o confirmada; se confirma cuando el show queda cerrado.'],
     ['Pendientes','Anota lo que falta por preparar en cada evento para no olvidar nada.'],
@@ -1648,6 +1936,7 @@ function resolveHelp(v){
 function openHelp(){
   const h=resolveHelp(currentView());
   if(!h) return;
+  vtMarca('ayuda');
   const ico=document.getElementById('help-ico');if(ico)ico.textContent=h.ico||'💡';
   const title=document.getElementById('help-title');if(title)title.textContent=h.title||'Ayuda';
   const intro=document.getElementById('help-intro');if(intro)intro.textContent=h.intro||'';
@@ -1923,7 +2212,9 @@ const VT_LIKERT=[
   ['utilidad','¿Qué tan útil sería esto para cerrar tus fechas reales?','Nada útil','Muy útil'],
   ['usaria','¿Qué tan probable es que la uses en tu próxima fecha?','Nada probable','Muy probable']
 ];
-let VT={paso:'intro',i:0,activa:false,t0:0,clics:0,res:null,min:false};
+let VT={paso:'intro',i:0,activa:false,t0:0,clics:0,res:null,min:false,primera:'',pasos:[],borradores:0};
+// Orientación: primera sección (o ventana) que abre la persona después de comenzar cada tarea
+function vtMarca(sec){if(VT.activa&&!VT.primera)VT.primera=sec}
 /* Guardado de intentos: 1) siempre en este navegador; 2) además se envía a la planilla del equipo
    (Google Sheets vía Apps Script, ver validacion/planilla_apps_script.gs). Si el envío falla, queda
    pendiente y se reintenta al volver a abrir ?test=1. */
@@ -1985,7 +2276,7 @@ function vtRender(){
   vtBackdrop(full);
   const N=VT_TAREAS.length;
   if(VT.paso==='intro'){
-    p.innerHTML=`<div class="vt-kick">Modo validación · Actividad 9.2</div>
+    p.innerHTML=`<div class="vt-kick">Modo validación · Hito 2</div>
       <h3>Antes de empezar</h3>
       <p>Vas a hacer ${N} tareas cortas en la app, una a la vez. Evaluamos la app, no a ti: si algo no se entiende, es información útil para nosotros.</p>
       <p>Se mide el tiempo, los toques en pantalla y si la tarea se completa. No se guardan nombres.</p>
@@ -2062,7 +2353,7 @@ function vtEmpezar(){
   const obs=(document.getElementById('vt-obs').value||'').trim();
   if(!obs){toast('Escribe quién observa la sesión');return}
   lsSet('errebe:test:observador',obs);
-  VT.res={participante:c,observador:obs,inicio:new Date().toISOString(),fecha:new Date().toISOString().slice(0,10),version:'ErreBe prototipo · Lab 9.2',
+  VT.res={participante:c,observador:obs,inicio:new Date().toISOString(),fecha:new Date().toISOString().slice(0,10),version:'ErreBe prototipo · Hito 2 v2',
     hipotesis:'Músicos Segmento B registran el acuerdo completo y deciden qué equipos llevar sin ayuda',
     dispositivo:window.innerWidth<=780?'movil':'escritorio',viewport:window.innerWidth+'x'+window.innerHeight,
     tareas:[],likert:{claridad:null,utilidad:null,usaria:null},comentario:''};
@@ -2073,7 +2364,7 @@ function vtEmpezar(){
 function vtComenzarTarea(){
   document.querySelectorAll('.overlay').forEach(o=>o.classList.remove('show'));
   closeHelp();go('inicio');
-  VT.paso='tarea';VT.min=true;VT.clics=0;VT.t0=Date.now();VT.activa=true;VT.draft={};
+  VT.paso='tarea';VT.min=true;VT.clics=0;VT.t0=Date.now();VT.activa=true;VT.draft={};VT.primera='';VT.pasos=[];VT.borradores=0;
   vtRender();
 }
 // Guarda lo respondido antes de redibujar el panel (ocultar/mostrar no debe borrar la respuesta)
@@ -2106,7 +2397,12 @@ function vtTerminar(intento){
   }
   if(intento&&t.pregunta&&!resp.replace('sin respuesta','').trim()){toast('Responde la pregunta o toca “No pude”');return}
   VT.activa=false;
-  VT.res.tareas.push({n:VT.i+1,id:t.id,req:t.req,titulo:t.titulo,tiempo_s:tiempo,completada:ok,clics:VT.clics,respuesta:resp,esperado:esperado,abandono:!intento});
+  // Registro adicional de la ronda 2 (no cambia cómo se evalúa la tarea)
+  const pasosUnicos=VT.pasos.filter((x,i,arr)=>arr.indexOf(x)===i).length;
+  const bod=vtBodega();
+  const extra={primera_seccion:VT.primera||'ninguna',pasos_formulario:pasosUnicos,pasos_secuencia:VT.pasos.join('>'),borradores_guardados:VT.borradores||0,
+    guardo_borrador:t.id==='registrar_acuerdo'?((VT.borradores>0&&bod&&bod.estado==='borrador')?'si':'no'):''};
+  VT.res.tareas.push(Object.assign({n:VT.i+1,id:t.id,req:t.req,titulo:t.titulo,tiempo_s:tiempo,completada:ok,clics:VT.clics,respuesta:resp,esperado:esperado,abandono:!intento},extra));
   vtGuardarSesion(VT.res);
   VT.i++;
   VT.paso=VT.i<VT_TAREAS.length?'previa':'likert';
@@ -2122,13 +2418,15 @@ function vtCerrar(){
   VT.paso='fin';vtRender();
 }
 function csvCell(v){v=v===null||v===undefined?'':String(v);return /[",;\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
-const VT_COLS=['sesion_id','fecha','participante','observador','estado','dispositivo','viewport','tarea_n','tarea_id','requerimiento','tarea','tiempo_s','completada','clics','respuesta','esperado','likert_claridad','likert_utilidad','likert_usaria','comentario'];
+// Las columnas nuevas van al final para no mover las de la ronda 1
+const VT_COLS=['sesion_id','fecha','participante','observador','estado','dispositivo','viewport','tarea_n','tarea_id','requerimiento','tarea','tiempo_s','completada','clics','respuesta','esperado','likert_claridad','likert_utilidad','likert_usaria','comentario','version','primera_seccion','pasos_formulario','pasos_secuencia','guardo_borrador'];
 function vtFilasObj(r){
   const L=r.likert||{};
   return (r.tareas||[]).map(t=>({sesion_id:vtIdDe(r),fecha:r.fecha,participante:r.participante,observador:r.observador||'',estado:r.fin?'completa':'parcial',
     dispositivo:r.dispositivo,viewport:r.viewport,tarea_n:t.n,tarea_id:t.id,requerimiento:t.req,tarea:t.titulo,tiempo_s:t.tiempo_s,
     completada:t.completada?'si':'no',clics:t.clics,respuesta:t.respuesta,esperado:t.esperado,
-    likert_claridad:L.claridad,likert_utilidad:L.utilidad,likert_usaria:L.usaria,comentario:r.comentario||''}));
+    likert_claridad:L.claridad,likert_utilidad:L.utilidad,likert_usaria:L.usaria,comentario:r.comentario||'',
+    version:r.version||'',primera_seccion:t.primera_seccion||'',pasos_formulario:t.pasos_formulario===undefined?'':t.pasos_formulario,pasos_secuencia:t.pasos_secuencia||'',guardo_borrador:t.guardo_borrador||''}));
 }
 function vtFilas(r){return vtFilasObj(r).map(f=>VT_COLS.map(c=>csvCell(f[c])).join(','))}
 function vtCsv(lista){return '\ufeff'+VT_COLS.join(',')+'\n'+lista.map(r=>vtFilas(r).join('\n')).filter(Boolean).join('\n')}
