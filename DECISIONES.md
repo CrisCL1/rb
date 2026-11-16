@@ -203,3 +203,37 @@ construye (clase U2.1). No se agregan pestañas, paneles ni textos que nombren l
 - **Por qué:** la rúbrica pide resultados conectados a los indicadores del RIA; solo se pueden comparar si las tareas y la pauta son las mismas. Las sesiones se identifican por archivo y observador porque varias se exportaron con el mismo código (P03).
 - **Evidencia:** D1–D3, D15; V1.
 - **Descartado:** cambiar tareas o escenario; una planilla aparte para la ronda 2 (la columna `version` separa las rondas). **Pendiente del equipo:** volver a implementar el Apps Script (misma URL) para ver las columnas nuevas en la hoja "Resultados"; mientras tanto quedan en "Sesiones (JSON)".
+
+---
+
+## 2026-11-16 · Test para locales y ficha técnica por pasos
+
+### D30 · Test para locales en `?test=local`, con guardado automático y archivo para el equipo
+- **Qué:** link propio, `https://criscl1.github.io/rb/?test=local`, con el mismo motor del test de músicos (tiempo, clics, primera sección, pasos) y 4 tareas del lado del local, en el local ficticio La Bodega Sonora:
+  1. **R1** · Revisar el acuerdo que envió la banda y observarlo, porque el local pide 40 personas y no 30 (completada si queda "observado" y la observación dice 40).
+  2. **R2** · Marcar el amplificador de bajo como "Con falla · no usar" (o "No hay") y publicar la ficha.
+  3. **R3** · Cambiar la prueba de sonido a las 18:30, de 45 minutos, y publicar.
+  4. **R4** · Decir qué día y a qué hora toca la banda en el local (se compara con "Mis fechas").
+  Después: las mismas 3 preguntas de 1 a 5, adaptadas al local, y un comentario abierto.
+- **Datos de quien responde:** al empezar se piden su nombre, el nombre de su local y el de una banda que haya tocado ahí. La banda aparece en el acuerdo y en la fecha de prueba. El archivo se llama `errebe_test_local_<nombre>_<banda>_<fecha>.csv` y lleva al final las columnas `rol`, `nombre`, `local_nombre` y `banda`. Versión registrada: `ErreBe prototipo · Test locales v1`.
+- **Guardado automático:** cada 4 segundos, en cada cambio, al terminar cada tarea y al cerrar o esconder la página. Se guarda en el dispositivo (`errebe:test:local:sesiones` y el avance en `errebe:test:local:actual`), separado de las sesiones de músicos. Si se cierra la página, al abrir el mismo link aparece "Seguir donde quedé" y se vuelve a la misma tarea, con lo que ya se hizo en la app y el tiempo acumulado.
+- **Al final:** un solo botón grande, "Mandar este archivo al equipo de ErreBe", que descarga el CSV. Debajo dice cómo enviarlo (WhatsApp o correo). Los tests guardados se pueden volver a descargar desde la pantalla de inicio del test.
+- **Por qué:** el local es el cliente que confirma u observa el acuerdo y mantiene la ficha (D5, D8, D9). Hasta ahora solo se validaba el lado del músico. Los locales responden a distancia y sin observador, así que el test no puede depender de que alguien recuerde guardar o enviar.
+- **Descartado:** enviar los resultados a la planilla del equipo (llevan nombres y la planilla se pensó para códigos P0x); pedir quién observa (el test se hace solo); usar el nombre real del local como escenario (las respuestas correctas cambiarían de una persona a otra).
+- **Datos personales:** el nombre de la persona y de su local quedan solo en su dispositivo y en el archivo que ella decide mandar. **Por validar:** las tareas y metas de este test no salen del RIA ni de la 9.1; son una propuesta del equipo para el lado del local.
+
+### D31 · La ficha técnica se edita en 4 pasos, como el acuerdo
+- **Qué:** "Editar mi ficha" pasa de un formulario largo a 4 pasos: 1) datos del local (nombre, capacidad, edad mínima), 2) equipos y su estado, y lo que la banda debe traer, 3) prueba de sonido (sí/no con botones, hora y duración), 4) revisar y publicar, con lo que verán las bandas ("La banda debe llevar") y "Más datos del local (opcional)" plegado (consola, estado general, patente, acústica). El botón queda fijo al pie. Una ficha que ya existe se abre en el resumen y "Cambiar" lleva directo a cada paso; desde ahí el botón dice "Ver resumen".
+- **Por qué:** la ficha tenía mucha información en una sola pantalla (pedido del equipo). Es el mismo patrón que bajó la ruta de T1 en D16–D19.
+- **Evidencia:** D16–D19; capturas en `evidencias/test-locales/2026-11-16/ficha/`.
+- **Descartado:** un paso por campo.
+
+### D32 · La tarjeta de la ficha muestra primero lo que decide
+- **Qué:** cada tarjeta se ordena en 4 bloques numerados: 1) qué debe llevar tu banda, 2) prueba de sonido y edad, 3) equipos del local (plegado, con un resumen tipo "3 con desgaste, falla o que no hay"), 4) más datos del local (plegado: capacidad, consola, estado general, patente, acústica). "La banda debe llevar" sube al primer lugar.
+- **Por qué:** misma razón que D31. Lo que T2 y T3 preguntan (qué llevar y la prueba de sonido, V1-T2, V1-T3, V1-d) queda arriba y sin desplegar nada.
+- **Descartado:** esconder la prueba de sonido o "qué llevar" dentro de un desplegable. **Ojo:** cambia lo que ve el músico en T2 y T3 respecto de las rondas 1 y 2; si se hace una tercera ronda, anotarlo al comparar.
+
+### D33 · Corrección: el aviso flotante invisible bloqueaba clics
+- **Qué:** el aviso que aparece abajo al centro ("Enviado a …", "Ficha publicada ✓") quedaba encima de la página con opacidad 0 y seguía recibiendo los toques. Tapaba la parte central del botón fijo de los formularios por pasos. Ahora no recibe toques (`pointer-events: none`).
+- **Por qué:** se detectó al automatizar el test de locales: el clic en "Ver resumen" no llegaba al botón.
+- **Por validar:** si afectó a participantes de la ronda 2; buscar toques repetidos en el pie del formulario.

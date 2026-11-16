@@ -138,7 +138,7 @@
   .field .hint{font-size:12px;color:var(--gris);margin-top:6px}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 
-  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--panel);border:1px solid var(--linea);border-left:3px solid var(--rojo);padding:13px 20px;border-radius:10px;font-size:14px;font-weight:600;z-index:200;opacity:0;transition:.3s;box-shadow:0 12px 40px rgba(0,0,0,.5)}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--panel);border:1px solid var(--linea);border-left:3px solid var(--rojo);padding:13px 20px;border-radius:10px;font-size:14px;font-weight:600;z-index:200;opacity:0;-webkit-transition:.3s;transition:.3s;box-shadow:0 12px 40px rgba(0,0,0,.5);pointer-events:none}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
   .back{background:none;border:none;color:var(--gris);font-size:13px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:7px;margin-bottom:18px;font-family:inherit}
@@ -335,6 +335,10 @@
   .likert-ends{display:flex;justify-content:space-between;font-size:11px;color:var(--gris);margin-top:-10px;margin-bottom:12px}
   .vt-sum{width:100%;border-collapse:collapse;font-size:13px;margin:6px 0 12px}
   .vt-sum td{padding:6px 4px;border-bottom:1px solid var(--linea)}
+  .vt-auto{margin-top:10px;font-size:12px;color:var(--ok);font-weight:700}
+  .vt-mandar{display:block;width:100%;min-height:72px;margin:6px 0 4px;padding:16px 18px;border:none;border-radius:14px;background:var(--rojo);color:#fff;font-family:inherit;font-size:19px;font-weight:800;line-height:1.25;text-align:center;cursor:pointer;box-shadow:0 10px 30px var(--rojo-glow);touch-action:manipulation;-webkit-appearance:none;appearance:none}
+  .vt-mandar small{display:block;margin-top:6px;font-size:13.5px;font-weight:600;opacity:.95}
+  .vt-mandar:hover{background:var(--rojo-osc)}
 
   /* ---- Hito 2: orientación, menú corto y acuerdo por pasos ---- */
   .ttl{display:flex;align-items:center;gap:10px}
@@ -370,6 +374,16 @@
   .guia .n{flex-shrink:0;width:24px;height:24px;border-radius:50%;background:var(--panel-2);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
   .empty.sm{padding:18px 20px;font-size:14px}
   .empty.sm b{font-size:14px;margin:0;font-weight:600;color:var(--gris)}
+  .fi-step[hidden]{display:none}
+  .gear-ed .gx{min-width:44px;min-height:44px}
+  .fsec{margin-top:14px;border-top:1px solid var(--linea);padding-top:12px}
+  .fsec-h{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--texto);margin-bottom:8px}
+  .fsec-h .n{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--panel-2);border:1px solid var(--linea);font-size:11.5px;display:inline-flex;align-items:center;justify-content:center}
+  .fsec-sub{font-size:12.5px;font-weight:600;text-transform:none;letter-spacing:0;color:var(--gris)}
+  details.fdet>summary{min-height:44px;margin-bottom:0;cursor:pointer;list-style:none;touch-action:manipulation}
+  details.fdet>summary::-webkit-details-marker{display:none}
+  details.fdet>summary::after{content:"▾";margin-left:auto;color:var(--gris);-webkit-transition:.2s;transition:.2s}
+  details.fdet[open]>summary::after{-webkit-transform:rotate(180deg);transform:rotate(180deg)}
   .item.nuevo{box-shadow:inset 3px 0 0 var(--rojo);background:var(--panel-2)}
   .item .next{display:block;font-size:12.5px;color:var(--texto);font-weight:600;margin-top:3px}
 
@@ -446,6 +460,7 @@
     .facts{grid-template-columns:1fr}
     .gear-ed{flex-wrap:wrap}
     .gear-ed input{flex-basis:100%}
+    .gear-ed{padding-bottom:10px;border-bottom:1px solid var(--linea)}
     .mobile-bar{display:flex}
     aside{position:fixed;left:0;top:0;z-index:90;-webkit-transform:translateX(-100%);transform:translateX(-100%);-webkit-transition:.25s;transition:.25s;box-shadow:0 0 50px rgba(0,0,0,.6);overflow-y:auto;-webkit-overflow-scrolling:touch}
     aside.open{-webkit-transform:translateX(0);transform:translateX(0)}
@@ -723,43 +738,74 @@
   </div>
 </div>
 
-<!-- MODAL FICHA (solo local) -->
+<!-- MODAL FICHA (solo local): 4 pasos, como el acuerdo, con el botón fijo al pie -->
 <div class="overlay" id="ov-ficha">
-  <div class="modal">
-    <div class="modal-head"><h3 id="fi-title">Mi ficha técnica</h3><button class="x" onclick="close_('ov-ficha')">×</button></div>
-    <div class="modal-body">
-      <div class="field"><label>Nombre del local</label><input id="fi-local" placeholder="Bar Estación"></div>
-      <div class="two">
-        <div class="field"><label>Capacidad (personas)</label><input id="fi-cap" type="number" min="0" placeholder="80"></div>
-        <div class="field"><label>Edad mínima de ingreso</label><input id="fi-edad" type="number" inputmode="numeric" min="0" placeholder="18"><div class="hint">Pon 0 si entran todas las edades</div></div>
-      </div>
-      <div class="field"><label>Especificaciones consola de sonido</label><input id="fi-consola" placeholder="Ej: Yamaha MG16, 16 canales"></div>
-      <div class="field"><label>Estado general de los equipos</label>
-        <select id="fi-mant"><option value="bueno">Bueno — equipos en buen estado</option><option value="regular">Regular — algunos equipos con desgaste</option><option value="precario">Precario — equipos con fallas conocidas</option></select>
-      </div>
-      <div class="field"><label>Equipos del local y su estado real</label>
-        <div id="fi-gear-list"></div>
-        <button type="button" class="btn btn-ghost btn-sm" onclick="gearAdd()" style="margin-top:8px">+ Agregar equipo</button>
-        <div class="hint">Si algo falla, márcalo. Esto es lo que ven los músicos para decidir qué llevar.</div>
-      </div>
-      <div class="field"><label>La banda debe traer</label><input id="fi-traer" placeholder="Cables, pedalera"></div>
-      <div class="two">
-        <div class="field"><label>Prueba de sonido</label>
-          <select id="fi-prueba" onchange="fiPruebaToggle()"><option value="si">Sí, hay prueba</option><option value="no">No hay prueba</option></select>
+  <div class="modal wiz" role="dialog" aria-modal="true" aria-labelledby="fi-title">
+    <div class="modal-head">
+      <div style="flex:1;min-width:0">
+        <div class="wiz-kick" id="fi-kick">Mi ficha técnica · Paso 1 de 4</div>
+        <h3 id="fi-title">Datos del local</h3>
+        <div class="wiz-bar" id="fi-bar">
+          <button type="button" onclick="fiIr(1)">1 Local</button>
+          <button type="button" onclick="fiIr(2)">2 Equipos</button>
+          <button type="button" onclick="fiIr(3)">3 Prueba</button>
+          <button type="button" onclick="fiIr(4)">4 Publicar</button>
         </div>
-        <div class="field" id="fi-prueba-hora-f"><label>Hora de la prueba</label><input id="fi-prueba-hora" type="time"></div>
       </div>
-      <div class="field" id="fi-prueba-dur-f"><label>Duración de la prueba (minutos)</label><input id="fi-prueba-dur" type="number" inputmode="numeric" min="0" placeholder="30"></div>
-      <div class="two">
-        <div class="field"><label>Patente al día</label>
-          <select id="fi-patente"><option value="si">Sí</option><option value="no">No</option><option value="tramite">En trámite</option></select>
+      <button class="x" onclick="close_('ov-ficha')" aria-label="Cerrar">×</button>
+    </div>
+    <div class="modal-body" id="fi-body">
+      <div class="fi-step" data-step="1">
+        <div class="field"><label for="fi-local">Nombre del local</label><input id="fi-local" placeholder="Bar Estación"></div>
+        <div class="two">
+          <div class="field"><label for="fi-cap">Capacidad (personas)</label><input id="fi-cap" type="number" inputmode="numeric" min="0" placeholder="80"></div>
+          <div class="field"><label for="fi-edad">Edad mínima de ingreso</label><input id="fi-edad" type="number" inputmode="numeric" min="0" placeholder="18"><div class="hint">Pon 0 si entran todas las edades.</div></div>
         </div>
-        <div class="field"><label>Aislamiento acústico</label>
-          <select id="fi-acustico"><option value="si">Sí — sin ruidos molestos</option><option value="parcial">Parcial</option><option value="no">No — riesgo multa</option></select>
+      </div>
+      <div class="fi-step" data-step="2" hidden>
+        <div class="q-lbl">Equipos del local y su estado real<small>Si algo falla o no está, márcalo: es lo que ven las bandas para decidir qué llevar.</small></div>
+        <div class="field" style="margin-bottom:8px"><div id="fi-gear-list"></div>
+          <button type="button" class="btn btn-ghost btn-sm" onclick="gearAdd()" style="margin-top:4px">+ Agregar equipo</button></div>
+        <div class="field"><label for="fi-traer">Además, la banda debe traer</label><input id="fi-traer" placeholder="Ej: cables, pedalera"></div>
+      </div>
+      <div class="fi-step" data-step="3" hidden>
+        <div class="field"><div class="q-lbl">¿Hay prueba de sonido?</div><input type="hidden" id="fi-prueba">
+          <div class="opts" id="fi-prueba-op">
+            <button type="button" class="opt" data-v="si" onclick="fiPrueba('si')">Sí, hay prueba</button>
+            <button type="button" class="opt" data-v="no" onclick="fiPrueba('no')">No hay prueba</button>
+          </div>
         </div>
+        <div class="two">
+          <div class="field" id="fi-prueba-hora-f"><label for="fi-prueba-hora">Hora de la prueba</label><input id="fi-prueba-hora" type="time"></div>
+          <div class="field" id="fi-prueba-dur-f"><label for="fi-prueba-dur">Duración (minutos)</label><input id="fi-prueba-dur" type="number" inputmode="numeric" min="0" placeholder="30"></div>
+        </div>
+      </div>
+      <div class="fi-step" data-step="4" hidden>
+        <div id="fi-rev"></div>
+        <details class="det" id="fi-det">
+          <summary>Más datos del local (opcional)</summary>
+          <div class="field"><label for="fi-consola">Consola de sonido</label><input id="fi-consola" placeholder="Ej: Yamaha MG16, 16 canales"></div>
+          <div class="field"><label for="fi-mant">Estado general de los equipos</label>
+            <select id="fi-mant"><option value="bueno">Bueno — equipos en buen estado</option><option value="regular">Regular — algunos equipos con desgaste</option><option value="precario">Precario — equipos con fallas conocidas</option></select>
+          </div>
+          <div class="two">
+            <div class="field"><label for="fi-patente">Patente al día</label>
+              <select id="fi-patente"><option value="si">Sí</option><option value="no">No</option><option value="tramite">En trámite</option></select>
+            </div>
+            <div class="field"><label for="fi-acustico">Aislamiento acústico</label>
+              <select id="fi-acustico"><option value="si">Sí — sin ruidos molestos</option><option value="parcial">Parcial</option><option value="no">No — riesgo multa</option></select>
+            </div>
+          </div>
+        </details>
       </div>
     </div>
-    <div class="modal-foot"><button class="btn btn-ghost" onclick="close_('ov-ficha')">Cancelar</button><button class="btn btn-prim" onclick="saveFicha()">Publicar ficha</button></div>
+    <div class="modal-foot wiz-foot">
+      <div class="wiz-status" id="fi-status"></div>
+      <div class="wiz-btns">
+        <button type="button" class="btn btn-ghost" id="fi-atras" onclick="fiAtras()" aria-label="Volver al paso anterior">←<span class="atr-t"> Atrás</span></button>
+        <button type="button" class="btn btn-prim" id="fi-sig" onclick="fiSig()">Siguiente →</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -913,7 +959,9 @@ function daysAgo(d){const x=new Date();x.setDate(x.getDate()-d);return x.toISOSt
 function nextDate(d){const x=new Date();x.setDate(x.getDate()+d);return x.toISOString().slice(0,10)}
 
 // Modo validación: solo con ?test=1. Usa datos de ejemplo en memoria y nunca escribe sobre 'errebe:db'.
-const TEST_MODE=/[?&]test=1(&|$)/.test(location.search);
+const TEST_MODE=/[?&]test=(1|local)(&|$)/.test(location.search);
+// Test para locales (?test=local): tareas propias del local, guardado automático y archivo de resultados
+const VT_LOCAL=/[?&]test=local(&|$)/.test(location.search);
 async function persist(){if(TEST_MODE)return;try{if(window.storage){await window.storage.set('errebe:db',JSON.stringify(DB))}}catch(e){}}
 async function load(){
   if(TEST_MODE){DB=buildTestDB();}
@@ -1237,34 +1285,41 @@ function menoresTxt(f){
   if(+f.edad>=18)return 'No admite menores (+'+f.edad+')';
   return 'Admite desde los '+f.edad+' años';
 }
+// Tarjeta de la ficha en 4 bloques numerados: lo que decide (qué llevar, prueba de sonido) a la vista; el detalle, plegado
 function fichaCard(f,owner){
   const d=diffDays(f.updated)*-1, stale=d>30;
   const mantChip=f.mant==='bueno'?'chip-ok':f.mant==='regular'?'chip-warn':'chip-red';
   const mantLbl=f.mant==='bueno'?'Equipos en buen estado':f.mant==='regular'?'Estado regular':'Equipos con fallas';
   const patChip=f.patente==='si'?'chip-ok':f.patente==='tramite'?'chip-warn':'chip-red';
   const acuChip=f.acustico==='si'?'chip-ok':f.acustico==='parcial'?'chip-warn':'chip-red';
-  const llevar=llevarDe(f);
+  const llevar=llevarDe(f), gear=f.gear||[], malos=gear.filter(g=>g.st!=='ok').length;
   const pChip=f.prueba==='si'?'':' style="color:var(--warn)"';
+  const h=(n,t)=>`<span class="n">${n}</span>${t}`;
   return `<div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px">
       <b style="font-size:16px">${esc(f.local)}</b>
       ${owner?`<button class="btn btn-ghost btn-sm" onclick="openFicha()">Editar</button>`:`<span class="pill-role">Publicada por el local</span>`}
     </div>
     <div class="fresh ${stale?'stale':''}"><span class="pulse"></span>${stale?'Desactualizada · hace '+d+' días':(d===0?'Actualizada hoy':'Actualizada hace '+d+' días')}</div>
-    <div class="facts">
-      <div class="fact"><small>Prueba de sonido</small><span${pChip}>${pruebaTxt(f)}</span></div>
-      <div class="fact"><small>Menores de edad</small>${menoresTxt(f)}</div>
-      ${f.cap?`<div class="fact"><small>Capacidad</small>${f.cap} personas</div>`:''}
-      ${f.consola?`<div class="fact"><small>Consola</small>${esc(f.consola)}</div>`:''}
-    </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
-      <span class="chip ${mantChip}">${mantLbl}</span>
-      ${f.patente?`<span class="chip ${patChip}">Patente: ${f.patente==='si'?'al día':f.patente==='tramite'?'en trámite':'sin patente'}</span>`:''}
-      ${f.acustico?`<span class="chip ${acuChip}">Acústica: ${f.acustico==='si'?'óptima':f.acustico==='parcial'?'parcial':'sin aislamiento'}</span>`:''}
-    </div>
-    <div class="sectitle" style="margin:16px 0 4px">Equipos del local</div>
-    <div>${(f.gear||[]).map(g=>{const st=GEAR_ST[g.st]||GEAR_ST.ok;return `<div class="gear-row"><span>${esc(g.n)}</span><span class="chip ${st[1]}">${st[0]}</span></div>`}).join('')||'<div style="font-size:13px;color:var(--gris);padding:10px 0">El local no ha listado equipos.</div>'}</div>
-    ${llevar.length?`<div class="llevar">🎒 <b>La banda debe llevar:</b> ${llevar.map(esc).join(' · ')}</div>`:`<div class="llevar ok">✓ <b>El local cubre todo lo listado.</b></div>`}
+    <div class="fsec"><div class="fsec-h">${h(1,owner?'Lo que las bandas deben llevar':'Qué debe llevar tu banda')}</div>
+      ${llevar.length?`<div class="llevar" style="margin-top:0">🎒 <b>La banda debe llevar:</b> ${llevar.map(esc).join(' · ')}</div>`:`<div class="llevar ok" style="margin-top:0">✓ <b>El local cubre todo lo listado.</b></div>`}</div>
+    <div class="fsec"><div class="fsec-h">${h(2,'Prueba de sonido y edad')}</div>
+      <div class="facts" style="margin-top:0">
+        <div class="fact"><small>Prueba de sonido</small><span${pChip}>${pruebaTxt(f)}</span></div>
+        <div class="fact"><small>Menores de edad</small>${menoresTxt(f)}</div>
+      </div></div>
+    <details class="fsec fdet"><summary class="fsec-h">${h(3,'Equipos del local ('+gear.length+')')}<span class="fsec-sub">${gear.length?(malos?malos+' con desgaste, falla o que no hay':'todos en buen estado'):'sin equipos'} · ver</span></summary>
+      <div>${gear.map(g=>{const st=GEAR_ST[g.st]||GEAR_ST.ok;return `<div class="gear-row"><span>${esc(g.n)}</span><span class="chip ${st[1]}">${st[0]}</span></div>`}).join('')||'<div style="font-size:13px;color:var(--gris);padding:10px 0">El local no ha listado equipos.</div>'}</div></details>
+    <details class="fsec fdet"><summary class="fsec-h">${h(4,'Más datos del local')}<span class="fsec-sub">capacidad, consola, permisos · ver</span></summary>
+      <div class="facts" style="margin-top:4px">
+        ${f.cap?`<div class="fact"><small>Capacidad</small>${f.cap} personas</div>`:''}
+        ${f.consola?`<div class="fact"><small>Consola</small>${esc(f.consola)}</div>`:''}
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+        <span class="chip ${mantChip}">${mantLbl}</span>
+        ${f.patente?`<span class="chip ${patChip}">Patente: ${f.patente==='si'?'al día':f.patente==='tramite'?'en trámite':'sin patente'}</span>`:''}
+        ${f.acustico?`<span class="chip ${acuChip}">Acústica: ${f.acustico==='si'?'óptima':f.acustico==='parcial'?'parcial':'sin aislamiento'}</span>`:''}
+      </div></details>
     ${owner?`<div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-ghost btn-sm" onclick="refreshFicha(${f.id})">Marcar como vigente hoy</button></div>`:`<div style="margin-top:14px"><button class="btn btn-ghost btn-sm" onclick="openAcuerdo(null,'${esc(f.local).replace(/'/g,"\\'")}')">Cerrar una fecha con este local</button></div>`}
   </div>`;
 }
@@ -1297,7 +1352,7 @@ function renderAgenda(){
   if(sub)sub.textContent=loc?'Las fechas agendadas en tu local, con hora de prueba de sonido y de show.':'Tus fechas con hora de prueba de sonido, de show y lo que falta preparar.';
   if(cta)cta.innerHTML=loc?'':'<button class="btn btn-ghost" onclick="openEvento()">Agregar una fecha</button>';
   const ev=DB.eventos.filter(e=>!loc||e.local===DB.miLocal).sort((a,b)=>a.fecha.localeCompare(b.fecha));
-  el.innerHTML=`<div class="lc-head"><h3>${ev.length} fechas</h3></div>`+
+  el.innerHTML=`<div class="lc-head"><h3>${ev.length} fecha${ev.length===1?'':'s'}</h3></div>`+
    (ev.map(e=>{const f=fmtDay(e.fecha);
     const est=e.estado==='confirmado'?'<span class="chip chip-ok">Confirmada</span>':'<span class="chip chip-warn">Por confirmar</span>';
     const ac=!loc&&e.local&&diffDays(e.fecha)>=0?acuerdoDe(e.local):null;
@@ -1468,8 +1523,13 @@ function acRevisar(){
     </div>`+
     (recibe!==null?`<div class="monto">La banda recibe<b>${fmtMoney(recibe)}</b>si llegan justo ${q} personas a ${fmtMoney(p)} (${r} % de ${fmtMoney(+q*p)}).</div>`:'');
 }
+/* Ficha técnica por pasos: 1 datos del local · 2 equipos y su estado · 3 prueba de sonido · 4 revisar y publicar.
+   Una ficha que ya existe se abre en el resumen; desde ahí "Cambiar" lleva a cada paso. */
+let fiStep=1, fiExiste=false;
+const FI_TITULOS=['Datos del local','Equipos y su estado','Prueba de sonido','Revisa y publica'];
 function openFicha(){
   const f=fichaDe(DB.miLocal);
+  fiExiste=!!f;
   document.getElementById('fi-local').value=f?f.local:DB.miLocal;
   gearRender(f?f.gear:[{n:'',st:'ok'}]);
   document.getElementById('fi-prueba').value=f&&f.prueba==='no'?'no':'si';
@@ -1483,8 +1543,46 @@ function openFicha(){
   document.getElementById('fi-edad').value=f&&hasNum(f.edad)?f.edad:18;
   document.getElementById('fi-patente').value=f?f.patente||'si':'si';
   document.getElementById('fi-acustico').value=f?f.acustico||'si':'si';
-  document.getElementById('fi-title').textContent=f?'Editar mi ficha técnica':'Publicar mi ficha técnica';
+  const det=document.getElementById('fi-det');if(det)det.open=false;
   document.getElementById('ov-ficha').classList.add('show');
+  vtMarca('ficha-editar');
+  fiIr(f?4:1);
+}
+function fiIr(n){
+  fiStep=n;
+  document.querySelectorAll('#ov-ficha .fi-step').forEach(st=>{st.hidden=(+st.dataset.step!==n)});
+  document.getElementById('fi-kick').textContent=(fiExiste?'Editar mi ficha':'Publicar mi ficha')+' · Paso '+n+' de 4';
+  document.getElementById('fi-title').textContent=FI_TITULOS[n-1];
+  document.querySelectorAll('#fi-bar button').forEach((b,i)=>{b.className=i+1===n?'now':(i+1<n||fiExiste?'done':'');if(i+1===n)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current')});
+  if(n===4)fiRevisar();
+  const sig=document.getElementById('fi-sig'),atr=document.getElementById('fi-atras');
+  if(sig)sig.textContent=n===4?'Publicar ficha':(fiExiste?'Ver resumen →':'Siguiente →');
+  if(atr)atr.hidden=n===1;
+  const gear=gearRead(), malos=gear.filter(g=>g.st==='falla'||g.st==='no').length;
+  const stt=document.getElementById('fi-status');
+  if(stt)stt.textContent=gear.length?gear.length+' equipos · '+(malos?malos+' con falla o que no hay':'todos funcionan'):'Aún no agregas equipos';
+  const body=document.getElementById('fi-body');if(body)body.scrollTop=0;
+  if(VT.activa&&VT.pasos)VT.pasos.push('f'+n);
+}
+function fiSig(){
+  if(fiStep===1&&!val('fi-local')){toast('Falta el nombre del local');document.getElementById('fi-local').focus();return}
+  if(fiStep===4){saveFicha();return}
+  fiIr(fiExiste?4:fiStep+1);
+}
+function fiAtras(){if(fiStep>1)fiIr(fiStep-1)}
+function fiPrueba(v){document.getElementById('fi-prueba').value=v;fiPruebaToggle()}
+// Paso 4: lo que verán las bandas, con "Cambiar" para volver a cada paso
+function fiRevisar(){
+  const rv=document.getElementById('fi-rev');if(!rv)return;
+  const gear=gearRead(), traer=val('fi-traer'), edad=val('fi-edad'), pr=val('fi-prueba');
+  const f={gear,traer,edad:edad===''?18:+edad,prueba:pr,prueba_hora:val('fi-prueba-hora'),prueba_dur:+val('fi-prueba-dur')||0};
+  const llevar=llevarDe(f), malos=gear.filter(g=>g.st!=='ok');
+  rv.innerHTML=`<div class="rev">
+      <div class="rev-row"><div><span class="k">Local</span><span class="v">${esc(val('fi-local'))||'<span class="falta">Falta el nombre</span>'}${val('fi-cap')?' · '+esc(val('fi-cap'))+' personas':''} · ${menoresTxt(f)}</span></div><button type="button" class="lnk" onclick="fiIr(1)">Cambiar</button></div>
+      <div class="rev-row"><div><span class="k">Equipos (${gear.length})</span><span class="v">${malos.length?malos.map(g=>esc(g.n)+': '+GEAR_ST[g.st][0].toLowerCase()).join(' · '):(gear.length?'Todos en buen estado':'<span class="falta">Sin equipos</span>')}</span></div><button type="button" class="lnk" onclick="fiIr(2)">Cambiar</button></div>
+      <div class="rev-row"><div><span class="k">Prueba de sonido</span><span class="v">${pruebaTxt(f)}</span></div><button type="button" class="lnk" onclick="fiIr(3)">Cambiar</button></div>
+    </div>
+    ${llevar.length?`<div class="llevar" style="margin:0 0 12px">🎒 <b>Las bandas verán que deben llevar:</b> ${llevar.map(esc).join(' · ')}</div>`:'<div class="llevar ok" style="margin:0 0 12px">✓ <b>Las bandas verán que el local cubre todo lo listado.</b></div>'}`;
 }
 function openEvento(){
   const sel=document.getElementById('ev-localsel');
@@ -1541,7 +1639,7 @@ function saveFicha(){
 }
 /* editor de equipos de la ficha (una fila por equipo con su estado) */
 function gearRowHTML(g){
-  return `<div class="gear-ed"><input placeholder="Ej: Amplificador de bajo" value="${esc(g.n)}"><select>${Object.keys(GEAR_ST).map(k=>`<option value="${k}"${g.st===k?' selected':''}>${GEAR_ST[k][0]}</option>`).join('')}</select><button type="button" class="gx" onclick="this.parentNode.remove()" aria-label="Quitar">×</button></div>`;
+  return `<div class="gear-ed"><input placeholder="Ej: Amplificador de bajo" value="${esc(g.n)}" aria-label="Equipo"><select aria-label="Estado del equipo">${Object.keys(GEAR_ST).map(k=>`<option value="${k}"${g.st===k?' selected':''}>${GEAR_ST[k][0]}</option>`).join('')}</select><button type="button" class="gx" onclick="this.parentNode.remove()" aria-label="Quitar">×</button></div>`;
 }
 function gearRender(list){const el=document.getElementById('fi-gear-list');if(!el)return;el.innerHTML=(list.length?list:[{n:'',st:'ok'}]).map(gearRowHTML).join('')}
 function gearAdd(){const el=document.getElementById('fi-gear-list');if(!el)return;el.insertAdjacentHTML('beforeend',gearRowHTML({n:'',st:'ok'}));const ins=el.querySelectorAll('input');ins[ins.length-1].focus()}
@@ -1550,6 +1648,7 @@ function gearRead(){
 }
 function fiPruebaToggle(){
   const si=document.getElementById('fi-prueba').value==='si';
+  document.querySelectorAll('#fi-prueba-op .opt').forEach(o=>o.classList.toggle('on',o.dataset.v===(si?'si':'no')));
   ['fi-prueba-hora-f','fi-prueba-dur-f'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=si?'':'none'});
 }
 function openTarea(){document.getElementById('ov-tarea').classList.add('show')}
@@ -2212,6 +2311,82 @@ const VT_LIKERT=[
   ['utilidad','¿Qué tan útil sería esto para cerrar tus fechas reales?','Nada útil','Muy útil'],
   ['usaria','¿Qué tan probable es que la uses en tu próxima fecha?','Nada probable','Muy probable']
 ];
+/* ----- Test para locales (?test=local) -----
+   Mismo motor que el de músicos, con su propio escenario: el local es La Bodega Sonora y la banda que
+   escribe la persona aparece en el acuerdo y en la fecha. Se guarda solo en el dispositivo (sin planilla)
+   y al final se descarga un archivo para mandarlo al equipo. */
+function vtLocalDB(banda){
+  const L=VT_ESCENARIO.local, db=buildTestDB();
+  const f=db.fichas.find(x=>x.local===L);
+  f.gear.forEach(g=>{if(/bajo/i.test(g.n))g.st='ok'});
+  f.updated=daysAgo(20);
+  db.acuerdos.push({id:3,banda:banda,local:L,reparto:60,cuota:30,metodo:'Transferencia',plazo:'48 horas',seguro:0,precio_ent:5000,carga:'19:00',sonidista:'',cond:'',estado:'enviado',
+    historial:[{e:'enviado',f:new Date(Date.now()-864e5).toISOString()}]});
+  const ev=db.eventos.find(e=>e.local===L);if(ev){ev.banda=banda;ev.nombre='Tocata de '+banda;}
+  return db;
+}
+function vtAcuerdoLocal(){return DB.acuerdos.find(a=>a.id===3)}
+function vtFichaLocal(){return fichaDe(VT_ESCENARIO.local)}
+function vtFechaLocal(){return DB.eventos.find(e=>e.local===VT_ESCENARIO.local&&VT.res&&e.banda===VT.res.banda)}
+const VT_TAREAS_LOCAL=[
+  {id:'local_revisar_acuerdo',req:'R1',titulo:'Revisar el acuerdo de una banda',
+   texto:'{banda} te envió un acuerdo para tocar en tu local. Tu local pide una asistencia mínima de 40 personas, no 30. Revisa el acuerdo y, si algo no calza, déjale una observación a la banda.',
+   escenario:[['Banda','{banda}'],['Asistencia mínima que pide tu local','40 personas']],
+   evaluar:function(){
+     const a=vtAcuerdoLocal();if(!a)return {ok:false,resp:'sin acuerdo'};
+     return {ok:a.estado==='observado'&&/40/.test(a.observacion||''),resp:'estado='+a.estado+(a.observacion?'; observacion='+a.observacion:'')};
+   },
+   esperado:'Acuerdo observado pidiendo 40 personas'},
+  {id:'local_marcar_falla',req:'R2',titulo:'Marcar un equipo con falla',
+   texto:'El amplificador de bajo de tu local se echó a perder. Márcalo en tu ficha técnica y publícala, para que las bandas sepan que deben traer el suyo.',
+   escenario:[['Equipo','Amplificador de bajo'],['Estado nuevo','Con falla, no se puede usar']],
+   evaluar:function(){
+     const f=vtFichaLocal(),g=f&&f.gear.find(x=>/bajo/i.test(x.n));
+     return {ok:!!g&&(g.st==='falla'||g.st==='no'),resp:g?'amplificador de bajo='+g.st:'sin amplificador de bajo'};
+   },
+   esperado:'Amplificador de bajo: Con falla · no usar (o No hay), ficha publicada'},
+  {id:'local_prueba_sonido',req:'R3',titulo:'Cambiar la prueba de sonido',
+   texto:'Desde ahora la prueba de sonido de tu local es a las 18:30 y dura 45 minutos. Actualízalo en tu ficha técnica y publícala.',
+   escenario:[['Hora de la prueba','18:30'],['Duración','45 minutos']],
+   evaluar:function(){
+     const f=vtFichaLocal();if(!f)return {ok:false,resp:'sin ficha'};
+     return {ok:f.prueba==='si'&&f.prueba_hora==='18:30'&&+f.prueba_dur===45,resp:'prueba='+f.prueba+'; hora='+(f.prueba_hora||'')+'; duracion='+(f.prueba_dur||'')};
+   },
+   esperado:'Prueba sí, 18:30, 45 min'},
+  {id:'local_encontrar_fecha',req:'R4',titulo:'Encontrar una fecha',
+   texto:'¿Qué día toca {banda} en tu local y a qué hora empieza el show?',
+   pregunta:{tipo:'fecha'},esperado:null}
+];
+const VT_LIKERT_LOCAL=[
+  ['claridad','¿Qué tan claro fue encontrar lo que se te pedía?','Nada claro','Muy claro'],
+  ['utilidad','¿Qué tan útil sería esto para coordinar las fechas de tu local?','Nada útil','Muy útil'],
+  ['usaria','¿Qué tan probable es que la uses con la próxima banda que toque en tu local?','Nada probable','Muy probable']
+];
+function vtTareas(){return VT_LOCAL?VT_TAREAS_LOCAL:VT_TAREAS}
+function vtTx(t){return String(t).replace(/\{banda\}/g,esc((VT.res&&VT.res.banda)||'la banda'))}
+const VT_KEY=VT_LOCAL?'errebe:test:local:sesiones':'errebe:test:sesiones';
+const VT_ACTUAL='errebe:test:local:actual';
+// Guardado automático del test de locales: la sesión (también parcial) y el estado para seguir donde quedó
+function vtAutoguardar(){
+  if(!VT_LOCAL||!VT.res)return;
+  if(VT.paso==='tarea'&&!VT.min)vtGuardarBorrador();
+  const c=document.getElementById('vt-com');if(c&&VT.paso==='likert')VT.res.comentario=c.value;
+  vtGuardarLocal(VT.res);
+  lsSet(VT_ACTUAL,VT.paso==='fin'?'':JSON.stringify({res:VT.res,i:VT.i,paso:VT.paso,draft:VT.draft||{},transcurrido:VT.activa?Date.now()-VT.t0:0,
+    clics:VT.clics,primera:VT.primera,pasos:VT.pasos,db:DB,ts:Date.now()}));
+  const el=document.getElementById('vt-guardado');
+  if(el){const d=new Date();el.textContent='✓ Guardado automático · '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)+':'+('0'+d.getSeconds()).slice(-2);}
+}
+function vtPendiente(){try{const a=JSON.parse(lsGet(VT_ACTUAL,'')||'null');return a&&a.res&&!a.res.fin?a:null}catch(e){return null}}
+function vtReanudar(){
+  const a=vtPendiente();if(!a){toast('No hay un test sin terminar');return}
+  DB=a.db;VT.res=a.res;VT.i=a.i;VT.draft=a.draft||{};
+  enter('local');
+  if(a.paso==='tarea'){VT.paso='tarea';VT.min=true;VT.t0=Date.now()-(a.transcurrido||0);VT.clics=a.clics||0;VT.primera=a.primera||'';VT.pasos=a.pasos||[];VT.borradores=0;VT.activa=true;}
+  else VT.paso=a.paso;
+  vtRender();toast('Seguimos donde quedaste ✓');
+}
+function vtSlug(t){return String(t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,30)||'sin-nombre'}
 let VT={paso:'intro',i:0,activa:false,t0:0,clics:0,res:null,min:false,primera:'',pasos:[],borradores:0};
 // Orientación: primera sección (o ventana) que abre la persona después de comenzar cada tarea
 function vtMarca(sec){if(VT.activa&&!VT.primera)VT.primera=sec}
@@ -2222,14 +2397,14 @@ const VT_ENDPOINT=''; // URL /exec de la aplicación web de Apps Script. Tambié
 function lsGet(k,d){try{const v=localStorage.getItem(k);return v===null?d:v}catch(e){return d}}
 function lsSet(k,v){try{localStorage.setItem(k,v);return true}catch(e){return false}}
 function vtEndpoint(){return lsGet('errebe:test:endpoint','')||VT_ENDPOINT}
-function vtSesiones(){try{return JSON.parse(lsGet('errebe:test:sesiones','[]'))}catch(e){return []}}
+function vtSesiones(){try{return JSON.parse(lsGet(VT_KEY,'[]'))}catch(e){return []}}
 function vtIdDe(r){return r.id||(r.participante+'-'+r.inicio)}
 function vtGuardarLocal(r){
   r.id=vtIdDe(r);
   const s=vtSesiones().filter(x=>vtIdDe(x)!==r.id);s.push(r);
-  if(!lsSet('errebe:test:sesiones',JSON.stringify(s)))r.sinLocal=true;
+  if(!lsSet(VT_KEY,JSON.stringify(s)))r.sinLocal=true;
 }
-function vtGuardarSesion(r){vtGuardarLocal(r);vtEnviar(r);}
+function vtGuardarSesion(r){if(VT_LOCAL){vtAutoguardar();return}vtGuardarLocal(r);vtEnviar(r);}
 function vtEnviar(r,aviso){
   const url=vtEndpoint();
   if(!url){r.envio='sin-planilla';vtGuardarLocal(r);if(aviso)toast('Falta configurar la planilla del equipo');return Promise.resolve(false)}
@@ -2249,14 +2424,21 @@ const VT_ENVIO_TXT={'ok':'✓ En la planilla','ok-sin-confirmar':'✓ Enviada','
 function vtEnvioTxt(r){return VT_ENVIO_TXT[r.envio]||'⚠ Solo en este dispositivo'}
 function vtSiguienteCodigo(){
   const n=vtSesiones().reduce((m,s)=>{const k=parseInt(String(s.participante||'').replace(/\D/g,''),10);return isNaN(k)?m:Math.max(m,k)},0)+1;
-  return 'P'+(n<10?'0'+n:n);
+  return (VT_LOCAL?'L':'P')+(n<10?'0'+n:n);
 }
 function vtInit(){
   const p=document.getElementById('vt-panel');if(!p)return;
   p.hidden=false;
-  const m=/[?&]hoja=([^&]+)/.exec(location.search);
-  if(m){try{lsSet('errebe:test:endpoint',decodeURIComponent(m[1]))}catch(e){}}
-  vtReintentarPendientes();
+  if(VT_LOCAL){
+    setInterval(vtAutoguardar,4000);
+    window.addEventListener('pagehide',vtAutoguardar);
+    document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')vtAutoguardar()});
+    document.addEventListener('change',()=>setTimeout(vtAutoguardar,0),true);
+  } else {
+    const m=/[?&]hoja=([^&]+)/.exec(location.search);
+    if(m){try{lsSet('errebe:test:endpoint',decodeURIComponent(m[1]))}catch(e){}}
+    vtReintentarPendientes();
+  }
   document.addEventListener('click',function(e){
     if(!VT.activa)return;
     if(p.contains(e.target))return;
@@ -2274,7 +2456,22 @@ function vtRender(){
   const full=VT.paso!=='tarea';
   p.className='vt-panel'+(full?' full':'')+(!full&&VT.min?' min':'');
   vtBackdrop(full);
-  const N=VT_TAREAS.length;
+  const N=vtTareas().length;
+  const auto=VT_LOCAL?'<div class="vt-auto" id="vt-guardado">✓ Tu avance se guarda solo</div>':'';
+  if(VT.paso==='intro'&&VT_LOCAL){
+    const pend=vtPendiente(), u=(()=>{try{return JSON.parse(lsGet('errebe:test:local:ultimo','{}'))}catch(e){return {}}})();
+    p.innerHTML=`<div class="vt-kick">Test para locales · ErreBe</div>
+      <h3>Antes de empezar</h3>
+      <p>Vas a hacer ${N} tareas cortas como si atendieras tu local en ErreBe. Evaluamos la app, no a ti: si algo no se entiende, es información útil para nosotros.</p>
+      <p><b style="color:var(--texto)">Tu avance se guarda solo</b> en este dispositivo. Si se cierra la página, vuelve a abrir este mismo link y sigue donde quedaste.</p>
+      ${pend?`<div class="alert amber" style="margin-bottom:10px">⏸ <div><b>Tienes un test sin terminar</b> · ${esc(pend.res.nombre)} · ${esc(pend.res.local_nombre)} · banda ${esc(pend.res.banda)} · ${pend.res.tareas.length} de ${N} tareas.<div class="vt-row"><button class="btn btn-prim" onclick="vtReanudar()">Seguir donde quedé</button></div></div></div>`:''}
+      <div class="field"><label for="vt-nom">Tu nombre</label><input id="vt-nom" value="${esc(u.nombre||'')}" autocomplete="name"></div>
+      <div class="field"><label for="vt-loc">Nombre de tu local</label><input id="vt-loc" value="${esc(u.local||'')}" autocomplete="organization"></div>
+      <div class="field"><label for="vt-ban">Nombre de una banda</label><input id="vt-ban" autocomplete="off"><div class="hint">Una banda que haya tocado en tu local. Aparecerá en el acuerdo y en la fecha de prueba.</div></div>
+      <div class="vt-row"><button class="btn ${pend?'btn-ghost':'btn-prim'}" onclick="vtEmpezar()">${pend?'Empezar un test nuevo':'Empezar'}</button></div>
+      <div id="vt-lista">${vtListaSesiones()}</div>`;
+    return;
+  }
   if(VT.paso==='intro'){
     p.innerHTML=`<div class="vt-kick">Modo validación · Hito 2</div>
       <h3>Antes de empezar</h3>
@@ -2293,35 +2490,46 @@ function vtRender(){
     return;
   }
   if(VT.paso==='previa'){
-    const t=VT_TAREAS[VT.i];
-    p.innerHTML=`<div class="vt-kick">Tarea ${VT.i+1} de ${N} · ${VT.res.participante}</div>
+    const t=vtTareas()[VT.i];
+    p.innerHTML=`<div class="vt-kick">Tarea ${VT.i+1} de ${N} · ${VT_LOCAL?esc(VT.res.nombre):VT.res.participante}</div>
       <h3>${t.titulo}</h3>
-      <div class="vt-task">${t.texto}</div>${vtEscenario(t)}
+      <div class="vt-task">${vtTx(t.texto)}</div>${vtEscenario(t)}
       <p>Cuando toques “Comenzar”, empieza a correr el tiempo. Puedes volver a ver esta instrucción con el botón flotante.</p>
-      <div class="vt-row"><button class="btn btn-prim" onclick="vtComenzarTarea()">Comenzar tarea ${VT.i+1}</button></div>`;
+      <div class="vt-row"><button class="btn btn-prim" onclick="vtComenzarTarea()">Comenzar tarea ${VT.i+1}</button></div>${auto}`;
     setTimeout(()=>{const b=p.querySelector('.btn-prim');if(b)b.focus()},50);
     return;
   }
   if(VT.paso==='tarea'){
-    const t=VT_TAREAS[VT.i];
+    const t=vtTareas()[VT.i];
     if(VT.min){
       p.innerHTML=`<div onclick="vtToggle()" style="font-weight:800;font-size:13px;display:flex;gap:6px;align-items:center">📋 <span class="vt-long">Tarea</span> ${VT.i+1}/${N}<span class="vt-long"> · ver instrucción ▴</span></div>`;
       return;
     }
     p.innerHTML=`<div class="vt-kick">Tarea ${VT.i+1} de ${N}<button onclick="vtToggle()">Ocultar ▾</button></div>
-      <div class="vt-task">${t.texto}</div>${vtEscenario(t)}${vtPregunta(t)}
-      <div class="vt-row"><button class="btn btn-prim" onclick="vtTerminar(true)">${t.pregunta?'Responder':'Listo, terminé'}</button><button class="btn btn-ghost" onclick="vtTerminar(false)">No pude</button></div>`;
+      <div class="vt-task">${vtTx(t.texto)}</div>${vtEscenario(t)}${vtPregunta(t)}
+      <div class="vt-row"><button class="btn btn-prim" onclick="vtTerminar(true)">${t.pregunta?'Responder':'Listo, terminé'}</button><button class="btn btn-ghost" onclick="vtTerminar(false)">No pude</button></div>${auto}`;
     return;
   }
   if(VT.paso==='likert'){
     const L=VT.res.likert;
-    p.innerHTML=`<div class="vt-kick">Últimas preguntas · ${VT.res.participante}</div>
+    p.innerHTML=`<div class="vt-kick">Últimas preguntas · ${VT_LOCAL?esc(VT.res.nombre):VT.res.participante}</div>
       <h3>¿Cómo te fue?</h3>
-      ${VT_LIKERT.map(q=>`<div style="font-weight:700;margin-bottom:6px">${q[1]}</div>
+      ${(VT_LOCAL?VT_LIKERT_LOCAL:VT_LIKERT).map(q=>`<div style="font-weight:700;margin-bottom:6px">${q[1]}</div>
         <div class="likert">${[1,2,3,4,5].map(v=>`<button class="${L[q[0]]===v?'on':''}" onclick="vtLikert('${q[0]}',${v})">${v}</button>`).join('')}</div>
         <div class="likert-ends"><span>1 · ${q[2]}</span><span>5 · ${q[3]}</span></div>`).join('')}
-      <div class="field"><label>¿Qué fue lo más difícil o qué te faltó para usarla en una fecha real?</label><textarea id="vt-com" placeholder="Escribe con tus palabras. Sin nombres de personas.">${esc(VT.res.comentario||'')}</textarea></div>
-      <div class="vt-row"><button class="btn btn-prim" onclick="vtCerrar()">Guardar respuestas</button></div>`;
+      <div class="field"><label>${VT_LOCAL?'¿Qué fue lo más difícil o qué te faltó para usarla en tu local?':'¿Qué fue lo más difícil o qué te faltó para usarla en una fecha real?'}</label><textarea id="vt-com" placeholder="Escribe con tus palabras. Sin nombres de personas.">${esc(VT.res.comentario||'')}</textarea></div>
+      <div class="vt-row"><button class="btn btn-prim" onclick="vtCerrar()">Guardar respuestas</button></div>${auto}`;
+    return;
+  }
+  if(VT.paso==='fin'&&VT_LOCAL){
+    const r=VT.res;
+    p.innerHTML=`<div class="vt-kick">Test para locales · ${esc(r.nombre)} · ${esc(r.local_nombre)}</div>
+      <h3>¡Listo, gracias!</h3>
+      <p>Tus respuestas quedaron guardadas en este dispositivo. Falta un último paso:</p>
+      <button class="vt-mandar" onclick="vtMandar()">⬇ Mandar este archivo al equipo de ErreBe<small>Toca aquí: se descarga un archivo. Envíalo por WhatsApp o correo a quien te invitó al test.</small></button>
+      <p style="font-size:12.5px;margin-top:10px">Archivo: <b style="color:var(--texto)">${esc(vtNombre(r,'csv'))}</b></p>
+      <table class="vt-sum">${r.tareas.map(t=>`<tr><td>${t.n}. ${t.titulo}</td><td>${t.completada?'✓':'✗'}</td><td>${t.tiempo_s}s</td></tr>`).join('')}</table>
+      <div class="vt-row"><button class="btn btn-ghost btn-sm" onclick="vtNueva()">Hacer otro test</button></div>`;
     return;
   }
   if(VT.paso==='fin'){
@@ -2337,17 +2545,32 @@ function vtRender(){
 }
 function vtEscenario(t){
   if(!t.escenario)return '';
-  return '<div class="vt-scen">'+t.escenario.map(r=>`<div><span>${r[0]}</span><b>${r[1]}</b></div>`).join('')+'</div>';
+  return '<div class="vt-scen">'+t.escenario.map(r=>`<div><span>${r[0]}</span><b>${vtTx(r[1])}</b></div>`).join('')+'</div>';
 }
 function vtPregunta(t){
   const q=t.pregunta;if(!q)return '';
   const d=VT.draft||{}, m=d.multi||[], dv=k=>esc(d[k]||'');
   if(q.tipo==='multi')return '<div class="vt-opts">'+q.opciones.map(o=>`<label><input type="checkbox" class="vt-op" value="${esc(o)}"${m.indexOf(o)>=0?' checked':''}> ${esc(o)}</label>`).join('')+'</div>';
   if(q.tipo==='prueba')return `<div class="two"><div class="field"><label>¿Tiene prueba?</label><select id="vt-pr"><option value="">Elige…</option><option value="si"${d['vt-pr']==='si'?' selected':''}>Sí</option><option value="no"${d['vt-pr']==='no'?' selected':''}>No</option></select></div><div class="field"><label>Hora</label><input id="vt-hr" type="time" value="${dv('vt-hr')}"></div></div>`;
+  if(q.tipo==='fecha')return `<div class="two"><div class="field"><label for="vt-fe">Día</label><input id="vt-fe" type="date" value="${dv('vt-fe')}"></div><div class="field"><label for="vt-hr">Hora del show</label><input id="vt-hr" type="time" value="${dv('vt-hr')}"></div></div>`;
   if(q.tipo==='monto')return `<div class="field"><label>Monto para la banda (CLP)</label><input id="vt-monto" type="number" inputmode="numeric" placeholder="Ej: 50000" value="${dv('vt-monto')}"></div>`;
   return '';
 }
 function vtEmpezar(){
+  if(VT_LOCAL){
+    const v=id=>(document.getElementById(id).value||'').trim();
+    const nom=v('vt-nom'),loc=v('vt-loc'),ban=v('vt-ban');
+    if(!nom||!loc||!ban){toast('Escribe tu nombre, el de tu local y el de una banda');return}
+    lsSet('errebe:test:local:ultimo',JSON.stringify({nombre:nom,local:loc}));
+    DB=vtLocalDB(ban);DB.acuerdos.forEach(normAcuerdo);DB.fichas.forEach(normFicha);
+    VT.res={rol:'local',participante:vtSiguienteCodigo(),nombre:nom,local_nombre:loc,banda:ban,observador:'',inicio:new Date().toISOString(),fecha:new Date().toISOString().slice(0,10),
+      version:'ErreBe prototipo · Test locales v1',hipotesis:'Los locales revisan el acuerdo de una banda y mantienen su ficha técnica al día sin ayuda',
+      dispositivo:window.innerWidth<=780?'movil':'escritorio',viewport:window.innerWidth+'x'+window.innerHeight,
+      tareas:[],likert:{claridad:null,utilidad:null,usaria:null},comentario:''};
+    VT.i=0;VT.paso='previa';
+    enter('local');vtAutoguardar();vtRender();
+    return;
+  }
   const c=(document.getElementById('vt-cod').value||'').trim().toUpperCase();
   if(!/^P\d{2,3}$/.test(c)){toast('Usa un código tipo P01');return}
   const obs=(document.getElementById('vt-obs').value||'').trim();
@@ -2365,21 +2588,26 @@ function vtComenzarTarea(){
   document.querySelectorAll('.overlay').forEach(o=>o.classList.remove('show'));
   closeHelp();go('inicio');
   VT.paso='tarea';VT.min=true;VT.clics=0;VT.t0=Date.now();VT.activa=true;VT.draft={};VT.primera='';VT.pasos=[];VT.borradores=0;
-  vtRender();
+  vtRender();vtAutoguardar();
 }
 // Guarda lo respondido antes de redibujar el panel (ocultar/mostrar no debe borrar la respuesta)
 function vtGuardarBorrador(){
   const d=VT.draft||{};
   const ops=document.querySelectorAll('.vt-op');if(ops.length)d.multi=Array.prototype.filter.call(ops,x=>x.checked).map(x=>x.value);
-  ['vt-pr','vt-hr','vt-monto'].forEach(id=>{const el=document.getElementById(id);if(el)d[id]=el.value});
+  ['vt-pr','vt-hr','vt-monto','vt-fe'].forEach(id=>{const el=document.getElementById(id);if(el)d[id]=el.value});
   VT.draft=d;
 }
 function vtToggle(){vtGuardarBorrador();VT.min=!VT.min;vtRender()}
 function vtTerminar(intento){
-  const t=VT_TAREAS[VT.i];
+  const t=vtTareas()[VT.i];
   const tiempo=Math.round((Date.now()-VT.t0)/1000);
   let ok=false,resp='',esperado=t.esperado;
-  if(t.id==='registrar_acuerdo'){const r=t.evaluar();ok=intento&&r.ok;resp=r.resp;}
+  if(t.evaluar){const r=t.evaluar();ok=intento&&r.ok;resp=r.resp;}
+  else if(t.pregunta&&t.pregunta.tipo==='fecha'){
+    const ev=vtFechaLocal(),fe=val('vt-fe'),hr=val('vt-hr');
+    resp=(fe||'')+(hr?' '+hr:'');esperado=ev?ev.fecha+' '+ev.show:'';
+    ok=intento&&!!ev&&fe===ev.fecha&&hr===ev.show;
+  }
   else if(t.pregunta&&t.pregunta.tipo==='multi'){
     const sel=Array.prototype.filter.call(document.querySelectorAll('.vt-op'),x=>x.checked).map(x=>x.value);
     resp=sel.join('; ');
@@ -2405,17 +2633,17 @@ function vtTerminar(intento){
   VT.res.tareas.push(Object.assign({n:VT.i+1,id:t.id,req:t.req,titulo:t.titulo,tiempo_s:tiempo,completada:ok,clics:VT.clics,respuesta:resp,esperado:esperado,abandono:!intento},extra));
   vtGuardarSesion(VT.res);
   VT.i++;
-  VT.paso=VT.i<VT_TAREAS.length?'previa':'likert';
-  vtRender();
+  VT.paso=VT.i<vtTareas().length?'previa':'likert';
+  vtRender();vtAutoguardar();
 }
-function vtLikert(k,v){VT.res.likert[k]=v;const c=document.getElementById('vt-com');if(c)VT.res.comentario=c.value;vtRender()}
+function vtLikert(k,v){VT.res.likert[k]=v;const c=document.getElementById('vt-com');if(c)VT.res.comentario=c.value;vtRender();vtAutoguardar()}
 function vtCerrar(){
   const L=VT.res.likert;
   if(!L.claridad||!L.utilidad||!L.usaria){toast('Responde las 3 preguntas de 1 a 5');return}
   VT.res.comentario=(document.getElementById('vt-com').value||'').trim();
   VT.res.fin=new Date().toISOString();
   vtGuardarSesion(VT.res);
-  VT.paso='fin';vtRender();
+  VT.paso='fin';vtRender();vtAutoguardar();
 }
 function csvCell(v){v=v===null||v===undefined?'':String(v);return /[",;\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
 // Las columnas nuevas van al final para no mover las de la ronda 1
@@ -2428,9 +2656,19 @@ function vtFilasObj(r){
     likert_claridad:L.claridad,likert_utilidad:L.utilidad,likert_usaria:L.usaria,comentario:r.comentario||'',
     version:r.version||'',primera_seccion:t.primera_seccion||'',pasos_formulario:t.pasos_formulario===undefined?'':t.pasos_formulario,pasos_secuencia:t.pasos_secuencia||'',guardo_borrador:t.guardo_borrador||''}));
 }
-function vtFilas(r){return vtFilasObj(r).map(f=>VT_COLS.map(c=>csvCell(f[c])).join(','))}
-function vtCsv(lista){return '\ufeff'+VT_COLS.join(',')+'\n'+lista.map(r=>vtFilas(r).join('\n')).filter(Boolean).join('\n')}
-function vtNombre(r,ext){return 'errebe_validacion_'+r.participante+'_'+r.fecha+'.'+ext}
+// El test de locales agrega quién responde y la banda al final de cada fila
+function vtCols(){return VT_LOCAL?VT_COLS.concat(['rol','nombre','local_nombre','banda']):VT_COLS}
+function vtFilas(r){return vtFilasObj(r).map(f=>{f.rol=r.rol||'musico';f.nombre=r.nombre||'';f.local_nombre=r.local_nombre||'';f.banda=r.banda||'';return vtCols().map(c=>csvCell(f[c])).join(',')})}
+function vtCsv(lista){return '\ufeff'+vtCols().join(',')+'\n'+lista.map(r=>vtFilas(r).join('\n')).filter(Boolean).join('\n')}
+function vtNombre(r,ext){
+  if(r.rol==='local')return 'errebe_test_local_'+vtSlug(r.nombre)+'_'+vtSlug(r.banda)+'_'+r.fecha+'.'+ext;
+  return 'errebe_validacion_'+r.participante+'_'+r.fecha+'.'+ext;
+}
+function vtMandar(id){
+  const r=id?vtPorId(id):VT.res;if(!r)return;
+  vtArchivo(vtNombre(r,'csv'),vtCsv([r]),'text/csv;charset=utf-8');
+  toast('Archivo descargado: mándalo al equipo de ErreBe');
+}
 function vtArchivo(nombre,contenido,tipo){
   const blob=new Blob([contenido],{type:tipo});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=nombre;
@@ -2462,9 +2700,13 @@ function vtGuardarUrl(){
 }
 function vtListaSesiones(){
   const s=vtSesiones().slice().reverse();if(!s.length)return '';
+  if(VT_LOCAL)return `<div class="sectitle" style="margin:16px 0 6px">Tests guardados en este dispositivo (${s.length})</div>
+    <table class="vt-sum">${s.map(r=>`<tr><td><b>${esc(r.nombre)}</b> · ${esc(r.local_nombre)}<br><span style="color:var(--gris);font-size:12px">Banda: ${esc(r.banda)} · ${esc(r.fecha)}</span></td>
+      <td style="font-size:12px">${(r.tareas||[]).length}/${VT_TAREAS_LOCAL.length} tareas${r.fin?'':'<br>(sin terminar)'}</td>
+      <td style="text-align:right"><button class="btn btn-ghost btn-sm" onclick="vtMandar('${vtIdDe(r)}')">Descargar</button></td></tr>`).join('')}</table>`;
   return `<div class="sectitle" style="margin:16px 0 6px">Intentos guardados en este dispositivo (${s.length})</div>
     <table class="vt-sum">${s.map(r=>{const id=vtIdDe(r);return `<tr><td><b>${esc(r.participante)}</b> · ${esc(r.fecha)}${r.observador?'<br><span style="color:var(--gris);font-size:12px">'+esc(r.observador)+'</span>':''}</td>
-      <td style="font-size:12px">${(r.tareas||[]).length}/${VT_TAREAS.length} tareas${r.fin?'':' (parcial)'}<br><span style="color:${r.envio==='ok'||r.envio==='ok-sin-confirmar'?'var(--ok)':'var(--warn)'}">${vtEnvioTxt(r)}</span></td>
+      <td style="font-size:12px">${(r.tareas||[]).length}/${vtTareas().length} tareas${r.fin?'':' (parcial)'}<br><span style="color:${r.envio==='ok'||r.envio==='ok-sin-confirmar'?'var(--ok)':'var(--warn)'}">${vtEnvioTxt(r)}</span></td>
       <td style="text-align:right;white-space:nowrap">${r.envio==='ok'||r.envio==='ok-sin-confirmar'?'':`<button class="btn btn-ghost btn-sm" onclick="vtEnviarId('${id}')">Enviar</button> `}<button class="btn btn-ghost btn-sm" onclick="vtCompartir('${id}')">Compartir</button></td></tr>`}).join('')}</table>
     <div class="vt-row"><button class="btn btn-ghost btn-sm" onclick="vtDescargarTodo()">Descargar todos (CSV)</button></div>`;
 }
@@ -2472,7 +2714,7 @@ function vtDescargarTodo(){
   const s=vtSesiones();if(!s.length){toast('Aún no hay sesiones');return}
   vtArchivo('errebe_validacion_todas_'+new Date().toISOString().slice(0,10)+'.csv',vtCsv(s),'text/csv;charset=utf-8');
 }
-function vtNueva(){location.reload()}
+function vtNueva(){if(VT_LOCAL&&VT.res&&VT.res.fin)lsSet(VT_ACTUAL,'');location.reload()}
 
 /* ===== TEMA CLARO / OSCURO ===== */
 function applyTheme(t){

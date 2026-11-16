@@ -156,6 +156,8 @@ def cargar(rutas, args):
 def valida(s, args):
     if not s['tareas']:
         return False
+    if 'locales' in s['version'].lower():  # el test de locales (?test=local) tiene otras tareas: no se mezcla
+        return False
     if not args.incluir_p00 and s['participante'].upper() == 'P00':
         return False
     if args.solo_completas and s['estado'] != 'completa':

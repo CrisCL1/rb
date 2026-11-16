@@ -1,0 +1,187 @@
+{
+  "fecha": "2026-11-16",
+  "antes": "807733b",
+  "comprobaciones": [
+    {
+      "ok": true,
+      "que": "[390] ficha: botón de avanzar/publicar visible en el paso 1"
+    },
+    {
+      "ok": true,
+      "que": "[390] ficha: botón de avanzar/publicar visible en el paso 2"
+    },
+    {
+      "ok": true,
+      "que": "[390] ficha: botón de avanzar/publicar visible en el paso 3"
+    },
+    {
+      "ok": true,
+      "que": "[390] ficha: botón de avanzar/publicar visible en el paso 4"
+    },
+    {
+      "ok": true,
+      "que": "[1440] ficha: botón de avanzar/publicar visible en el paso 1"
+    },
+    {
+      "ok": true,
+      "que": "[1440] ficha: botón de avanzar/publicar visible en el paso 2"
+    },
+    {
+      "ok": true,
+      "que": "[1440] ficha: botón de avanzar/publicar visible en el paso 3"
+    },
+    {
+      "ok": true,
+      "que": "[1440] ficha: botón de avanzar/publicar visible en el paso 4"
+    },
+    {
+      "ok": true,
+      "que": "[390] guardado automático: tras recargar se sigue en la misma tarea con lo hecho",
+      "detalle": {
+        "antes": {
+          "tareas": 2,
+          "clics": 2
+        },
+        "despues": {
+          "tareas": 2,
+          "paso": "tarea",
+          "activa": true,
+          "clics": 2,
+          "falla": "falla",
+          "obs": "observado"
+        }
+      }
+    },
+    {
+      "ok": true,
+      "que": "[390] el archivo lleva el nombre de la persona y de la banda",
+      "detalle": "errebe_test_local_Prueba-Equipo_Banda-de-Prueba_2026-11-16.csv"
+    },
+    {
+      "ok": true,
+      "que": "[390] el archivo tiene las 4 tareas completadas y las columnas de quién responde",
+      "detalle": "sesion_id,fecha,participante,observador,estado,dispositivo,viewport,tarea_n,tarea_id,requerimiento,tarea,tiempo_s,completada,clics,respuesta,esperado,likert_claridad,likert_utilidad,likert_usaria,comentario,version,primera_seccion,pasos_formulario,pasos_secuencia,guardo_borrador,rol,nombre,local_nombre,banda"
+    },
+    {
+      "ok": true,
+      "que": "[390] test de locales: 4 tareas completadas",
+      "detalle": [
+        [
+          "local_revisar_acuerdo",
+          true,
+          "estado=observado; observacion=La asistencia mínima que pedimos es 40 personas, no 30."
+        ],
+        [
+          "local_marcar_falla",
+          true,
+          "amplificador de bajo=falla"
+        ],
+        [
+          "local_prueba_sonido",
+          true,
+          "prueba=si; hora=18:30; duracion=45"
+        ],
+        [
+          "local_encontrar_fecha",
+          true,
+          "2026-11-26 21:30"
+        ]
+      ]
+    },
+    {
+      "ok": true,
+      "que": "[390] versión registrada",
+      "detalle": "ErreBe prototipo · Test locales v1"
+    },
+    {
+      "ok": true,
+      "que": "[390] la sesión queda guardada en el dispositivo, separada de las de músicos",
+      "detalle": {
+        "n": 1,
+        "fin": true,
+        "musicos": null
+      }
+    },
+    {
+      "ok": true,
+      "que": "[390] el test guardado se puede volver a descargar desde el inicio"
+    },
+    {
+      "ok": true,
+      "que": "[1440] guardado automático: tras recargar se sigue en la misma tarea con lo hecho",
+      "detalle": {
+        "antes": {
+          "tareas": 2,
+          "clics": 1
+        },
+        "despues": {
+          "tareas": 2,
+          "paso": "tarea",
+          "activa": true,
+          "clics": 1,
+          "falla": "falla",
+          "obs": "observado"
+        }
+      }
+    },
+    {
+      "ok": true,
+      "que": "[1440] el archivo lleva el nombre de la persona y de la banda",
+      "detalle": "errebe_test_local_Prueba-Equipo_Banda-de-Prueba_2026-11-16.csv"
+    },
+    {
+      "ok": true,
+      "que": "[1440] el archivo tiene las 4 tareas completadas y las columnas de quién responde",
+      "detalle": "sesion_id,fecha,participante,observador,estado,dispositivo,viewport,tarea_n,tarea_id,requerimiento,tarea,tiempo_s,completada,clics,respuesta,esperado,likert_claridad,likert_utilidad,likert_usaria,comentario,version,primera_seccion,pasos_formulario,pasos_secuencia,guardo_borrador,rol,nombre,local_nombre,banda"
+    },
+    {
+      "ok": true,
+      "que": "[1440] test de locales: 4 tareas completadas",
+      "detalle": [
+        [
+          "local_revisar_acuerdo",
+          true,
+          "estado=observado; observacion=La asistencia mínima que pedimos es 40 personas, no 30."
+        ],
+        [
+          "local_marcar_falla",
+          true,
+          "amplificador de bajo=falla"
+        ],
+        [
+          "local_prueba_sonido",
+          true,
+          "prueba=si; hora=18:30; duracion=45"
+        ],
+        [
+          "local_encontrar_fecha",
+          true,
+          "2026-11-26 21:30"
+        ]
+      ]
+    },
+    {
+      "ok": true,
+      "que": "[1440] versión registrada",
+      "detalle": "ErreBe prototipo · Test locales v1"
+    },
+    {
+      "ok": true,
+      "que": "[1440] la sesión queda guardada en el dispositivo, separada de las de músicos",
+      "detalle": {
+        "n": 1,
+        "fin": true,
+        "musicos": null
+      }
+    },
+    {
+      "ok": true,
+      "que": "[1440] el test guardado se puede volver a descargar desde el inicio"
+    },
+    {
+      "ok": true,
+      "que": "sin errores de JavaScript ni de consola",
+      "detalle": []
+    }
+  ]
+}

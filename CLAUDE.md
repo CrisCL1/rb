@@ -52,9 +52,11 @@ Antes de hacer cualquier cambio en HTML, CSS o JavaScript, verificar:
 - Cada sesión también se envía (POST text/plain) a la planilla del equipo vía Apps Script: `validacion/planilla_apps_script.gs`. La URL va en `VT_ENDPOINT` o se fija con `?hoja=<url /exec>` (queda en `localStorage['errebe:test:endpoint']`). Los envíos fallidos se reintentan al abrir `?test=1`.
 - Comparar rondas: `python3 validacion/comparar_rondas.py --ronda1 <exportes> --ronda2 <exportes>` (% sobre sesiones válidas de cada ronda; sesiones identificadas por archivo y observador).
 - Evidencias y prueba del flujo: `NODE_PATH=$(npm root -g) node evidencias/hito2/capturar.js` (falla si no se cumplen los criterios del Hito 2 o hay errores de consola). El de `evidencias/9.2/` corresponde a `c1accc6`.
-- Decisiones de diseño: `DECISIONES.md` (D1–D29); evidencia citable: `CONTEXTO_ERREBE.md` (incluye los resultados V1 de la primera ronda).
+- **Test para locales:** `?test=local` (`VT_LOCAL`). Tareas en `VT_TAREAS_LOCAL`, versión `ErreBe prototipo · Test locales v1`. Pide nombre, local y banda; se guarda solo (`vtAutoguardar`, claves `errebe:test:local:*`), no se envía a la planilla y termina con el botón "Mandar este archivo al equipo de ErreBe" (CSV). Prueba: `NODE_PATH=$(npm root -g) node evidencias/test-locales/capturar.js`.
+- Decisiones de diseño: `DECISIONES.md` (D1–D33); evidencia citable: `CONTEXTO_ERREBE.md` (incluye los resultados V1 de la primera ronda).
 
 ### Estructura de navegación (Hito 2)
 - Menú visible: máximo 5 entradas por rol (Inicio, Acuerdos, Locales y fichas / Mi ficha técnica, Agenda / Mis fechas, y "Más herramientas" plegado). Lo nuevo que no sea del flujo principal va dentro de "Más herramientas".
 - Un solo botón primario (rojo) por vista. El "?" va junto al título de cada sección (`.q-btn`), no flotante.
-- El acuerdo se registra por pasos (`acIr(n)`); el pie del modal (`.wiz-foot`) es fijo y debe seguir visible en 390 × 700.
+- El acuerdo (`acIr(n)`) y la ficha técnica (`fiIr(n)`) se editan por pasos; el pie del modal (`.wiz-foot`) es fijo y debe seguir visible en 390 × 700.
+- `.toast` lleva `pointer-events:none`: si no, tapa el botón fijo del pie aunque esté invisible.
